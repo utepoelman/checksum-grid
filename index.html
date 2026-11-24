@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checksum Grid Studio — with Nugget</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-alt: #f8fafc;
+      --border: #cbd5e1;
+      --border-strong: #64748b;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --primary-soft: #dbeafe;
+      --accent: #0f766e;
+      --accent-soft: #ccfbf1;
+      --gold: #b45309;
+      --gold-soft: #fef3c7;
+      --danger: #b91c1c;
+      --danger-soft: #fee2e2;
+      --radius: 10px;
+      --shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    /* Top Navigation Bar */
+    .topbar {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 0.65rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .brand-nugget {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      border-radius: 50%;
+      padding: 2px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 0.48rem 0.95rem;
+      border-radius: 7px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+
+    .tab-btn.active {
+      background: #3b82f6;
+      color: #fff;
+      border-color: #60a5fa;
+    }
+
+    .tab-btn.projector-launch {
+      background: #0d9488;
+      border-color: #2dd4bf;
+      color: #fff;
+    }
+
+    .tab-btn.projector-launch:hover {
+      background: #0f766e;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1320px;
+      margin: 1.25rem auto;
+      padding: 0 1rem 2.5rem;
+    }
+
+    .view-panel {
+      display: none;
+    }
+
+    .view-panel.active {
+      display: block;
+    }
+
+    /* Builder Layout */
+    .builder-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .builder-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.15rem;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      margin: 0 0 0.85rem;
+      font-size: 1.05rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-group {
+      margin-bottom: 0.95rem;
+    }
+
+    .form-group label.field-label {
+      display: block;
+      font-size: 0.83rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.35rem;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 0.5rem 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: #fff;
+    }
+
+    input:focus,
+    select:focus {
+      outline: 2px solid #93c5fd;
+      border-color: var(--primary);
+    }
+
+    .radio-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.4rem;
+    }
+
+    .radio-pills.two-col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pill-option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.45rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--surface-alt);
+      user-select: none;
+      text-align: center;
+    }
+
+    .pill-option input {
+      display: none;
+    }
+
+    .pill-option.selected {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      color: var(--primary-hover);
+    }
+
+    .tables-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.32rem;
+      margin-top: 0.4rem;
+    }
+
+    .table-chip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.35rem 0;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--surface-alt);
+      user-select: none;
+    }
+
+    .table-chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .quick-links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.35rem;
+    }
+
+    .link-btn {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: underline;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-bottom: 0.4rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.6rem 1rem;
+      border-radius: 7px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-accent:hover {
+      background: #115e59;
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-outline:hover {
+      background: var(--surface-alt);
+      border-color: var(--border-strong);
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .action-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-top: 1rem;
+    }
+
+    .code-bar {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      background: var(--surface-alt);
+      padding: 0.5rem;
+      border-radius: 7px;
+      border: 1px dashed var(--border-strong);
+      margin-top: 0.75rem;
+    }
+
+    .code-bar input {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .nugget-upload-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    /* Preview Panes */
+    .preview-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 720px) {
+      .preview-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .preview-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Worksheet Card Styling (Shared between Preview & Print) */
+    .ws-card {
+      border: 1.5px solid #334155;
+      border-radius: 6px;
+      padding: 0.65rem;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .ws-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+      border-bottom: 1.5px solid #0f172a;
+      padding-bottom: 0.25rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .ws-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #0f172a;
+    }
+
+    .ws-name {
+      font-size: 0.8rem;
+      color: #334155;
+      white-space: nowrap;
+    }
+
+    /* Nugget Banner on Student Worksheet */
+    .ws-nugget-banner {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: #fffbeb;
+      border: 1px solid #f59e0b;
+      border-radius: 6px;
+      padding: 0.22rem 0.45rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .ws-nugget-img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .ws-nugget-speech {
+      font-size: 0.72rem;
+      line-height: 1.2;
+      color: #1e293b;
+    }
+
+    .ws-nugget-speech strong {
+      color: #92400e;
+    }
+
+    .ws-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .ws-table td {
+      border: 1px solid #475569;
+      padding: 0.25rem 0.3rem;
+      vertical-align: top;
+      height: 44px;
+    }
+
+    .ws-q {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #334155;
+      display: block;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    .ws-ans {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #1d4ed8;
+      display: block;
+      text-align: right;
+      margin-top: 0.15rem;
+    }
+
+    .ws-table td.sum-cell {
+      background: #f1f5f9;
+      border-left: 2px solid #0f172a;
+    }
+
+    .ws-table tr.sum-row td {
+      background: #f1f5f9;
+      border-top: 2px solid #0f172a;
+      height: 38px;
+    }
+
+    .ws-table td.grand-cell {
+      background: #fef3c7;
+      border: 2px solid #0f172a;
+    }
+
+    .sum-tag {
+      font-size: 0.64rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #475569;
+      display: block;
+      line-height: 1.05;
+    }
+
+    .sum-val {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #0f766e;
+      display: block;
+      text-align: right;
+    }
+
+    .grand-cell .sum-val {
+      color: #b45309;
+    }
+
+    .ws-footer {
+      margin-top: 0.3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.68rem;
+      color: #475569;
+    }
+
+    /* Teacher Answer Key Tab */
+    .key-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .key-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .key-table-large td {
+      height: 68px;
+      padding: 0.45rem 0.55rem;
+    }
+
+    .key-table-large .ws-q {
+      font-size: 0.92rem;
+    }
+
+    .key-table-large .ws-ans {
+      font-size: 1.25rem;
+    }
+
+    .key-table-large .sum-val {
+      font-size: 1.2rem;
+    }
+
+    .key-table-large td.highlight-suspect {
+      background: #fee2e2 !important;
+      outline: 2px solid #dc2626;
+    }
+
+    .diag-result {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      border-radius: 7px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    /* Classroom Projector View */
+    .projector-shell {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem 1.5rem;
+      min-height: 82vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+    }
+
+    .projector-shell:fullscreen {
+      border-radius: 0;
+      padding: 1.5rem 2.5rem;
+    }
+
+    .proj-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 0.85rem;
+    }
+
+    .proj-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      margin: 0;
+      color: #fff;
+    }
+
+    .proj-subtitle {
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    .proj-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .proj-btn {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      padding: 0.5rem 0.85rem;
+      border-radius: 7px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .proj-btn:hover {
+      background: #334155;
+    }
+
+    .proj-btn.active-stage {
+      background: #2563eb;
+      border-color: #60a5fa;
+      color: #fff;
+    }
+
+    .proj-btn.reveal-row {
+      background: #0f766e;
+      border-color: #2dd4bf;
+    }
+
+    .proj-btn.reveal-col {
+      background: #0369a1;
+      border-color: #38bdf8;
+    }
+
+    .proj-btn.reveal-grand {
+      background: #b45309;
+      border-color: #fbbf24;
+    }
+
+    /* Nugget Projector Host Banner */
+    .proj-nugget-host {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      background: linear-gradient(135deg, #1e293b 0%, #172554 100%);
+      border: 2px solid #f59e0b;
+      border-radius: 14px;
+      padding: 0.85rem 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .proj-nugget-avatar {
+      width: 84px;
+      height: 84px;
+      object-fit: contain;
+      background: #fffbeb;
+      border: 3px solid #fbbf24;
+      border-radius: 50%;
+      padding: 4px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    .proj-speech-bubble {
+      position: relative;
+      background: #ffffff;
+      color: #0f172a;
+      border-radius: 12px;
+      padding: 0.75rem 1.1rem;
+      flex: 1;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .proj-speech-bubble::before {
+      content: "";
+      position: absolute;
+      left: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: 10px 10px 10px 0;
+      border-style: solid;
+      border-color: transparent #ffffff transparent transparent;
+    }
+
+    .proj-maori-greeting {
+      font-size: 1.28rem;
+      font-weight: 800;
+      color: #b45309;
+      margin: 0 0 0.2rem;
+    }
+
+    .proj-nugget-subtext {
+      font-size: 1.02rem;
+      color: #334155;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    /* Stage 1: Instructions + Timer */
+    .proj-work-stage {
+      display: grid;
+      grid-template-columns: 1.35fr 0.85fr;
+      gap: 1.5rem;
+      align-items: center;
+      margin: auto 0;
+      padding: 1.15rem 0;
+    }
+
+    @media (max-width: 900px) {
+      .proj-work-stage {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .instruction-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .instruction-item {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-left: 6px solid #3b82f6;
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+
+    .step-num {
+      background: #3b82f6;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-text h3 {
+      margin: 0 0 0.15rem;
+      font-size: 1.15rem;
+      color: #fff;
+    }
+
+    .step-text p {
+      margin: 0;
+      font-size: 0.98rem;
+      color: #cbd5e1;
+    }
+
+    .timer-box {
+      background: #1e293b;
+      border: 2px solid #334155;
+      border-radius: 14px;
+      padding: 1.4rem;
+      text-align: center;
+    }
+
+    .timer-display {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 4rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #38bdf8;
+      margin: 0.35rem 0 0.9rem;
+    }
+
+    .timer-display.time-up {
+      color: #f87171;
+    }
+
+    .timer-presets {
+      display: flex;
+      justify-content: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.7rem;
+    }
+
+    /* Stage 2: Checksum Reveal Grid */
+    .proj-reveal-stage {
+      margin: auto 0;
+      padding: 0.9rem 0;
+    }
+
+    .proj-grid-table {
+      width: 100%;
+      max-width: 1050px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      table-layout: fixed;
+      background: #1e293b;
+    }
+
+    .proj-grid-table td {
+      border: 2px solid #475569;
+      padding: 0.55rem 0.65rem;
+      height: 74px;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .proj-q {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    .proj-ans {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #60a5fa;
+      margin-top: 0.1rem;
+    }
+
+    .proj-grid-table td.proj-row-sum {
+      background: #134e4a;
+      border-left: 4px solid #2dd4bf;
+    }
+
+    .proj-grid-table tr.proj-col-sum-row td {
+      background: #0c4a6e;
+      border-top: 4px solid #38bdf8;
+    }
+
+    .proj-grid-table td.proj-grand-sum {
+      background: #78350f;
+      border: 4px solid #fbbf24;
+    }
+
+    .proj-sum-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #cbd5e1;
+      display: block;
+    }
+
+    .proj-sum-number {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #ffffff;
+    }
+
+    .proj-grand-sum .proj-sum-number {
+      font-size: 2.1rem;
+      color: #fde68a;
+    }
+
+    .masked-pill {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .proj-footer-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      border-top: 1px solid #334155;
+      padding-top: 0.8rem;
+    }
+
+    /* Hidden Print Sheet Container on Screen */
+    #print-sheet-area {
+      display: none;
+    }
+
+    /* A4 Print Styles */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 7mm;
+      }
+
+      body {
+        background: #fff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .topbar,
+      .container {
+        display: none !important;
+      }
+
+      #print-sheet-area {
+        display: block !important;
+        width: 100%;
+      }
+
+      /* 4 per A4 (2 x 2) */
+      .print-grid-4 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 138mm);
+        gap: 5mm;
+        width: 100%;
+      }
+
+      /* 6 per A4 (2 x 3) */
+      .print-grid-6 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 91mm);
+        gap: 3.5mm;
+        width: 100%;
+      }
+
+      .print-grid-4 .ws-card,
+      .print-grid-6 .ws-card {
+        border: 1.2pt solid #0f172a;
+        border-radius: 4pt;
+        padding: 2.5mm 3.2mm;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        position: relative;
+      }
+
+      /* Cut guides around mini worksheets */
+      .print-grid-4 .ws-card::after,
+      .print-grid-6 .ws-card::after {
+        content: "";
+        position: absolute;
+        inset: -2mm;
+        border: 0.5pt dashed #94a3b8;
+        pointer-events: none;
+      }
+
+      .print-grid-4 .ws-header {
+        margin-bottom: 1.5mm;
+        padding-bottom: 1mm;
+      }
+
+      .print-grid-4 .ws-title {
+        font-size: 10pt;
+      }
+
+      .print-grid-4 .ws-nugget-banner {
+        padding: 1mm 2mm;
+        margin-bottom: 1.5mm;
+      }
+
+      .print-grid-4 .ws-nugget-img {
+        width: 8.5mm;
+        height: 8.5mm;
+      }
+
+      .print-grid-4 .ws-nugget-speech {
+        font-size: 7.4pt;
+      }
+
+      .print-grid-4 .ws-table td {
+        height: 15.8mm;
+        padding: 1mm 1.4mm;
+      }
+
+      .print-grid-4 .ws-table tr.sum-row td {
+        height: 13.5mm;
+      }
+
+      .print-grid-4 .ws-q {
+        font-size: 8.8pt;
+      }
+
+      /* Compact sizing for 6 per A4 */
+      .print-grid-6 .ws-header {
+        margin-bottom: 1mm;
+        padding-bottom: 0.8mm;
+      }
+
+      .print-grid-6 .ws-title {
+        font-size: 8.5pt;
+      }
+
+      .print-grid-6 .ws-name {
+        font-size: 7pt;
+      }
+
+      .print-grid-6 .ws-nugget-banner {
+        padding: 0.6mm 1.5mm;
+        margin-bottom: 1mm;
+        gap: 1.5mm;
+      }
+
+      .print-grid-6 .ws-nugget-img {
+        width: 6.2mm;
+        height: 6.2mm;
+      }
+
+      .print-grid-6 .ws-nugget-speech {
+        font-size: 6.2pt;
+        line-height: 1.1;
+      }
+
+      .print-grid-6 .ws-table td {
+        height: 10mm;
+        padding: 0.5mm 1mm;
+      }
+
+      .print-grid-6 .ws-table tr.sum-row td {
+        height: 9mm;
+      }
+
+      .print-grid-6 .ws-q {
+        font-size: 7.5pt;
+      }
+
+      .print-grid-6 .sum-tag {
+        font-size: 5.3pt;
+      }
+
+      .print-grid-6 .ws-footer {
+        margin-top: 0.8mm;
+        font-size: 6pt;
+      }
+
+      /* Full-page Answer Key print */
+      .print-single-key .ws-card {
+        border: 1.5pt solid #0f172a;
+        padding: 6mm;
+      }
+
+      .print-single-key .ws-title {
+        font-size: 16pt;
+      }
+
+      .print-single-key .ws-table td {
+        height: 27mm;
+        padding: 2mm 3mm;
+      }
+
+      .print-single-key .ws-q {
+        font-size: 11pt;
+      }
+
+      .print-single-key .ws-ans {
+        font-size: 15pt;
+      }
+
+      .print-single-key .sum-val {
+        font-size: 14pt;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-nugget nugget-sync-img" alt="Nugget the hamster" />
+      <h1>Checksum Grid Studio</h1>
+    </div>
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="builder">1. Configure &amp; Print</button>
+      <button class="tab-btn" data-tab="key">2. Teacher Answer Key</button>
+      <button class="tab-btn projector-launch" data-tab="projector">3. Classroom Projector</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- TAB 1: CONFIGURE & PREVIEW -->
+    <section id="tab-builder" class="view-panel active">
+      <div class="builder-grid">
+        <!-- Settings Sidebar -->
+        <div class="card">
+          <h2>Worksheet Settings</h2>
+
+          <div class="form-group">
+            <label class="field-label" for="wsTitleInput">Worksheet Title</label>
+            <input type="text" id="wsTitleInput" value="Times Tables Checksum" maxlength="34" />
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">Grid Dimensions</label>
+            <div class="radio-pills" id="gridSizePills">
+              <label class="pill-option" data-size="4x4"><input type="radio" name="gridSize" value="4x4">4 × 4 (16)</label>
+              <label class="pill-option" data-size="4x5"><input type="radio" name="gridSize" value="4x5">4 × 5 (20)</label>
+              <label class="pill-option selected" data-size="5x5"><input type="radio" name="gridSize" value="5x5" checked>5 × 5 (25)</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">Operation Type</label>
+            <div class="radio-pills two-col" id="opTypePills">
+              <label class="pill-option selected" data-op="M"><input type="radio" name="opType" value="M" checked>Multiplication (×)</label>
+              <label class="pill-option" data-op="A"><input type="radio" name="opType" value="A">Addition (+)</label>
+              <label class="pill-option" data-op="S"><input type="radio" name="opType" value="S">Subtraction (−)</label>
+              <label class="pill-option" data-op="X"><input type="radio" name="opType" value="X">Mixed (+, −, ×)</label>
+            </div>
+          </div>
+
+          <!-- Multiplication Table Selector -->
+          <div class="form-group" id="multOptionsBox">
+            <label class="field-label">Included Times Tables</label>
+            <div class="tables-grid" id="tablesChipGrid"></div>
+            <div class="quick-links">
+              <button type="button" class="link-btn" onclick="selectTablePreset('2-12')">2–12 All</button>
+              <button type="button" class="link-btn" onclick="selectTablePreset('core')">Core (2,3,4,5,10)</button>
+              <button type="button" class="link-btn" onclick="selectTablePreset('upper')">Upper (6,7,8,9)</button>
+              <button type="button" class="link-btn" onclick="selectTablePreset('1-10')">1–10</button>
+            </div>
+          </div>
+
+          <!-- Addition / Subtraction Range Selector -->
+          <div class="form-group" id="arithOptionsBox" style="display:none;">
+            <label class="field-label" for="numberRangeSelect">Number Difficulty</label>
+            <select id="numberRangeSelect">
+              <option value="1">Level 1 — Single-digit facts (up to 10)</option>
+              <option value="2" selected>Level 2 — Facts up to 20</option>
+              <option value="3">Level 3 — Two-digit &amp; one-digit (up to 50)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">A4 Print Sheet Layout</label>
+            <div class="radio-pills two-col" id="perPagePills">
+              <label class="pill-option selected" data-per="4"><input type="radio" name="perPage" value="4" checked>4 per A4 (2 × 2)</label>
+              <label class="pill-option" data-per="6"><input type="radio" name="perPage" value="6">6 per A4 (2 × 3)</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-row">
+              <input type="checkbox" id="showNuggetCheck" checked />
+              <span>Show Nugget mascot on student sheets</span>
+            </label>
+            <label class="checkbox-row">
+              <input type="checkbox" id="showNameCheck" checked />
+              <span>Include "Name: ______" line</span>
+            </label>
+            <label class="checkbox-row">
+              <input type="checkbox" id="showTipCheck" checked />
+              <span>Include self-check footer reminder</span>
+            </label>
+            <div class="nugget-upload-row">
+              <input type="file" id="nuggetFileInput" accept="image/*" style="display:none;" />
+              <button type="button" class="btn btn-outline" style="padding:0.35rem 0.65rem; font-size:0.78rem;" onclick="document.getElementById('nuggetFileInput').click()">
+                🐹 Choose Nugget.png
+              </button>
+              <span id="nuggetImgStatus" style="font-size:0.75rem; color:var(--text-muted);">Using Nugget.png</span>
+            </div>
+          </div>
+
+          <div class="action-stack">
+            <button type="button" class="btn btn-primary btn-block" id="regenerateBtn">↻ Generate New Questions</button>
+            <button type="button" class="btn btn-accent btn-block" onclick="triggerPrint('student')">🖨 Print Student Sheets (<span id="printCountLabel">4</span> per A4)</button>
+            <button type="button" class="btn btn-outline btn-block" onclick="triggerPrint('key')">🖨 Print Teacher Answer Key</button>
+          </div>
+
+          <div class="code-bar">
+            <input type="text" id="worksheetCodeInput" title="Worksheet ID Code" />
+            <button type="button" class="btn btn-outline" style="padding:0.42rem 0.7rem; font-size:0.82rem;" onclick="loadFromCodeInput()">Load ID</button>
+          </div>
+        </div>
+
+        <!-- Live Preview Area -->
+        <div class="card">
+          <h2>
+            <span>Live Worksheet Preview</span>
+            <span style="font-size:0.82rem; font-weight:600; color:var(--text-muted);" id="previewSummaryBadge">5×5 Grid • Grand Total: 0</span>
+          </h2>
+          <div class="preview-split">
+            <div>
+              <div class="preview-label">
+                <span>Student Sheet Card</span>
+                <span>Blank for Pencil</span>
+              </div>
+              <div id="studentPreviewSlot"></div>
+            </div>
+            <div>
+              <div class="preview-label">
+                <span>Teacher Key Preview</span>
+                <span>Answers + Sums</span>
+              </div>
+              <div id="keyPreviewSlot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: TEACHER ANSWER KEY & DIAGNOSTICS -->
+    <section id="tab-key" class="view-panel">
+      <div class="key-layout">
+        <div class="card">
+          <h2>
+            <span>Complete Teacher Answer Key</span>
+            <button type="button" class="btn btn-outline" style="padding:0.35rem 0.75rem; font-size:0.84rem;" onclick="triggerPrint('key')">🖨 Print Key</button>
+          </h2>
+          <div id="fullKeySlot"></div>
+        </div>
+
+        <div class="card">
+          <h2>Quick Error Diagnosis</h2>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-top:0;">
+            Enter a student's <strong>Grand Total</strong> (or select a mismatched Row &amp; Column) to pinpoint likely mistakes.
+          </p>
+
+          <div class="form-group">
+            <label class="field-label" for="studentGrandInput">Student's Grand Total</label>
+            <input type="number" id="studentGrandInput" placeholder="e.g. 1018" />
+          </div>
+
+          <div class="form-group">
+            <label class="field-label" for="diagRowSelect">Wrong Row (Optional)</label>
+            <select id="diagRowSelect"></select>
+          </div>
+
+          <div class="form-group">
+            <label class="field-label" for="diagColSelect">Wrong Column (Optional)</label>
+            <select id="diagColSelect"></select>
+          </div>
+
+          <button type="button" class="btn btn-outline btn-block" onclick="clearDiagnosis()">Clear Highlight</button>
+
+          <div class="diag-result" id="diagOutput">
+            True Grand Total is <strong id="diagTrueGrand">0</strong>. Enter a student's total above to inspect differences.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: CLASSROOM PROJECTOR MODE -->
+    <section id="tab-projector" class="view-panel">
+      <div class="projector-shell" id="projectorShell">
+        <div>
+          <div class="proj-topbar">
+            <div>
+              <h2 class="proj-title" id="projHeaderTitle">Times Tables Checksum</h2>
+              <div class="proj-subtitle" id="projHeaderMeta">5 × 5 Grid • Worksheet ID: —</div>
+            </div>
+
+            <div class="proj-controls">
+              <button type="button" class="proj-btn active-stage" id="stageWorkBtn" onclick="setProjectorStage('work')">1. Student Instructions</button>
+              <button type="button" class="proj-btn" id="stageRevealBtn" onclick="setProjectorStage('reveal')">2. Checksum Reveal</button>
+              <button type="button" class="proj-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+            </div>
+          </div>
+
+          <!-- NUGGET GREETING & INSTRUCTIONS HOST -->
+          <div class="proj-nugget-host">
+            <img class="proj-nugget-avatar nugget-sync-img" alt="Nugget the hamster" />
+            <div class="proj-speech-bubble">
+              <p class="proj-maori-greeting" id="projNuggetHeadline">Kia ora tamariki! Ko Nugget tōku ingoa.</p>
+              <p class="proj-nugget-subtext" id="projNuggetSubtext">
+                I’m Nugget! Follow my 4 steps below to complete your grid and find your secret Grand Total.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- STAGE 1: INSTRUCTIONS & TIMER -->
+        <div id="projWorkStage" class="proj-work-stage">
+          <ol class="instruction-list">
+            <li class="instruction-item">
+              <div class="step-num">1</div>
+              <div class="step-text">
+                <h3>Solve Every Box</h3>
+                <p>Write the answer to each question neatly inside its grid square.</p>
+              </div>
+            </li>
+            <li class="instruction-item">
+              <div class="step-num">2</div>
+              <div class="step-text">
+                <h3>Add Across Each Row</h3>
+                <p>Add the numbers in each horizontal row and write the <strong>Row Total</strong> in the shaded box on the right.</p>
+              </div>
+            </li>
+            <li class="instruction-item">
+              <div class="step-num">3</div>
+              <div class="step-text">
+                <h3>Add Down Each Column</h3>
+                <p>Add the numbers in each vertical column and write the <strong>Column Total</strong> in the shaded box at the bottom.</p>
+              </div>
+            </li>
+            <li class="instruction-item">
+              <div class="step-num">4</div>
+              <div class="step-text">
+                <h3>Verify Your Grand Total</h3>
+                <p>Add all Row Totals together, then add all Column Totals together. When both match, write your <strong>Grand Total</strong> in the corner box!</p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="timer-box" id="timerBox">
+            <div style="font-size:0.9rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#94a3b8;">Classroom Timer</div>
+            <div class="timer-display" id="timerDisplay">05:00</div>
+            <div class="timer-presets">
+              <button type="button" class="proj-btn" onclick="setTimer(180)">3m</button>
+              <button type="button" class="proj-btn" onclick="setTimer(300)">5m</button>
+              <button type="button" class="proj-btn" onclick="setTimer(480)">8m</button>
+              <button type="button" class="proj-btn" onclick="setTimer(600)">10m</button>
+            </div>
+            <div class="timer-presets">
+              <button type="button" class="proj-btn reveal-row" id="timerStartBtn" onclick="toggleTimer()">▶ Start</button>
+              <button type="button" class="proj-btn" onclick="resetTimer()">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STAGE 2: PROGRESSIVE CHECKSUM REVEAL -->
+        <div id="projRevealStage" class="proj-reveal-stage" style="display:none;">
+          <div id="projGridContainer"></div>
+        </div>
+
+        <!-- PROJECTOR BOTTOM CONTROLS -->
+        <div class="proj-footer-bar">
+          <div id="revealActionBar" style="display:none; flex-wrap:wrap; gap:0.5rem;">
+            <button type="button" class="proj-btn reveal-row" onclick="toggleRevealFlag('rows')">Toggle Row Totals</button>
+            <button type="button" class="proj-btn reveal-col" onclick="toggleRevealFlag('cols')">Toggle Column Totals</button>
+            <button type="button" class="proj-btn reveal-grand" onclick="toggleRevealFlag('grand')">★ Reveal Grand Total</button>
+            <button type="button" class="proj-btn" onclick="toggleRevealFlag('answers')">Toggle Individual Answers</button>
+            <button type="button" class="proj-btn" onclick="resetReveals()">Hide All</button>
+          </div>
+          <div style="font-size:0.85rem; color:#94a3b8; margin-left:auto;">
+            Tip: Reveal Row &amp; Column totals first so students can self-locate any errors before showing answers.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- DEDICATED A4 PRINT CONTAINER -->
+  <div id="print-sheet-area"></div>
+
+  <script>
+    // --- NUGGET MASCOT IMAGE SOURCE (Loads Nugget.png if alongside HTML, with faithful SVG fallback) ---
+    const NUGGET_FALLBACK_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 250">
+        <!-- Left & Right Ears -->
+        <circle cx="64" cy="52" r="24" fill="#eab668" stroke="#1e1b18" stroke-width="5"/>
+        <circle cx="66" cy="54" r="13" fill="#f5b5b8" stroke="#1e1b18" stroke-width="3.5"/>
+        <circle cx="156" cy="52" r="24" fill="#eab668" stroke="#1e1b18" stroke-width="5"/>
+        <circle cx="154" cy="54" r="13" fill="#f5b5b8" stroke="#1e1b18" stroke-width="3.5"/>
+        <!-- Body -->
+        <path d="M52 128 C34 150, 36 205, 65 222 C88 232, 134 232, 158 220 C186 204, 188 150, 168 128 Z" fill="#eab668" stroke="#1e1b18" stroke-width="5"/>
+        <!-- White Belly -->
+        <path d="M68 134 C54 156, 56 205, 80 221 C100 228, 128 228, 148 219 C170 205, 170 156, 154 134 Z" fill="#ffffff"/>
+        <!-- Head -->
+        <path d="M46 105 C44 62, 74 38, 110 38 C146 38, 176 62, 174 105 C186 122, 176 146, 152 148 C134 150, 122 142, 110 142 C98 142, 86 150, 68 148 C44 146, 34 122, 46 105 Z" fill="#eab668" stroke="#1e1b18" stroke-width="5"/>
+        <!-- White Cheeks & Muzzle -->
+        <path d="M47 108 C41 124, 50 146, 72 147 C89 148, 100 139, 110 139 C120 139, 131 148, 148 147 C170 146, 179 124, 173 108 C156 104, 138 112, 124 103 C115 97, 105 97, 96 103 C82 112, 64 104, 47 108 Z" fill="#ffffff"/>
+        <!-- Cheek Outline -->
+        <path d="M47 108 C40 125, 50 147, 72 148 C89 149, 100 140, 110 140 C120 140, 131 149, 148 148 C170 147, 180 125, 173 108" fill="none" stroke="#1e1b18" stroke-width="5" stroke-linecap="round"/>
+        <!-- White Eyebrow Dots -->
+        <ellipse cx="88" cy="73" rx="6" ry="4" fill="#ffffff"/>
+        <ellipse cx="134" cy="73" rx="6" ry="4" fill="#ffffff"/>
+        <!-- Eyes -->
+        <circle cx="85" cy="92" r="9.5" fill="#1e1b18"/>
+        <circle cx="82" cy="89" r="3" fill="#ffffff"/>
+        <circle cx="137" cy="92" r="9.5" fill="#1e1b18"/>
+        <circle cx="134" cy="89" r="3" fill="#ffffff"/>
+        <!-- Nose & Mouth -->
+        <path d="M105 110 L117 110 L111 117 Z" fill="#f59ea3" stroke="#1e1b18" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M100 122 Q106 128 111 121 Q116 128 122 122" fill="none" stroke="#1e1b18" stroke-width="3.2" stroke-linecap="round"/>
+        <!-- Acorn -->
+        <ellipse cx="118" cy="176" rx="22" ry="25" fill="#c58f52" stroke="#1e1b18" stroke-width="4.5"/>
+        <path d="M94 168 C94 148, 142 148, 142 168 C128 162, 108 162, 94 168 Z" fill="#7c4724" stroke="#1e1b18" stroke-width="4.5" stroke-linejoin="round"/>
+        <!-- Paws -->
+        <ellipse cx="94" cy="175" rx="11" ry="8" fill="#f5b5b8" stroke="#1e1b18" stroke-width="3.5"/>
+        <ellipse cx="136" cy="175" rx="11" ry="8" fill="#f5b5b8" stroke="#1e1b18" stroke-width="3.5"/>
+        <!-- Feet -->
+        <ellipse cx="78" cy="229" rx="16" ry="7" fill="#f5b5b8" stroke="#1e1b18" stroke-width="4"/>
+        <ellipse cx="144" cy="229" rx="16" ry="7" fill="#f5b5b8" stroke="#1e1b18" stroke-width="4"/>
+      </svg>
+    `);
+
+    let nuggetImageSrc = "Nugget.png";
+
+    function syncAllNuggetImages() {
+      document.querySelectorAll(".nugget-sync-img").forEach(img => {
+        img.onerror = function () {
+          if (this.src !== NUGGET_FALLBACK_SVG) {
+            this.src = NUGGET_FALLBACK_SVG;
+          }
+        };
+        img.src = nuggetImageSrc;
+      });
+    }
+
+    // --- STATE & SEEDED PRNG ---
+    const state = {
+      title: "Times Tables Checksum",
+      rows: 5,
+      cols: 5,
+      op: "M", // M, A, S, X
+      tables: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      rangeLevel: 2,
+      perPage: 4,
+      showNugget: true,
+      showName: true,
+      showTip: true,
+      seed: Math.floor(10000 + Math.random() * 89999),
+      grid: [],
+      rowTotals: [],
+      colTotals: [],
+      grandTotal: 0,
+      projectorStage: "work",
+      reveals: {
+        rows: false,
+        cols: false,
+        grand: false,
+        answers: false
+      }
+    };
+
+    function mulberry32(seed) {
+      let a = seed >>> 0;
+      return function () {
+        a |= 0;
+        a = (a + 0x6D2B79F5) | 0;
+        let t = Math.imul(a ^ (a >>> 15), 1 | a);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    function encodeWorksheetCode() {
+      let mask = 0;
+      state.tables.forEach(t => {
+        if (t >= 1 && t <= 12) mask |= (1 << (t - 1));
+      });
+      const maskHex = mask.toString(36);
+      return `${state.rows}x${state.cols}-${state.op}-${maskHex}-${state.rangeLevel}-${state.seed}`;
+    }
+
+    function decodeWorksheetCode(raw) {
+      const parts = raw.trim().split("-");
+      if (parts.length < 5) return false;
+      const dims = parts[0].toLowerCase().split("x");
+      const r = parseInt(dims[0], 10);
+      const c = parseInt(dims[1], 10);
+      const op = parts[1].toUpperCase();
+      const mask = parseInt(parts[2], 36);
+      const lvl = parseInt(parts[3], 10);
+      const seed = parseInt(parts[4], 10);
+
+      if (![4, 5].includes(r) || ![4, 5].includes(c)) return false;
+      if (!["M", "A", "S", "X"].includes(op)) return false;
+      if (isNaN(mask) || isNaN(lvl) || isNaN(seed)) return false;
+
+      const tables = [];
+      for (let i = 1; i <= 12; i++) {
+        if (mask & (1 << (i - 1))) tables.push(i);
+      }
+      if (tables.length === 0) tables.push(2, 3, 4, 5);
+
+      state.rows = r;
+      state.cols = c;
+      state.op = op;
+      state.tables = tables;
+      state.rangeLevel = [1, 2, 3].includes(lvl) ? lvl : 2;
+      state.seed = seed;
+      return true;
+    }
+
+    // --- QUESTION GENERATION ---
+    function generateGridData() {
+      const rand = mulberry32(state.seed);
+      const totalCells = state.rows * state.cols;
+      const usedKeys = new Set();
+      const items = [];
+
+      const activeTables = state.tables.length ? state.tables : [2, 3, 4, 5];
+
+      function makeQuestion() {
+        let op = state.op;
+        if (op === "X") {
+          const ops = ["M", "A", "S"];
+          op = ops[Math.floor(rand() * ops.length)];
+        }
+
+        if (op === "M") {
+          const a = activeTables[Math.floor(rand() * activeTables.length)];
+          const b = 2 + Math.floor(rand() * 11); // 2..12
+          const flip = rand() > 0.5;
+          const left = flip ? a : b;
+          const right = flip ? b : a;
+          return { text: `${left} × ${right}`, answer: left * right };
+        }
+
+        if (op === "A") {
+          if (state.rangeLevel === 1) {
+            const a = 1 + Math.floor(rand() * 9);
+            const b = 1 + Math.floor(rand() * (10 - a));
+            return { text: `${a} + ${b}`, answer: a + b };
+          } else if (state.rangeLevel === 2) {
+            const a = 2 + Math.floor(rand() * 11);
+            const b = 2 + Math.floor(rand() * 11);
+            return { text: `${a} + ${b}`, answer: a + b };
+          } else {
+            const a = 10 + Math.floor(rand() * 35);
+            const b = 2 + Math.floor(rand() * 15);
+            return { text: `${a} + ${b}`, answer: a + b };
+          }
+        }
+
+        // Subtraction
+        if (state.rangeLevel === 1) {
+          const a = 3 + Math.floor(rand() * 8);
+          const b = 1 + Math.floor(rand() * (a - 1));
+          return { text: `${a} − ${b}`, answer: a - b };
+        } else if (state.rangeLevel === 2) {
+          const a = 8 + Math.floor(rand() * 13);
+          const b = 2 + Math.floor(rand() * (a - 2));
+          return { text: `${a} − ${b}`, answer: a - b };
+        } else {
+          const a = 20 + Math.floor(rand() * 31);
+          const b = 3 + Math.floor(rand() * 17);
+          return { text: `${a} − ${b}`, answer: a - b };
+        }
+      }
+
+      for (let i = 0; i < totalCells; i++) {
+        let q = makeQuestion();
+        let attempts = 0;
+        while (usedKeys.has(q.text) && attempts < 40) {
+          q = makeQuestion();
+          attempts++;
+        }
+        usedKeys.add(q.text);
+        items.push(q);
+      }
+
+      // Shuffle items using Fisher-Yates
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(rand() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+      }
+
+      state.grid = [];
+      state.rowTotals = new Array(state.rows).fill(0);
+      state.colTotals = new Array(state.cols).fill(0);
+      state.grandTotal = 0;
+
+      let idx = 0;
+      for (let r = 0; r < state.rows; r++) {
+        const rowArr = [];
+        for (let c = 0; c < state.cols; c++) {
+          const cell = items[idx++];
+          rowArr.push(cell);
+          state.rowTotals[r] += cell.answer;
+          state.colTotals[c] += cell.answer;
+          state.grandTotal += cell.answer;
+        }
+        state.grid.push(rowArr);
+      }
+    }
+
+    // --- HTML CARD BUILDER ---
+    function buildWorksheetCardHTML(showAnswers, extraTableClass = "") {
+      const code = encodeWorksheetCode();
+      let rowsHTML = "";
+
+      for (let r = 0; r < state.rows; r++) {
+        let cellsHTML = "";
+        for (let c = 0; c < state.cols; c++) {
+          const item = state.grid[r][c];
+          cellsHTML += `
+            <td data-r="${r}" data-c="${c}">
+              <span class="ws-q">${item.text}</span>
+              ${showAnswers ? `<span class="ws-ans">${item.answer}</span>` : ""}
+            </td>
+          `;
+        }
+        cellsHTML += `
+          <td class="sum-cell">
+            <span class="sum-tag">Row ${r + 1}</span>
+            ${showAnswers ? `<span class="sum-val">${state.rowTotals[r]}</span>` : ""}
+          </td>
+        `;
+        rowsHTML += `<tr>${cellsHTML}</tr>`;
+      }
+
+      // Bottom Column Totals + Grand Total Row
+      let bottomCells = "";
+      for (let c = 0; c < state.cols; c++) {
+        bottomCells += `
+          <td>
+            <span class="sum-tag">Col ${c + 1}</span>
+            ${showAnswers ? `<span class="sum-val">${state.colTotals[c]}</span>` : ""}
+          </td>
+        `;
+      }
+      bottomCells += `
+        <td class="grand-cell">
+          <span class="sum-tag">Grand Total</span>
+          ${showAnswers ? `<span class="sum-val">${state.grandTotal}</span>` : ""}
+        </td>
+      `;
+      rowsHTML += `<tr class="sum-row">${bottomCells}</tr>`;
+
+      const nameHTML = state.showName
+        ? `<span class="ws-name">${showAnswers ? "ANSWER KEY" : "Name: ______________"}</span>`
+        : (showAnswers ? `<span class="ws-name">ANSWER KEY</span>` : "");
+
+      const nuggetBannerHTML = (!showAnswers && state.showNugget)
+        ? `
+          <div class="ws-nugget-banner">
+            <img class="ws-nugget-img nugget-sync-img" alt="Nugget" />
+            <div class="ws-nugget-speech">
+              <strong>Kia ora! Ko Nugget tōku ingoa.</strong> Solve each box, add across rows and down columns, then check your Grand Total!
+            </div>
+          </div>
+        `
+        : "";
+
+      const footerTip = state.showTip
+        ? `<span>Check: Sum of Rows = Sum of Columns = Grand Total</span>`
+        : `<span></span>`;
+
+      return `
+        <div class="ws-card">
+          <div>
+            <div class="ws-header">
+              <span class="ws-title">${escapeHTML(state.title)}</span>
+              ${nameHTML}
+            </div>
+            ${nuggetBannerHTML}
+            <table class="ws-table ${extraTableClass}">
+              <tbody>${rowsHTML}</tbody>
+            </table>
+          </div>
+          <div class="ws-footer">
+            ${footerTip}
+            <span>ID: ${code}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>"']/g, m => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[m]));
+    }
+
+    // --- RENDER ALL VIEWS ---
+    function renderAll() {
+      const code = encodeWorksheetCode();
+      document.getElementById("worksheetCodeInput").value = code;
+      document.getElementById("previewSummaryBadge").textContent =
+        `${state.rows}×${state.cols} Grid • Grand Total: ${state.grandTotal}`;
+      document.getElementById("printCountLabel").textContent = state.perPage;
+
+      // Live Previews
+      document.getElementById("studentPreviewSlot").innerHTML = buildWorksheetCardHTML(false);
+      document.getElementById("keyPreviewSlot").innerHTML = buildWorksheetCardHTML(true);
+
+      // Full Teacher Answer Key
+      document.getElementById("fullKeySlot").innerHTML = buildWorksheetCardHTML(true, "key-table-large");
+      populateDiagnosisSelectors();
+
+      // Projector Header & Grid
+      document.getElementById("projHeaderTitle").textContent = state.title;
+      document.getElementById("projHeaderMeta").textContent =
+        `${state.rows} × ${state.cols} Grid • Worksheet ID: ${code}`;
+      renderProjectorGrid();
+      syncAllNuggetImages();
+    }
+
+    // --- ERROR DIAGNOSIS HELPERS ---
+    function populateDiagnosisSelectors() {
+      document.getElementById("diagTrueGrand").textContent = state.grandTotal;
+      const rowSel = document.getElementById("diagRowSelect");
+      const colSel = document.getElementById("diagColSelect");
+
+      rowSel.innerHTML = `<option value="">-- Any Row --</option>` +
+        state.rowTotals.map((sum, i) => `<option value="${i}">Row ${i + 1} (Key = ${sum})</option>`).join("");
+
+      colSel.innerHTML = `<option value="">-- Any Column --</option>` +
+        state.colTotals.map((sum, i) => `<option value="${i}">Column ${i + 1} (Key = ${sum})</option>`).join("");
+
+      runDiagnosis();
+    }
+
+    function runDiagnosis() {
+      const rawGrand = document.getElementById("studentGrandInput").value.trim();
+      const rowVal = document.getElementById("diagRowSelect").value;
+      const colVal = document.getElementById("diagColSelect").value;
+      const out = document.getElementById("diagOutput");
+
+      document.querySelectorAll("#fullKeySlot td").forEach(td => td.classList.remove("highlight-suspect"));
+
+      let messages = [];
+
+      if (rawGrand !== "") {
+        const sGrand = parseInt(rawGrand, 10);
+        if (!isNaN(sGrand)) {
+          const diff = sGrand - state.grandTotal;
+          if (diff === 0) {
+            messages.push(`<strong>Exact match!</strong> Grand Total (${sGrand}) matches the key.`);
+          } else {
+            const sign = diff > 0 ? `+${diff}` : `${diff}`;
+            messages.push(`Student's Grand Total is off by <strong>${sign}</strong> (${sGrand} vs ${state.grandTotal}).`);
+          }
+        }
+      }
+
+      if (rowVal !== "" && colVal !== "") {
+        const r = parseInt(rowVal, 10);
+        const c = parseInt(colVal, 10);
+        const cell = state.grid[r][c];
+        const target = document.querySelector(`#fullKeySlot td[data-r="${r}"][data-c="${c}"]`);
+        if (target) target.classList.add("highlight-suspect");
+        messages.push(`Suspect cell highlighted: <strong>Row ${r + 1}, Col ${c + 1}</strong> (${cell.text} = <strong>${cell.answer}</strong>).`);
+      } else if (rowVal !== "") {
+        const r = parseInt(rowVal, 10);
+        document.querySelectorAll(`#fullKeySlot td[data-r="${r}"]`).forEach(td => td.classList.add("highlight-suspect"));
+        messages.push(`Highlighted all cells in <strong>Row ${r + 1}</strong>.`);
+      } else if (colVal !== "") {
+        const c = parseInt(colVal, 10);
+        document.querySelectorAll(`#fullKeySlot td[data-c="${c}"]`).forEach(td => td.classList.add("highlight-suspect"));
+        messages.push(`Highlighted all cells in <strong>Column ${c + 1}</strong>.`);
+      }
+
+      if (messages.length === 0) {
+        out.innerHTML = `True Grand Total is <strong>${state.grandTotal}</strong>. Enter a student's total or pick a wrong row/column above.`;
+      } else {
+        out.innerHTML = messages.join("<br>");
+      }
+    }
+
+    function clearDiagnosis() {
+      document.getElementById("studentGrandInput").value = "";
+      document.getElementById("diagRowSelect").value = "";
+      document.getElementById("diagColSelect").value = "";
+      runDiagnosis();
+    }
+
+    // --- PROJECTOR LOGIC ---
+    function setProjectorStage(stage) {
+      state.projectorStage = stage;
+      const workStage = document.getElementById("projWorkStage");
+      const revealStage = document.getElementById("projRevealStage");
+      const revealBar = document.getElementById("revealActionBar");
+      const workBtn = document.getElementById("stageWorkBtn");
+      const revealBtn = document.getElementById("stageRevealBtn");
+      const headline = document.getElementById("projNuggetHeadline");
+      const subtext = document.getElementById("projNuggetSubtext");
+
+      if (stage === "work") {
+        workStage.style.display = "grid";
+        revealStage.style.display = "none";
+        revealBar.style.display = "none";
+        workBtn.classList.add("active-stage");
+        revealBtn.classList.remove("active-stage");
+        headline.textContent = "Kia ora tamariki! Ko Nugget tōku ingoa.";
+        subtext.textContent = "I’m Nugget! Follow my 4 steps below to complete your grid and find your secret Grand Total.";
+      } else {
+        workStage.style.display = "none";
+        revealStage.style.display = "block";
+        revealBar.style.display = "flex";
+        workBtn.classList.remove("active-stage");
+        revealBtn.classList.add("active-stage");
+        headline.textContent = "Ka pai tō mahi! Let’s check our checksums together.";
+        subtext.textContent = "Compare your Row Totals and Column Totals first—if one doesn’t match, see if you can spot which box changed it!";
+        renderProjectorGrid();
+      }
+    }
+
+    function toggleRevealFlag(flag) {
+      state.reveals[flag] = !state.reveals[flag];
+      renderProjectorGrid();
+    }
+
+    function resetReveals() {
+      state.reveals = { rows: false, cols: false, grand: false, answers: false };
+      renderProjectorGrid();
+    }
+
+    function renderProjectorGrid() {
+      const container = document.getElementById("projGridContainer");
+      let rowsHTML = "";
+
+      for (let r = 0; r < state.rows; r++) {
+        let cells = "";
+        for (let c = 0; c < state.cols; c++) {
+          const item = state.grid[r][c];
+          cells += `
+            <td>
+              <div class="proj-q">${item.text}</div>
+              ${state.reveals.answers
+                ? `<div class="proj-ans">${item.answer}</div>`
+                : `<div style="font-size:0.85rem; color:#64748b; margin-top:0.15rem;">?</div>`}
+            </td>
+          `;
+        }
+        cells += `
+          <td class="proj-row-sum">
+            <span class="proj-sum-label">Row ${r + 1}</span>
+            ${state.reveals.rows
+              ? `<span class="proj-sum-number">${state.rowTotals[r]}</span>`
+              : `<span class="masked-pill">Hidden</span>`}
+          </td>
+        `;
+        rowsHTML += `<tr>${cells}</tr>`;
+      }
+
+      let bottomRow = "";
+      for (let c = 0; c < state.cols; c++) {
+        bottomRow += `
+          <td>
+            <span class="proj-sum-label">Col ${c + 1}</span>
+            ${state.reveals.cols
+              ? `<span class="proj-sum-number">${state.colTotals[c]}</span>`
+              : `<span class="masked-pill">Hidden</span>`}
+          </td>
+        `;
+      }
+      bottomRow += `
+        <td class="proj-grand-sum">
+          <span class="proj-sum-label">Grand Total</span>
+          ${state.reveals.grand
+            ? `<span class="proj-sum-number">${state.grandTotal}</span>`
+            : `<span class="masked-pill">Hidden</span>`}
+        </td>
+      `;
+      rowsHTML += `<tr class="proj-col-sum-row">${bottomRow}</tr>`;
+
+      container.innerHTML = `<table class="proj-grid-table"><tbody>${rowsHTML}</tbody></table>`;
+    }
+
+    function toggleFullscreen() {
+      const shell = document.getElementById("projectorShell");
+      if (!document.fullscreenElement) {
+        shell.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // --- CLASSROOM COUNTDOWN TIMER ---
+    let timerTotalSeconds = 300;
+    let timerRemaining = 300;
+    let timerInterval = null;
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+
+    function updateTimerDisplay() {
+      const el = document.getElementById("timerDisplay");
+      el.textContent = formatTime(timerRemaining);
+      el.classList.toggle("time-up", timerRemaining === 0);
+    }
+
+    function setTimer(seconds) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      document.getElementById("timerStartBtn").textContent = "▶ Start";
+      timerTotalSeconds = seconds;
+      timerRemaining = seconds;
+      updateTimerDisplay();
+    }
+
+    function resetTimer() {
+      setTimer(timerTotalSeconds);
+    }
+
+    function toggleTimer() {
+      const btn = document.getElementById("timerStartBtn");
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        btn.textContent = "▶ Resume";
+        return;
+      }
+      if (timerRemaining <= 0) timerRemaining = timerTotalSeconds;
+      btn.textContent = "⏸ Pause";
+      timerInterval = setInterval(() => {
+        timerRemaining--;
+        updateTimerDisplay();
+        if (timerRemaining <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          btn.textContent = "▶ Start";
+          playGentleChime();
+        }
+      }, 1000);
+    }
+
+    function playGentleChime() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        [523.25, 659.25, 783.99].forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "sine";
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.15, ctx.currentTime + idx * 0.18);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.18 + 0.6);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + idx * 0.18);
+          osc.stop(ctx.currentTime + idx * 0.18 + 0.65);
+        });
+      } catch (e) {}
+    }
+
+    // --- A4 PRINTING ---
+    function triggerPrint(mode) {
+      const area = document.getElementById("print-sheet-area");
+      if (mode === "key") {
+        area.innerHTML = `<div class="print-single-key">${buildWorksheetCardHTML(true)}</div>`;
+      } else {
+        const count = state.perPage;
+        const gridClass = count === 6 ? "print-grid-6" : "print-grid-4";
+        let cards = "";
+        for (let i = 0; i < count; i++) {
+          cards += buildWorksheetCardHTML(false);
+        }
+        area.innerHTML = `<div class="${gridClass}">${cards}</div>`;
+      }
+      syncAllNuggetImages();
+      setTimeout(() => window.print(), 60);
+    }
+
+    // --- UI WIRING ---
+    function initControls() {
+      // Navigation Tabs
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+          document.querySelectorAll(".view-panel").forEach(p => p.classList.remove("active"));
+          btn.classList.add("active");
+          document.getElementById(`tab-${btn.dataset.tab}`).classList.add("active");
+        });
+      });
+
+      // Times table chips 1..12
+      const chipGrid = document.getElementById("tablesChipGrid");
+      for (let n = 1; n <= 12; n++) {
+        const chip = document.createElement("div");
+        chip.className = "table-chip" + (state.tables.includes(n) ? " active" : "");
+        chip.textContent = `×${n}`;
+        chip.dataset.num = n;
+        chip.addEventListener("click", () => {
+          if (state.tables.includes(n)) {
+            if (state.tables.length > 1) {
+              state.tables = state.tables.filter(x => x !== n);
+            }
+          } else {
+            state.tables.push(n);
+            state.tables.sort((a, b) => a - b);
+          }
+          syncTableChipsUI();
+          generateGridData();
+          renderAll();
+        });
+        chipGrid.appendChild(chip);
+      }
+
+      // Grid size pills
+      document.querySelectorAll("#gridSizePills .pill-option").forEach(pill => {
+        pill.addEventListener("click", () => {
+          document.querySelectorAll("#gridSizePills .pill-option").forEach(p => p.classList.remove("selected"));
+          pill.classList.add("selected");
+          const [r, c] = pill.dataset.size.split("x").map(Number);
+          state.rows = r;
+          state.cols = c;
+          resetReveals();
+          generateGridData();
+          renderAll();
+        });
+      });
+
+      // Operation pills
+      document.querySelectorAll("#opTypePills .pill-option").forEach(pill => {
+        pill.addEventListener("click", () => {
+          document.querySelectorAll("#opTypePills .pill-option").forEach(p => p.classList.remove("selected"));
+          pill.classList.add("selected");
+          state.op = pill.dataset.op;
+          document.getElementById("multOptionsBox").style.display = state.op === "M" ? "block" : "none";
+          document.getElementById("arithOptionsBox").style.display = state.op !== "M" ? "block" : "none";
+          resetReveals();
+          generateGridData();
+          renderAll();
+        });
+      });
+
+      // Per-page pills
+      document.querySelectorAll("#perPagePills .pill-option").forEach(pill => {
+        pill.addEventListener("click", () => {
+          document.querySelectorAll("#perPagePills .pill-option").forEach(p => p.classList.remove("selected"));
+          pill.classList.add("selected");
+          state.perPage = parseInt(pill.dataset.per, 10);
+          renderAll();
+        });
+      });
+
+      // Inputs & Checkboxes
+      document.getElementById("wsTitleInput").addEventListener("input", e => {
+        state.title = e.target.value || "Checksum Worksheet";
+        renderAll();
+      });
+
+      document.getElementById("numberRangeSelect").addEventListener("change", e => {
+        state.rangeLevel = parseInt(e.target.value, 10);
+        generateGridData();
+        renderAll();
+      });
+
+      document.getElementById("showNuggetCheck").addEventListener("change", e => {
+        state.showNugget = e.target.checked;
+        renderAll();
+      });
+
+      document.getElementById("showNameCheck").addEventListener("change", e => {
+        state.showName = e.target.checked;
+        renderAll();
+      });
+
+      document.getElementById("showTipCheck").addEventListener("change", e => {
+        state.showTip = e.target.checked;
+        renderAll();
+      });
+
+      // Custom Nugget image uploader
+      document.getElementById("nuggetFileInput").addEventListener("change", e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+          nuggetImageSrc = ev.target.result;
+          document.getElementById("nuggetImgStatus").textContent = `Loaded: ${file.name}`;
+          syncAllNuggetImages();
+        };
+        reader.readAsDataURL(file);
+      });
+
+      document.getElementById("regenerateBtn").addEventListener("click", () => {
+        state.seed = Math.floor(10000 + Math.random() * 89999);
+        resetReveals();
+        generateGridData();
+        renderAll();
+      });
+
+      // Error Diagnosis Listeners
+      document.getElementById("studentGrandInput").addEventListener("input", runDiagnosis);
+      document.getElementById("diagRowSelect").addEventListener("change", runDiagnosis);
+      document.getElementById("diagColSelect").addEventListener("change", runDiagnosis);
+    }
+
+    function syncTableChipsUI() {
+      document.querySelectorAll("#tablesChipGrid .table-chip").forEach(chip => {
+        const n = parseInt(chip.dataset.num, 10);
+        chip.classList.toggle("active", state.tables.includes(n));
+      });
+    }
+
+    function selectTablePreset(preset) {
+      if (preset === "2-12") state.tables = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+      if (preset === "1-10") state.tables = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      if (preset === "core") state.tables = [2, 3, 4, 5, 10];
+      if (preset === "upper") state.tables = [6, 7, 8, 9];
+      syncTableChipsUI();
+      generateGridData();
+      renderAll();
+    }
+
+    function loadFromCodeInput() {
+      const code = document.getElementById("worksheetCodeInput").value;
+      if (!decodeWorksheetCode(code)) {
+        alert("Invalid Worksheet ID format. Example: 5x5-M-ffe-2-48219");
+        return;
+      }
+      document.querySelectorAll("#gridSizePills .pill-option").forEach(p => {
+        p.classList.toggle("selected", p.dataset.size === `${state.rows}x${state.cols}`);
+      });
+      document.querySelectorAll("#opTypePills .pill-option").forEach(p => {
+        p.classList.toggle("selected", p.dataset.op === state.op);
+      });
+      document.getElementById("multOptionsBox").style.display = state.op === "M" ? "block" : "none";
+      document.getElementById("arithOptionsBox").style.display = state.op !== "M" ? "block" : "none";
+      document.getElementById("numberRangeSelect").value = String(state.rangeLevel);
+      syncTableChipsUI();
+      resetReveals();
+      generateGridData();
+      renderAll();
+    }
+
+    // Initialize App
+    initControls();
+    generateGridData();
+    renderAll();
+  </script>
+</body>
+</html>
