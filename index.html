@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-NZ">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -160,6 +160,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .form-group {
@@ -354,11 +356,19 @@
       font-weight: 700;
     }
 
-    .nugget-upload-row {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 0.4rem;
+    .code-status-msg {
+      font-size: 0.78rem;
+      margin-top: 0.3rem;
+      min-height: 1.1em;
+      font-weight: 600;
+    }
+
+    .code-status-msg.ok {
+      color: var(--accent);
+    }
+
+    .code-status-msg.err {
+      color: var(--danger);
     }
 
     /* Preview Panes */
@@ -428,6 +438,8 @@
       border-radius: 6px;
       padding: 0.22rem 0.45rem;
       margin-bottom: 0.4rem;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     .ws-nugget-img {
@@ -458,6 +470,7 @@
       padding: 0.25rem 0.3rem;
       vertical-align: top;
       height: 44px;
+      transition: background 0.12s ease;
     }
 
     .ws-q {
@@ -478,27 +491,35 @@
       margin-top: 0.15rem;
     }
 
+    /* Noticeably Shaded Row, Column, and Grand Total Cells */
     .ws-table td.sum-cell {
-      background: #f1f5f9;
+      background-color: #cbd5e1;
       border-left: 2px solid #0f172a;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     .ws-table tr.sum-row td {
-      background: #f1f5f9;
+      background-color: #cbd5e1;
       border-top: 2px solid #0f172a;
       height: 38px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
+    .ws-table tr.sum-row td.grand-cell,
     .ws-table td.grand-cell {
-      background: #fef3c7;
+      background-color: #fcd34d;
       border: 2px solid #0f172a;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     .sum-tag {
       font-size: 0.64rem;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
-      color: #475569;
+      color: #1e293b;
       display: block;
       line-height: 1.05;
     }
@@ -512,7 +533,7 @@
     }
 
     .grand-cell .sum-val {
-      color: #b45309;
+      color: #92400e;
     }
 
     .ws-footer {
@@ -524,18 +545,34 @@
       color: #475569;
     }
 
-    /* Teacher Answer Key Tab */
+    /* Teacher Answer Key Tab & Interactive Clickable Sums */
     .key-layout {
       display: grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1fr 370px;
       gap: 1.25rem;
       align-items: start;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 960px) {
       .key-layout {
         grid-template-columns: 1fr;
       }
+    }
+
+    .key-hint-bar {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      border-radius: 7px;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.84rem;
+      font-weight: 600;
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .key-table-large td {
@@ -555,9 +592,40 @@
       font-size: 1.2rem;
     }
 
+    /* Clickable Row & Column Totals */
+    .key-table-large td.clickable-sum {
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+
+    .key-table-large td.clickable-sum:hover {
+      background: #93c5fd !important;
+    }
+
+    .key-table-large td.clickable-sum.sum-selected {
+      background: #1d4ed8 !important;
+      color: #ffffff !important;
+    }
+
+    .key-table-large td.clickable-sum.sum-selected .sum-tag {
+      color: #bfdbfe !important;
+    }
+
+    .key-table-large td.clickable-sum.sum-selected .sum-val {
+      color: #ffffff !important;
+    }
+
+    /* Soft Row/Col guide band when both row & col are selected */
+    .key-table-large td.highlight-band {
+      background: #eff6ff !important;
+    }
+
+    /* Targeted suspect cell highlight */
     .key-table-large td.highlight-suspect {
       background: #fee2e2 !important;
-      outline: 2px solid #dc2626;
+      outline: 2.5px solid #dc2626;
+      outline-offset: -2px;
     }
 
     .diag-result {
@@ -566,7 +634,55 @@
       border-radius: 7px;
       background: var(--surface-alt);
       border: 1px solid var(--border);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
+    }
+
+    .suspect-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .suspect-item {
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #dc2626;
+      border-radius: 6px;
+      padding: 0.42rem 0.6rem;
+      cursor: pointer;
+      transition: background 0.12s ease, border-color 0.12s ease;
+    }
+
+    .suspect-item:hover {
+      background: #fef2f2;
+      border-color: #ef4444;
+    }
+
+    .suspect-item-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 0.85rem;
+    }
+
+    .suspect-item-reason {
+      font-size: 0.79rem;
+      color: #475569;
+      margin-top: 0.1rem;
+    }
+
+    .diag-tip-note {
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      color: #78350f;
+      border-radius: 6px;
+      padding: 0.45rem 0.6rem;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
     }
 
     /* Classroom Projector View */
@@ -802,10 +918,13 @@
       margin-bottom: 0.7rem;
     }
 
-    /* Stage 2: Checksum Reveal Grid */
+    /* Stage 2: Checksum Reveal Grid (Fixed Position & Locked Row Heights) */
     .proj-reveal-stage {
-      margin: auto 0;
-      padding: 0.9rem 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 1.15rem 0 0.75rem;
     }
 
     .proj-grid-table {
@@ -819,23 +938,49 @@
 
     .proj-grid-table td {
       border: 2px solid #475569;
-      padding: 0.55rem 0.65rem;
-      height: 74px;
+      padding: 0;
+      height: 86px;
       vertical-align: middle;
       text-align: center;
     }
 
+    .proj-cell-inner {
+      height: 84px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.35rem 0.5rem;
+      overflow: hidden;
+    }
+
     .proj-q {
-      font-size: 1.15rem;
+      font-size: 1.18rem;
+      line-height: 1.2;
       color: #cbd5e1;
       font-weight: 600;
     }
 
+    .proj-ans-slot {
+      height: 2.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.15rem;
+    }
+
     .proj-ans {
-      font-size: 1.55rem;
+      font-size: 1.65rem;
+      line-height: 1.1;
       font-weight: 800;
       color: #60a5fa;
-      margin-top: 0.1rem;
+    }
+
+    .proj-q-placeholder {
+      font-size: 0.95rem;
+      line-height: 1.1;
+      color: #64748b;
+      font-weight: 700;
     }
 
     .proj-grid-table td.proj-row-sum {
@@ -855,31 +1000,46 @@
 
     .proj-sum-label {
       font-size: 0.76rem;
+      line-height: 1.2;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: #cbd5e1;
       display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .proj-sum-slot {
+      height: 2.45rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .proj-sum-number {
-      font-size: 1.85rem;
+      font-size: 1.9rem;
+      line-height: 1.1;
       font-weight: 900;
       color: #ffffff;
     }
 
     .proj-grand-sum .proj-sum-number {
       font-size: 2.1rem;
+      line-height: 1.1;
       color: #fde68a;
     }
 
     .masked-pill {
-      display: inline-block;
-      padding: 0.2rem 0.65rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 2rem;
+      padding: 0 0.7rem;
       border-radius: 6px;
       background: rgba(255, 255, 255, 0.08);
       color: #94a3b8;
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 1rem;
+      line-height: 1;
     }
 
     .proj-footer-bar {
@@ -904,6 +1064,11 @@
         margin: 7mm;
       }
 
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
       body {
         background: #fff !important;
         margin: 0 !important;
@@ -918,6 +1083,21 @@
       #print-sheet-area {
         display: block !important;
         width: 100%;
+      }
+
+      /* Force crisp, clearly visible shading on paper */
+      .ws-table td.sum-cell,
+      .ws-table tr.sum-row td {
+        background-color: #cbd5e1 !important;
+      }
+
+      .ws-table tr.sum-row td.grand-cell,
+      .ws-table td.grand-cell {
+        background-color: #fcd34d !important;
+      }
+
+      .sum-tag {
+        color: #0f172a !important;
       }
 
       /* 4 per A4 (2 x 2) */
@@ -1164,13 +1344,6 @@
               <input type="checkbox" id="showTipCheck" checked />
               <span>Include self-check footer reminder</span>
             </label>
-            <div class="nugget-upload-row">
-              <input type="file" id="nuggetFileInput" accept="image/*" style="display:none;" />
-              <button type="button" class="btn btn-outline" style="padding:0.35rem 0.65rem; font-size:0.78rem;" onclick="document.getElementById('nuggetFileInput').click()">
-                🐹 Choose Nugget.png
-              </button>
-              <span id="nuggetImgStatus" style="font-size:0.75rem; color:var(--text-muted);">Using Nugget.png</span>
-            </div>
           </div>
 
           <div class="action-stack">
@@ -1180,9 +1353,10 @@
           </div>
 
           <div class="code-bar">
-            <input type="text" id="worksheetCodeInput" title="Worksheet ID Code" />
-            <button type="button" class="btn btn-outline" style="padding:0.42rem 0.7rem; font-size:0.82rem;" onclick="loadFromCodeInput()">Load ID</button>
+            <input type="text" id="worksheetCodeInput" title="Worksheet ID Code" placeholder="Paste Worksheet ID..." />
+            <button type="button" class="btn btn-outline" style="padding:0.42rem 0.7rem; font-size:0.82rem;" onclick="loadFromCodeInput('worksheetCodeInput')">Load ID</button>
           </div>
+          <div class="code-status-msg" id="codeStatusBuilder"></div>
         </div>
 
         <!-- Live Preview Area -->
@@ -1219,34 +1393,36 @@
             <span>Complete Teacher Answer Key</span>
             <button type="button" class="btn btn-outline" style="padding:0.35rem 0.75rem; font-size:0.84rem;" onclick="triggerPrint('key')">🖨 Print Key</button>
           </h2>
+          <div class="key-hint-bar">
+            <span>💡 Click any <strong>Row Total</strong> or <strong>Column Total</strong> on the grid to highlight and pinpoint mistakes.</span>
+            <span id="keyActiveSelectionBadge" style="color:#0f172a;"></span>
+          </div>
           <div id="fullKeySlot"></div>
         </div>
 
         <div class="card">
-          <h2>Quick Error Diagnosis</h2>
-          <p style="font-size:0.88rem; color:var(--text-muted); margin-top:0;">
-            Enter a student's <strong>Grand Total</strong> (or select a mismatched Row &amp; Column) to pinpoint likely mistakes.
-          </p>
+          <h2>Load Sheet &amp; Diagnose</h2>
+
+          <div class="form-group">
+            <label class="field-label" for="keyWorksheetCodeInput">Loaded Worksheet ID</label>
+            <div style="display:flex; gap:0.4rem;">
+              <input type="text" id="keyWorksheetCodeInput" style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:0.85rem; font-weight:700;" placeholder="e.g. 5x5-M-ffe-2-48219" />
+              <button type="button" class="btn btn-primary" style="padding:0.45rem 0.75rem; font-size:0.84rem; white-space:nowrap;" onclick="loadFromCodeInput('keyWorksheetCodeInput')">Load</button>
+            </div>
+            <div class="code-status-msg" id="codeStatusKey"></div>
+          </div>
+
+          <hr style="border:none; border-top:1px solid var(--border); margin:0.85rem 0;" />
 
           <div class="form-group">
             <label class="field-label" for="studentGrandInput">Student's Grand Total</label>
-            <input type="number" id="studentGrandInput" placeholder="e.g. 1018" />
+            <input type="number" id="studentGrandInput" placeholder="e.g. 1004" />
           </div>
 
-          <div class="form-group">
-            <label class="field-label" for="diagRowSelect">Wrong Row (Optional)</label>
-            <select id="diagRowSelect"></select>
-          </div>
-
-          <div class="form-group">
-            <label class="field-label" for="diagColSelect">Wrong Column (Optional)</label>
-            <select id="diagColSelect"></select>
-          </div>
-
-          <button type="button" class="btn btn-outline btn-block" onclick="clearDiagnosis()">Clear Highlight</button>
+          <button type="button" class="btn btn-outline btn-block" onclick="clearDiagnosis()">Clear Selection &amp; Highlights</button>
 
           <div class="diag-result" id="diagOutput">
-            True Grand Total is <strong id="diagTrueGrand">0</strong>. Enter a student's total above to inspect differences.
+            True Grand Total is <strong id="diagTrueGrand">0</strong>. Enter a student's Grand Total above or click any Row/Column Total on the grid.
           </div>
         </div>
       </div>
@@ -1273,7 +1449,7 @@
           <div class="proj-nugget-host">
             <img class="proj-nugget-avatar nugget-sync-img" alt="Nugget the hamster" />
             <div class="proj-speech-bubble">
-              <p class="proj-maori-greeting" id="projNuggetHeadline">Kia ora tamariki! Ko Nugget tōku ingoa.</p>
+              <p class="proj-maori-greeting" id="projNuggetHeadline">Kia ora! Ko Nugget tōku ingoa.</p>
               <p class="proj-nugget-subtext" id="projNuggetSubtext">
                 I’m Nugget! Follow my 4 steps below to complete your grid and find your secret Grand Total.
               </p>
@@ -1359,45 +1535,33 @@
     // --- NUGGET MASCOT IMAGE SOURCE (Loads Nugget.png if alongside HTML, with faithful SVG fallback) ---
     const NUGGET_FALLBACK_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 250">
-        <!-- Left & Right Ears -->
         <circle cx="64" cy="52" r="24" fill="#eab668" stroke="#1e1b18" stroke-width="5"/>
         <circle cx="66" cy="54" r="13" fill="#f5b5b8" stroke="#1e1b18" stroke-width="3.5"/>
         <circle cx="156" cy="52" r="24" fill="#eab668" stroke="#1e1b18" stroke-width="5"/>
         <circle cx="154" cy="54" r="13" fill="#f5b5b8" stroke="#1e1b18" stroke-width="3.5"/>
-        <!-- Body -->
         <path d="M52 128 C34 150, 36 205, 65 222 C88 232, 134 232, 158 220 C186 204, 188 150, 168 128 Z" fill="#eab668" stroke="#1e1b18" stroke-width="5"/>
-        <!-- White Belly -->
         <path d="M68 134 C54 156, 56 205, 80 221 C100 228, 128 228, 148 219 C170 205, 170 156, 154 134 Z" fill="#ffffff"/>
-        <!-- Head -->
         <path d="M46 105 C44 62, 74 38, 110 38 C146 38, 176 62, 174 105 C186 122, 176 146, 152 148 C134 150, 122 142, 110 142 C98 142, 86 150, 68 148 C44 146, 34 122, 46 105 Z" fill="#eab668" stroke="#1e1b18" stroke-width="5"/>
-        <!-- White Cheeks & Muzzle -->
         <path d="M47 108 C41 124, 50 146, 72 147 C89 148, 100 139, 110 139 C120 139, 131 148, 148 147 C170 146, 179 124, 173 108 C156 104, 138 112, 124 103 C115 97, 105 97, 96 103 C82 112, 64 104, 47 108 Z" fill="#ffffff"/>
-        <!-- Cheek Outline -->
         <path d="M47 108 C40 125, 50 147, 72 148 C89 149, 100 140, 110 140 C120 140, 131 149, 148 148 C170 147, 180 125, 173 108" fill="none" stroke="#1e1b18" stroke-width="5" stroke-linecap="round"/>
-        <!-- White Eyebrow Dots -->
         <ellipse cx="88" cy="73" rx="6" ry="4" fill="#ffffff"/>
         <ellipse cx="134" cy="73" rx="6" ry="4" fill="#ffffff"/>
-        <!-- Eyes -->
         <circle cx="85" cy="92" r="9.5" fill="#1e1b18"/>
         <circle cx="82" cy="89" r="3" fill="#ffffff"/>
         <circle cx="137" cy="92" r="9.5" fill="#1e1b18"/>
         <circle cx="134" cy="89" r="3" fill="#ffffff"/>
-        <!-- Nose & Mouth -->
         <path d="M105 110 L117 110 L111 117 Z" fill="#f59ea3" stroke="#1e1b18" stroke-width="2.5" stroke-linejoin="round"/>
         <path d="M100 122 Q106 128 111 121 Q116 128 122 122" fill="none" stroke="#1e1b18" stroke-width="3.2" stroke-linecap="round"/>
-        <!-- Acorn -->
         <ellipse cx="118" cy="176" rx="22" ry="25" fill="#c58f52" stroke="#1e1b18" stroke-width="4.5"/>
         <path d="M94 168 C94 148, 142 148, 142 168 C128 162, 108 162, 94 168 Z" fill="#7c4724" stroke="#1e1b18" stroke-width="4.5" stroke-linejoin="round"/>
-        <!-- Paws -->
         <ellipse cx="94" cy="175" rx="11" ry="8" fill="#f5b5b8" stroke="#1e1b18" stroke-width="3.5"/>
         <ellipse cx="136" cy="175" rx="11" ry="8" fill="#f5b5b8" stroke="#1e1b18" stroke-width="3.5"/>
-        <!-- Feet -->
         <ellipse cx="78" cy="229" rx="16" ry="7" fill="#f5b5b8" stroke="#1e1b18" stroke-width="4"/>
         <ellipse cx="144" cy="229" rx="16" ry="7" fill="#f5b5b8" stroke="#1e1b18" stroke-width="4"/>
       </svg>
     `);
 
-    let nuggetImageSrc = "Nugget.png";
+    const NUGGET_IMAGE_SRC = "Nugget.png";
 
     function syncAllNuggetImages() {
       document.querySelectorAll(".nugget-sync-img").forEach(img => {
@@ -1406,7 +1570,7 @@
             this.src = NUGGET_FALLBACK_SVG;
           }
         };
-        img.src = nuggetImageSrc;
+        img.src = NUGGET_IMAGE_SRC;
       });
     }
 
@@ -1427,6 +1591,8 @@
       rowTotals: [],
       colTotals: [],
       grandTotal: 0,
+      selectedRows: new Set(),
+      selectedCols: new Set(),
       projectorStage: "work",
       reveals: {
         rows: false,
@@ -1457,15 +1623,25 @@
     }
 
     function decodeWorksheetCode(raw) {
-      const parts = raw.trim().split("-");
-      if (parts.length < 5) return false;
+      const cleaned = raw.trim().replace(/^id\s*:\s*/i, "").trim();
+      const parts = cleaned.split("-");
+      if (parts.length < 4) return false;
+
       const dims = parts[0].toLowerCase().split("x");
+      if (dims.length !== 2) return false;
       const r = parseInt(dims[0], 10);
       const c = parseInt(dims[1], 10);
       const op = parts[1].toUpperCase();
       const mask = parseInt(parts[2], 36);
-      const lvl = parseInt(parts[3], 10);
-      const seed = parseInt(parts[4], 10);
+
+      let lvl = 2;
+      let seed = NaN;
+      if (parts.length >= 5) {
+        lvl = parseInt(parts[3], 10);
+        seed = parseInt(parts[4], 10);
+      } else {
+        seed = parseInt(parts[3], 10);
+      }
 
       if (![4, 5].includes(r) || ![4, 5].includes(c)) return false;
       if (!["M", "A", "S", "X"].includes(op)) return false;
@@ -1508,22 +1684,22 @@
           const flip = rand() > 0.5;
           const left = flip ? a : b;
           const right = flip ? b : a;
-          return { text: `${left} × ${right}`, answer: left * right };
+          return { text: `${left} × ${right}`, answer: left * right, op: "M", a: left, b: right };
         }
 
         if (op === "A") {
           if (state.rangeLevel === 1) {
             const a = 1 + Math.floor(rand() * 9);
             const b = 1 + Math.floor(rand() * (10 - a));
-            return { text: `${a} + ${b}`, answer: a + b };
+            return { text: `${a} + ${b}`, answer: a + b, op: "A", a, b };
           } else if (state.rangeLevel === 2) {
             const a = 2 + Math.floor(rand() * 11);
             const b = 2 + Math.floor(rand() * 11);
-            return { text: `${a} + ${b}`, answer: a + b };
+            return { text: `${a} + ${b}`, answer: a + b, op: "A", a, b };
           } else {
             const a = 10 + Math.floor(rand() * 35);
             const b = 2 + Math.floor(rand() * 15);
-            return { text: `${a} + ${b}`, answer: a + b };
+            return { text: `${a} + ${b}`, answer: a + b, op: "A", a, b };
           }
         }
 
@@ -1531,15 +1707,15 @@
         if (state.rangeLevel === 1) {
           const a = 3 + Math.floor(rand() * 8);
           const b = 1 + Math.floor(rand() * (a - 1));
-          return { text: `${a} − ${b}`, answer: a - b };
+          return { text: `${a} − ${b}`, answer: a - b, op: "S", a, b };
         } else if (state.rangeLevel === 2) {
           const a = 8 + Math.floor(rand() * 13);
           const b = 2 + Math.floor(rand() * (a - 2));
-          return { text: `${a} − ${b}`, answer: a - b };
+          return { text: `${a} − ${b}`, answer: a - b, op: "S", a, b };
         } else {
           const a = 20 + Math.floor(rand() * 31);
           const b = 3 + Math.floor(rand() * 17);
-          return { text: `${a} − ${b}`, answer: a - b };
+          return { text: `${a} − ${b}`, answer: a - b, op: "S", a, b };
         }
       }
 
@@ -1577,10 +1753,13 @@
         }
         state.grid.push(rowArr);
       }
+
+      state.selectedRows.forEach(r => { if (r >= state.rows) state.selectedRows.delete(r); });
+      state.selectedCols.forEach(c => { if (c >= state.cols) state.selectedCols.delete(c); });
     }
 
     // --- HTML CARD BUILDER ---
-    function buildWorksheetCardHTML(showAnswers, extraTableClass = "") {
+    function buildWorksheetCardHTML(showAnswers, extraTableClass = "", interactiveKey = false) {
       const code = encodeWorksheetCode();
       let rowsHTML = "";
 
@@ -1595,8 +1774,12 @@
             </td>
           `;
         }
+        const rowSelectedClass = (interactiveKey && state.selectedRows.has(r)) ? " sum-selected" : "";
+        const rowClickableClass = interactiveKey ? " clickable-sum" : "";
+        const rowAttr = interactiveKey ? ` data-sum-row="${r}" title="Click to highlight Row ${r + 1}"` : "";
+
         cellsHTML += `
-          <td class="sum-cell">
+          <td class="sum-cell${rowClickableClass}${rowSelectedClass}"${rowAttr}>
             <span class="sum-tag">Row ${r + 1}</span>
             ${showAnswers ? `<span class="sum-val">${state.rowTotals[r]}</span>` : ""}
           </td>
@@ -1607,8 +1790,12 @@
       // Bottom Column Totals + Grand Total Row
       let bottomCells = "";
       for (let c = 0; c < state.cols; c++) {
+        const colSelectedClass = (interactiveKey && state.selectedCols.has(c)) ? " sum-selected" : "";
+        const colClickableClass = interactiveKey ? " clickable-sum" : "";
+        const colAttr = interactiveKey ? ` data-sum-col="${c}" title="Click to highlight Column ${c + 1}"` : "";
+
         bottomCells += `
-          <td>
+          <td class="${colClickableClass}${colSelectedClass}"${colAttr}>
             <span class="sum-tag">Col ${c + 1}</span>
             ${showAnswers ? `<span class="sum-val">${state.colTotals[c]}</span>` : ""}
           </td>
@@ -1675,6 +1862,7 @@
     function renderAll() {
       const code = encodeWorksheetCode();
       document.getElementById("worksheetCodeInput").value = code;
+      document.getElementById("keyWorksheetCodeInput").value = code;
       document.getElementById("previewSummaryBadge").textContent =
         `${state.rows}×${state.cols} Grid • Grand Total: ${state.grandTotal}`;
       document.getElementById("printCountLabel").textContent = state.perPage;
@@ -1683,9 +1871,8 @@
       document.getElementById("studentPreviewSlot").innerHTML = buildWorksheetCardHTML(false);
       document.getElementById("keyPreviewSlot").innerHTML = buildWorksheetCardHTML(true);
 
-      // Full Teacher Answer Key
-      document.getElementById("fullKeySlot").innerHTML = buildWorksheetCardHTML(true, "key-table-large");
-      populateDiagnosisSelectors();
+      // Full Interactive Teacher Answer Key
+      renderInteractiveAnswerKey();
 
       // Projector Header & Grid
       document.getElementById("projHeaderTitle").textContent = state.title;
@@ -1695,73 +1882,212 @@
       syncAllNuggetImages();
     }
 
-    // --- ERROR DIAGNOSIS HELPERS ---
-    function populateDiagnosisSelectors() {
-      document.getElementById("diagTrueGrand").textContent = state.grandTotal;
-      const rowSel = document.getElementById("diagRowSelect");
-      const colSel = document.getElementById("diagColSelect");
-
-      rowSel.innerHTML = `<option value="">-- Any Row --</option>` +
-        state.rowTotals.map((sum, i) => `<option value="${i}">Row ${i + 1} (Key = ${sum})</option>`).join("");
-
-      colSel.innerHTML = `<option value="">-- Any Column --</option>` +
-        state.colTotals.map((sum, i) => `<option value="${i}">Column ${i + 1} (Key = ${sum})</option>`).join("");
-
+    // --- INTERACTIVE ANSWER KEY & SMART ERROR DIAGNOSIS ---
+    function renderInteractiveAnswerKey() {
+      document.getElementById("fullKeySlot").innerHTML = buildWorksheetCardHTML(true, "key-table-large", true);
       runDiagnosis();
+    }
+
+    function toggleRowSelection(r) {
+      if (state.selectedRows.has(r)) {
+        state.selectedRows.delete(r);
+      } else {
+        state.selectedRows.add(r);
+      }
+      renderInteractiveAnswerKey();
+    }
+
+    function toggleColSelection(c) {
+      if (state.selectedCols.has(c)) {
+        state.selectedCols.delete(c);
+      } else {
+        state.selectedCols.add(c);
+      }
+      renderInteractiveAnswerKey();
+    }
+
+    function focusSuspectCell(r, c) {
+      state.selectedRows.clear();
+      state.selectedCols.clear();
+      state.selectedRows.add(r);
+      state.selectedCols.add(c);
+      renderInteractiveAnswerKey();
+    }
+
+    function analyzeSingleCellSuspects(diff) {
+      const hasRowFilter = state.selectedRows.size > 0;
+      const hasColFilter = state.selectedCols.size > 0;
+      const suspects = [];
+
+      for (let r = 0; r < state.rows; r++) {
+        if (hasRowFilter && !state.selectedRows.has(r)) continue;
+        for (let c = 0; c < state.cols; c++) {
+          if (hasColFilter && !state.selectedCols.has(c)) continue;
+
+          const cell = state.grid[r][c];
+          const ans = cell.answer;
+          const studentWrote = ans + diff;
+          if (studentWrote < 0) continue;
+
+          let priority = 1;
+          let reason = `If student wrote <strong>${studentWrote}</strong> instead of <strong>${ans}</strong>`;
+
+          if (cell.op === "M") {
+            const { a, b } = cell;
+            if (diff % a === 0 && Math.abs(diff / a) <= 3) {
+              const otherFactor = b + diff / a;
+              if (otherFactor >= 0) {
+                priority = 4;
+                reason = `Wrote <strong>${studentWrote}</strong> (${a} × ${otherFactor}) instead of <strong>${ans}</strong> — off by ${Math.abs(diff / a)} group${Math.abs(diff / a) > 1 ? "s" : ""} of ${a}`;
+              }
+            } else if (diff % b === 0 && Math.abs(diff / b) <= 3) {
+              const otherFactor = a + diff / b;
+              if (otherFactor >= 0) {
+                priority = 4;
+                reason = `Wrote <strong>${studentWrote}</strong> (${otherFactor} × ${b}) instead of <strong>${ans}</strong> — off by ${Math.abs(diff / b)} group${Math.abs(diff / b) > 1 ? "s" : ""} of ${b}`;
+              }
+            } else if (studentWrote === a + b) {
+              priority = 4;
+              reason = `Wrote <strong>${studentWrote}</strong> (added ${a} + ${b} instead of multiplying)`;
+            } else if (ans >= 10 && studentWrote >= 10 && Number(String(ans).split("").reverse().join("")) === studentWrote) {
+              priority = 4;
+              reason = `Wrote <strong>${studentWrote}</strong> instead of <strong>${ans}</strong> (swapped digits)`;
+            } else if (studentWrote > 0 && studentWrote <= 144 && Math.abs(diff) <= 12) {
+              priority = 2;
+              reason = `Wrote <strong>${studentWrote}</strong> instead of <strong>${ans}</strong>`;
+            }
+          } else {
+            if (ans >= 10 && studentWrote >= 10 && Number(String(ans).split("").reverse().join("")) === studentWrote) {
+              priority = 4;
+              reason = `Wrote <strong>${studentWrote}</strong> instead of <strong>${ans}</strong> (swapped digits)`;
+            } else if (Math.abs(diff) === 10 || Math.abs(diff) === 1 || Math.abs(diff) === 2) {
+              priority = 3;
+              reason = `Wrote <strong>${studentWrote}</strong> instead of <strong>${ans}</strong>`;
+            }
+          }
+
+          suspects.push({ r, c, cell, studentWrote, priority, reason });
+        }
+      }
+
+      suspects.sort((a, b) => b.priority - a.priority || a.r - b.r || a.c - b.c);
+      return suspects;
     }
 
     function runDiagnosis() {
       const rawGrand = document.getElementById("studentGrandInput").value.trim();
-      const rowVal = document.getElementById("diagRowSelect").value;
-      const colVal = document.getElementById("diagColSelect").value;
       const out = document.getElementById("diagOutput");
+      const badge = document.getElementById("keyActiveSelectionBadge");
 
-      document.querySelectorAll("#fullKeySlot td").forEach(td => td.classList.remove("highlight-suspect"));
+      document.querySelectorAll("#fullKeySlot td[data-r]").forEach(td => {
+        td.classList.remove("highlight-suspect", "highlight-band");
+      });
 
-      let messages = [];
+      const hasRows = state.selectedRows.size > 0;
+      const hasCols = state.selectedCols.size > 0;
 
+      document.querySelectorAll("#fullKeySlot td[data-r]").forEach(td => {
+        const r = parseInt(td.dataset.r, 10);
+        const c = parseInt(td.dataset.c, 10);
+        const inRow = state.selectedRows.has(r);
+        const inCol = state.selectedCols.has(c);
+
+        if (hasRows && hasCols) {
+          if (inRow && inCol) {
+            td.classList.add("highlight-suspect");
+          } else if (inRow || inCol) {
+            td.classList.add("highlight-band");
+          }
+        } else if (hasRows && inRow) {
+          td.classList.add("highlight-suspect");
+        } else if (hasCols && inCol) {
+          td.classList.add("highlight-suspect");
+        }
+      });
+
+      const rowLabels = Array.from(state.selectedRows).sort((a, b) => a - b).map(r => `Row ${r + 1}`);
+      const colLabels = Array.from(state.selectedCols).sort((a, b) => a - b).map(c => `Col ${c + 1}`);
+      const selParts = [...rowLabels, ...colLabels];
+      badge.textContent = selParts.length ? `Selected: ${selParts.join(", ")}` : "";
+
+      let htmlParts = [];
+
+      let diff = null;
       if (rawGrand !== "") {
         const sGrand = parseInt(rawGrand, 10);
         if (!isNaN(sGrand)) {
-          const diff = sGrand - state.grandTotal;
+          diff = sGrand - state.grandTotal;
           if (diff === 0) {
-            messages.push(`<strong>Exact match!</strong> Grand Total (${sGrand}) matches the key.`);
+            htmlParts.push(`<div><strong>Exact match!</strong> Grand Total (${sGrand}) matches the key (${state.grandTotal}).</div>`);
           } else {
-            const sign = diff > 0 ? `+${diff}` : `${diff}`;
-            messages.push(`Student's Grand Total is off by <strong>${sign}</strong> (${sGrand} vs ${state.grandTotal}).`);
+            const absDiff = Math.abs(diff);
+            const direction = diff > 0 ? `${absDiff} too big (+${absDiff})` : `${absDiff} too small (−${absDiff})`;
+            htmlParts.push(`<div>Student's Grand Total (${sGrand}) is <strong>${direction}</strong> vs true total <strong>${state.grandTotal}</strong>.</div>`);
           }
         }
       }
 
-      if (rowVal !== "" && colVal !== "") {
-        const r = parseInt(rowVal, 10);
-        const c = parseInt(colVal, 10);
-        const cell = state.grid[r][c];
-        const target = document.querySelector(`#fullKeySlot td[data-r="${r}"][data-c="${c}"]`);
-        if (target) target.classList.add("highlight-suspect");
-        messages.push(`Suspect cell highlighted: <strong>Row ${r + 1}, Col ${c + 1}</strong> (${cell.text} = <strong>${cell.answer}</strong>).`);
-      } else if (rowVal !== "") {
-        const r = parseInt(rowVal, 10);
-        document.querySelectorAll(`#fullKeySlot td[data-r="${r}"]`).forEach(td => td.classList.add("highlight-suspect"));
-        messages.push(`Highlighted all cells in <strong>Row ${r + 1}</strong>.`);
-      } else if (colVal !== "") {
-        const c = parseInt(colVal, 10);
-        document.querySelectorAll(`#fullKeySlot td[data-c="${c}"]`).forEach(td => td.classList.add("highlight-suspect"));
-        messages.push(`Highlighted all cells in <strong>Column ${c + 1}</strong>.`);
+      if (hasRows && hasCols) {
+        const targets = [];
+        state.selectedRows.forEach(r => {
+          state.selectedCols.forEach(c => {
+            const cell = state.grid[r][c];
+            let extra = "";
+            if (diff !== null && diff !== 0 && cell.answer + diff >= 0) {
+              extra = ` → check if student wrote <strong>${cell.answer + diff}</strong>`;
+            }
+            targets.push(`<strong>Row ${r + 1}, Col ${c + 1}</strong> (${cell.text} = <strong>${cell.answer}</strong>${extra})`);
+          });
+        });
+        htmlParts.push(`<div style="margin-top:0.4rem;">Intersection highlighted:<br>• ${targets.join("<br>• ")}</div>`);
+      } else if (hasRows) {
+        htmlParts.push(`<div style="margin-top:0.4rem;">Highlighted <strong>${rowLabels.join(", ")}</strong>. Now click a mismatched <strong>Column Total</strong> to pinpoint the exact box.</div>`);
+      } else if (hasCols) {
+        htmlParts.push(`<div style="margin-top:0.4rem;">Highlighted <strong>${colLabels.join(", ")}</strong>. Now click a mismatched <strong>Row Total</strong> to pinpoint the exact box.</div>`);
       }
 
-      if (messages.length === 0) {
-        out.innerHTML = `True Grand Total is <strong>${state.grandTotal}</strong>. Enter a student's total or pick a wrong row/column above.`;
+      if (diff !== null && diff !== 0) {
+        if ([1, 2, 10, 20, 100].includes(Math.abs(diff))) {
+          htmlParts.push(`<div class="diag-tip-note"><strong>Adding Tip:</strong> An offset of ${diff > 0 ? "+" : "−"}${Math.abs(diff)} is also very common from a carrying/adding slip when summing the Row or Column totals.</div>`);
+        }
+
+        const suspects = analyzeSingleCellSuspects(diff);
+        if (suspects.length > 0) {
+          const topList = suspects.slice(0, 6);
+          const listHTML = topList.map(s => `
+            <li class="suspect-item" onclick="focusSuspectCell(${s.r}, ${s.c})" title="Click to highlight Row ${s.r + 1}, Col ${s.c + 1}">
+              <div class="suspect-item-header">
+                <span>Row ${s.r + 1}, Col ${s.c + 1}: ${s.cell.text} = ${s.cell.answer}</span>
+                <span style="color:#b91c1c;">→ ${s.studentWrote}?</span>
+              </div>
+              <div class="suspect-item-reason">${s.reason}</div>
+            </li>
+          `).join("");
+
+          const scopeText = (hasRows || hasCols) ? "inside your selected row/column" : "across the grid (click a suggestion to highlight)";
+          htmlParts.push(`
+            <div style="margin-top:0.55rem;">
+              <strong>Possible single-box mistakes</strong> ${scopeText}:
+              <ul class="suspect-list">${listHTML}</ul>
+            </div>
+          `);
+        } else if (hasRows || hasCols) {
+          htmlParts.push(`<div style="margin-top:0.45rem; color:#475569;">No single cell in the selected row/column produces an offset of ${diff > 0 ? "+" + diff : diff} without going negative — likely 2+ mistakes or an addition slip.</div>`);
+        }
+      }
+
+      if (htmlParts.length === 0) {
+        out.innerHTML = `True Grand Total for this <strong>${state.rows}×${state.cols}</strong> grid is <strong>${state.grandTotal}</strong>. Enter a student's Grand Total above or click any Row/Column Total on the grid.`;
       } else {
-        out.innerHTML = messages.join("<br>");
+        out.innerHTML = htmlParts.join("");
       }
     }
 
     function clearDiagnosis() {
       document.getElementById("studentGrandInput").value = "";
-      document.getElementById("diagRowSelect").value = "";
-      document.getElementById("diagColSelect").value = "";
-      runDiagnosis();
+      state.selectedRows.clear();
+      state.selectedCols.clear();
+      renderInteractiveAnswerKey();
     }
 
     // --- PROJECTOR LOGIC ---
@@ -1781,11 +2107,11 @@
         revealBar.style.display = "none";
         workBtn.classList.add("active-stage");
         revealBtn.classList.remove("active-stage");
-        headline.textContent = "Kia ora tamariki! Ko Nugget tōku ingoa.";
+        headline.textContent = "Kia ora! Ko Nugget tōku ingoa.";
         subtext.textContent = "I’m Nugget! Follow my 4 steps below to complete your grid and find your secret Grand Total.";
       } else {
         workStage.style.display = "none";
-        revealStage.style.display = "block";
+        revealStage.style.display = "flex";
         revealBar.style.display = "flex";
         workBtn.classList.remove("active-stage");
         revealBtn.classList.add("active-stage");
@@ -1815,19 +2141,27 @@
           const item = state.grid[r][c];
           cells += `
             <td>
-              <div class="proj-q">${item.text}</div>
-              ${state.reveals.answers
-                ? `<div class="proj-ans">${item.answer}</div>`
-                : `<div style="font-size:0.85rem; color:#64748b; margin-top:0.15rem;">?</div>`}
+              <div class="proj-cell-inner">
+                <div class="proj-q">${item.text}</div>
+                <div class="proj-ans-slot">
+                  ${state.reveals.answers
+                    ? `<span class="proj-ans">${item.answer}</span>`
+                    : `<span class="proj-q-placeholder">?</span>`}
+                </div>
+              </div>
             </td>
           `;
         }
         cells += `
           <td class="proj-row-sum">
-            <span class="proj-sum-label">Row ${r + 1}</span>
-            ${state.reveals.rows
-              ? `<span class="proj-sum-number">${state.rowTotals[r]}</span>`
-              : `<span class="masked-pill">Hidden</span>`}
+            <div class="proj-cell-inner">
+              <span class="proj-sum-label">Row ${r + 1}</span>
+              <div class="proj-sum-slot">
+                ${state.reveals.rows
+                  ? `<span class="proj-sum-number">${state.rowTotals[r]}</span>`
+                  : `<span class="masked-pill">Hidden</span>`}
+              </div>
+            </div>
           </td>
         `;
         rowsHTML += `<tr>${cells}</tr>`;
@@ -1837,19 +2171,27 @@
       for (let c = 0; c < state.cols; c++) {
         bottomRow += `
           <td>
-            <span class="proj-sum-label">Col ${c + 1}</span>
-            ${state.reveals.cols
-              ? `<span class="proj-sum-number">${state.colTotals[c]}</span>`
-              : `<span class="masked-pill">Hidden</span>`}
+            <div class="proj-cell-inner">
+              <span class="proj-sum-label">Col ${c + 1}</span>
+              <div class="proj-sum-slot">
+                ${state.reveals.cols
+                  ? `<span class="proj-sum-number">${state.colTotals[c]}</span>`
+                  : `<span class="masked-pill">Hidden</span>`}
+              </div>
+            </div>
           </td>
         `;
       }
       bottomRow += `
         <td class="proj-grand-sum">
-          <span class="proj-sum-label">Grand Total</span>
-          ${state.reveals.grand
-            ? `<span class="proj-sum-number">${state.grandTotal}</span>`
-            : `<span class="masked-pill">Hidden</span>`}
+          <div class="proj-cell-inner">
+            <span class="proj-sum-label">Grand Total</span>
+            <div class="proj-sum-slot">
+              ${state.reveals.grand
+                ? `<span class="proj-sum-number">${state.grandTotal}</span>`
+                : `<span class="masked-pill">Hidden</span>`}
+            </div>
+          </div>
         </td>
       `;
       rowsHTML += `<tr class="proj-col-sum-row">${bottomRow}</tr>`;
@@ -1966,6 +2308,30 @@
         });
       });
 
+      // Clickable Row & Column Totals on Teacher Answer Key (Event Delegation)
+      document.getElementById("fullKeySlot").addEventListener("click", e => {
+        const rowCell = e.target.closest("[data-sum-row]");
+        if (rowCell) {
+          toggleRowSelection(parseInt(rowCell.dataset.sumRow, 10));
+          return;
+        }
+        const colCell = e.target.closest("[data-sum-col]");
+        if (colCell) {
+          toggleColSelection(parseInt(colCell.dataset.sumCol, 10));
+          return;
+        }
+      });
+
+      // Allow pressing Enter in either Worksheet ID input box
+      ["worksheetCodeInput", "keyWorksheetCodeInput"].forEach(inputId => {
+        document.getElementById(inputId).addEventListener("keydown", e => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            loadFromCodeInput(inputId);
+          }
+        });
+      });
+
       // Times table chips 1..12
       const chipGrid = document.getElementById("tablesChipGrid");
       for (let n = 1; n <= 12; n++) {
@@ -2054,30 +2420,17 @@
         renderAll();
       });
 
-      // Custom Nugget image uploader
-      document.getElementById("nuggetFileInput").addEventListener("change", e => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = ev => {
-          nuggetImageSrc = ev.target.result;
-          document.getElementById("nuggetImgStatus").textContent = `Loaded: ${file.name}`;
-          syncAllNuggetImages();
-        };
-        reader.readAsDataURL(file);
-      });
-
       document.getElementById("regenerateBtn").addEventListener("click", () => {
         state.seed = Math.floor(10000 + Math.random() * 89999);
+        state.selectedRows.clear();
+        state.selectedCols.clear();
         resetReveals();
         generateGridData();
         renderAll();
       });
 
-      // Error Diagnosis Listeners
+      // Error Diagnosis Listener
       document.getElementById("studentGrandInput").addEventListener("input", runDiagnosis);
-      document.getElementById("diagRowSelect").addEventListener("change", runDiagnosis);
-      document.getElementById("diagColSelect").addEventListener("change", runDiagnosis);
     }
 
     function syncTableChipsUI() {
@@ -2097,10 +2450,18 @@
       renderAll();
     }
 
-    function loadFromCodeInput() {
-      const code = document.getElementById("worksheetCodeInput").value;
+    function setCodeStatus(msg, isError) {
+      ["codeStatusBuilder", "codeStatusKey"].forEach(id => {
+        const el = document.getElementById(id);
+        el.textContent = msg;
+        el.className = "code-status-msg " + (isError ? "err" : "ok");
+      });
+    }
+
+    function loadFromCodeInput(sourceInputId = "worksheetCodeInput") {
+      const code = document.getElementById(sourceInputId).value;
       if (!decodeWorksheetCode(code)) {
-        alert("Invalid Worksheet ID format. Example: 5x5-M-ffe-2-48219");
+        setCodeStatus("Invalid ID format. Example: 5x5-M-ffe-2-48219", true);
         return;
       }
       document.querySelectorAll("#gridSizePills .pill-option").forEach(p => {
@@ -2113,9 +2474,12 @@
       document.getElementById("arithOptionsBox").style.display = state.op !== "M" ? "block" : "none";
       document.getElementById("numberRangeSelect").value = String(state.rangeLevel);
       syncTableChipsUI();
+      state.selectedRows.clear();
+      state.selectedCols.clear();
       resetReveals();
       generateGridData();
       renderAll();
+      setCodeStatus(`Loaded ${state.rows}×${state.cols} grid (Grand Total: ${state.grandTotal})`, false);
     }
 
     // Initialize App
