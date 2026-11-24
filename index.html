@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-NZ">
+<!-- © Ute Poelman. All rights reserved. Terms of use: https://nugget-maths.co.nz/#terms -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -74,6 +75,25 @@
       margin: 0;
       font-size: 1.1rem;
       font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .brand-badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: #3b82f6;
+      color: #fff;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+
+    .brand-badge.alg-mode {
+      background: #0d9488;
     }
 
     .nav-tabs {
@@ -117,7 +137,7 @@
 
     /* Main Container */
     .container {
-      max-width: 1320px;
+      max-width: 1380px;
       margin: 1.25rem auto;
       padding: 0 1rem 2.5rem;
     }
@@ -133,12 +153,12 @@
     /* Builder Layout */
     .builder-grid {
       display: grid;
-      grid-template-columns: 380px 1fr;
+      grid-template-columns: 395px 1fr;
       gap: 1.25rem;
       align-items: start;
     }
 
-    @media (max-width: 960px) {
+    @media (max-width: 980px) {
       .builder-grid {
         grid-template-columns: 1fr;
       }
@@ -170,7 +190,7 @@
 
     .form-group label.field-label {
       display: block;
-      font-size: 0.83rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
@@ -179,13 +199,12 @@
     }
 
     input[type="text"],
-    input[type="number"],
     select {
       width: 100%;
       padding: 0.5rem 0.65rem;
       border: 1px solid var(--border);
       border-radius: 6px;
-      font-size: 0.95rem;
+      font-size: 0.93rem;
       color: var(--text);
       background: #fff;
     }
@@ -194,6 +213,51 @@
     select:focus {
       outline: 2px solid #93c5fd;
       border-color: var(--primary);
+    }
+
+    /* Subject Stream Switcher */
+    .stream-switcher {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.45rem;
+      background: #e2e8f0;
+      padding: 0.3rem;
+      border-radius: 9px;
+      margin-bottom: 1rem;
+    }
+
+    .stream-btn {
+      border: 1.5px solid transparent;
+      border-radius: 7px;
+      padding: 0.52rem 0.5rem;
+      background: transparent;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #334155;
+      cursor: pointer;
+      text-align: center;
+      line-height: 1.2;
+      transition: all 0.14s ease;
+    }
+
+    .stream-btn small {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 0.12rem;
+    }
+
+    .stream-btn.active {
+      background: #ffffff;
+      color: var(--primary-hover);
+      border-color: #93c5fd;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.1);
+    }
+
+    .stream-btn.active small {
+      color: var(--primary);
     }
 
     .radio-pills {
@@ -206,36 +270,58 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .pill-option {
+    .radio-pills.one-col {
+      grid-template-columns: 1fr;
+    }
+
+    button.pill-option {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0.45rem 0.5rem;
-      border: 1px solid var(--border);
+      padding: 0.48rem 0.45rem;
+      border: 1.5px solid var(--border);
       border-radius: 6px;
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
       cursor: pointer;
       background: var(--surface-alt);
       user-select: none;
       text-align: center;
+      line-height: 1.2;
+      transition: all 0.12s ease;
     }
 
-    .pill-option input {
-      display: none;
+    button.pill-option:hover {
+      border-color: var(--border-strong);
+      background: #f1f5f9;
     }
 
-    .pill-option.selected {
+    button.pill-option small {
+      font-size: 0.71rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: 0.14rem;
+    }
+
+    button.pill-option.selected {
       background: var(--primary-soft);
       border-color: var(--primary);
       color: var(--primary-hover);
     }
 
+    button.pill-option.selected small {
+      color: var(--primary-hover);
+    }
+
+    /* Multiplication Table Chips */
     .tables-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       gap: 0.32rem;
-      margin-top: 0.4rem;
+      margin-top: 0.35rem;
     }
 
     .table-chip {
@@ -260,7 +346,7 @@
 
     .quick-links {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.55rem;
       flex-wrap: wrap;
       margin-top: 0.35rem;
     }
@@ -276,13 +362,76 @@
       text-decoration: underline;
     }
 
+    /* Algebra Mode Cards in Sidebar */
+    .model-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    button.model-card {
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 0.55rem 0.7rem;
+      background: var(--surface-alt);
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+
+    button.model-card:hover {
+      border-color: var(--border-strong);
+    }
+
+    button.model-card.selected {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+    }
+
+    .model-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    button.model-card.selected .model-card-top {
+      color: var(--primary-hover);
+    }
+
+    .model-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 0.14rem 0.45rem;
+      border-radius: 4px;
+      background: #e2e8f0;
+      color: #334155;
+      white-space: nowrap;
+    }
+
+    button.model-card.selected .model-tag {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .model-card-desc {
+      font-size: 0.77rem;
+      color: var(--text-muted);
+      margin-top: 0.18rem;
+    }
+
     .checkbox-row {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       cursor: pointer;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.38rem;
     }
 
     .btn {
@@ -290,9 +439,9 @@
       align-items: center;
       justify-content: center;
       gap: 0.45rem;
-      padding: 0.6rem 1rem;
+      padding: 0.58rem 0.95rem;
       border-radius: 7px;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 700;
       border: 1px solid transparent;
       cursor: pointer;
@@ -335,8 +484,8 @@
     .action-stack {
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
-      margin-top: 1rem;
+      gap: 0.5rem;
+      margin-top: 0.9rem;
     }
 
     .code-bar {
@@ -344,21 +493,21 @@
       gap: 0.4rem;
       align-items: center;
       background: var(--surface-alt);
-      padding: 0.5rem;
+      padding: 0.45rem;
       border-radius: 7px;
       border: 1px dashed var(--border-strong);
-      margin-top: 0.75rem;
+      margin-top: 0.7rem;
     }
 
     .code-bar input {
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.86rem;
+      font-size: 0.82rem;
       font-weight: 700;
     }
 
     .code-status-msg {
       font-size: 0.78rem;
-      margin-top: 0.3rem;
+      margin-top: 0.28rem;
       min-height: 1.1em;
       font-weight: 600;
     }
@@ -371,35 +520,42 @@
       color: var(--danger);
     }
 
-    /* Preview Panes */
+    /* Preview Panes (Adaptive: Side-by-side for 4/6 per A4, Stacked for 2 per A4) */
     .preview-split {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
 
-    @media (max-width: 720px) {
+    .preview-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    @media (max-width: 740px) {
       .preview-split {
         grid-template-columns: 1fr;
       }
     }
 
     .preview-label {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--text-muted);
-      margin-bottom: 0.45rem;
+      margin-bottom: 0.42rem;
       display: flex;
       justify-content: space-between;
+      gap: 0.5rem;
     }
 
     /* Worksheet Card Styling (Shared between Preview & Print) */
     .ws-card {
       border: 1.5px solid #334155;
       border-radius: 6px;
-      padding: 0.65rem;
+      padding: 0.7rem 0.8rem;
       background: #fff;
       display: flex;
       flex-direction: column;
@@ -412,13 +568,13 @@
       align-items: baseline;
       gap: 0.5rem;
       border-bottom: 1.5px solid #0f172a;
-      padding-bottom: 0.25rem;
-      margin-bottom: 0.35rem;
+      padding-bottom: 0.26rem;
+      margin-bottom: 0.38rem;
     }
 
     .ws-title {
       font-weight: 800;
-      font-size: 0.95rem;
+      font-size: 0.98rem;
       color: #0f172a;
     }
 
@@ -428,18 +584,23 @@
       white-space: nowrap;
     }
 
-    /* Nugget Banner on Student Worksheet */
+    /* Context / Nugget Banner on Student Worksheet */
     .ws-nugget-banner {
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.5rem;
       background: #fffbeb;
       border: 1px solid #f59e0b;
       border-radius: 6px;
-      padding: 0.22rem 0.45rem;
-      margin-bottom: 0.4rem;
+      padding: 0.26rem 0.5rem;
+      margin-bottom: 0.42rem;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
+    }
+
+    .ws-nugget-banner.senior-banner {
+      background: #eff6ff;
+      border-color: #93c5fd;
     }
 
     .ws-nugget-img {
@@ -450,13 +611,30 @@
     }
 
     .ws-nugget-speech {
-      font-size: 0.72rem;
-      line-height: 1.2;
+      font-size: 0.75rem;
+      line-height: 1.24;
       color: #1e293b;
     }
 
     .ws-nugget-speech strong {
       color: #92400e;
+    }
+
+    .ws-nugget-banner.senior-banner .ws-nugget-speech strong {
+      color: #1e40af;
+    }
+
+    .ws-context-pill {
+      display: inline-block;
+      background: #fef3c7;
+      border: 1px solid #d97706;
+      color: #78350f;
+      font-weight: 800;
+      padding: 0.05rem 0.4rem;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.76rem;
+      white-space: nowrap;
     }
 
     .ws-table {
@@ -467,19 +645,28 @@
 
     .ws-table td {
       border: 1px solid #475569;
-      padding: 0.25rem 0.3rem;
+      padding: 0.28rem 0.36rem;
       vertical-align: top;
-      height: 44px;
+      height: 46px;
       transition: background 0.12s ease;
     }
 
+    .ws-table.alg-table td {
+      height: 60px;
+      padding: 0.34rem 0.45rem;
+    }
+
     .ws-q {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #334155;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #1e293b;
       display: block;
-      line-height: 1.1;
+      line-height: 1.15;
       white-space: nowrap;
+    }
+
+    .ws-table.alg-table .ws-q {
+      font-size: 0.88rem;
     }
 
     .ws-ans {
@@ -488,7 +675,9 @@
       color: #1d4ed8;
       display: block;
       text-align: right;
-      margin-top: 0.15rem;
+      margin-top: 0.2rem;
+      line-height: 1.15;
+      white-space: nowrap;
     }
 
     /* Noticeably Shaded Row, Column, and Grand Total Cells */
@@ -502,7 +691,7 @@
     .ws-table tr.sum-row td {
       background-color: #cbd5e1;
       border-top: 2px solid #0f172a;
-      height: 38px;
+      height: 42px;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
@@ -522,6 +711,7 @@
       color: #1e293b;
       display: block;
       line-height: 1.05;
+      white-space: nowrap;
     }
 
     .sum-val {
@@ -530,6 +720,9 @@
       color: #0f766e;
       display: block;
       text-align: right;
+      margin-top: 0.14rem;
+      line-height: 1.15;
+      white-space: nowrap;
     }
 
     .grand-cell .sum-val {
@@ -537,23 +730,23 @@
     }
 
     .ws-footer {
-      margin-top: 0.3rem;
+      margin-top: 0.32rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.68rem;
+      font-size: 0.69rem;
       color: #475569;
     }
 
     /* Teacher Answer Key Tab & Interactive Clickable Sums */
     .key-layout {
       display: grid;
-      grid-template-columns: 1fr 370px;
+      grid-template-columns: 1fr 390px;
       gap: 1.25rem;
       align-items: start;
     }
 
-    @media (max-width: 960px) {
+    @media (max-width: 980px) {
       .key-layout {
         grid-template-columns: 1fr;
       }
@@ -565,7 +758,7 @@
       color: #1e40af;
       border-radius: 7px;
       padding: 0.45rem 0.7rem;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       font-weight: 600;
       margin-bottom: 0.65rem;
       display: flex;
@@ -576,27 +769,26 @@
     }
 
     .key-table-large td {
-      height: 68px;
-      padding: 0.45rem 0.55rem;
+      height: 72px;
+      padding: 0.45rem 0.58rem;
     }
 
     .key-table-large .ws-q {
-      font-size: 0.92rem;
+      font-size: 0.94rem;
     }
 
     .key-table-large .ws-ans {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
     }
 
     .key-table-large .sum-val {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
     /* Clickable Row & Column Totals */
     .key-table-large td.clickable-sum {
       cursor: pointer;
       user-select: none;
-      position: relative;
     }
 
     .key-table-large td.clickable-sum:hover {
@@ -616,12 +808,10 @@
       color: #ffffff !important;
     }
 
-    /* Soft Row/Col guide band when both row & col are selected */
     .key-table-large td.highlight-band {
       background: #eff6ff !important;
     }
 
-    /* Targeted suspect cell highlight */
     .key-table-large td.highlight-suspect {
       background: #fee2e2 !important;
       outline: 2.5px solid #dc2626;
@@ -634,7 +824,8 @@
       border-radius: 7px;
       background: var(--surface-alt);
       border: 1px solid var(--border);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
+      line-height: 1.4;
     }
 
     .suspect-list {
@@ -666,13 +857,14 @@
       justify-content: space-between;
       font-weight: 700;
       color: #0f172a;
-      font-size: 0.85rem;
+      font-size: 0.83rem;
+      gap: 0.4rem;
     }
 
     .suspect-item-reason {
-      font-size: 0.79rem;
+      font-size: 0.78rem;
       color: #475569;
-      margin-top: 0.1rem;
+      margin-top: 0.12rem;
     }
 
     .diag-tip-note {
@@ -781,8 +973,8 @@
     }
 
     .proj-nugget-avatar {
-      width: 84px;
-      height: 84px;
+      width: 82px;
+      height: 82px;
       object-fit: contain;
       background: #fffbeb;
       border: 3px solid #fbbf24;
@@ -814,17 +1006,31 @@
     }
 
     .proj-maori-greeting {
-      font-size: 1.28rem;
+      font-size: 1.22rem;
       font-weight: 800;
       color: #b45309;
       margin: 0 0 0.2rem;
     }
 
     .proj-nugget-subtext {
-      font-size: 1.02rem;
+      font-size: 1rem;
       color: #334155;
       margin: 0;
       font-weight: 500;
+    }
+
+    .proj-context-banner {
+      display: inline-block;
+      margin-top: 0.38rem;
+      background: #fef3c7;
+      border: 1.5px solid #d97706;
+      color: #78350f;
+      font-weight: 800;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      padding: 0.22rem 0.7rem;
+      border-radius: 6px;
+      font-size: 1.02rem;
+      white-space: nowrap;
     }
 
     /* Stage 1: Instructions + Timer */
@@ -849,7 +1055,7 @@
       margin: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
+      gap: 0.75rem;
     }
 
     .instruction-item {
@@ -857,7 +1063,7 @@
       border: 1px solid #334155;
       border-left: 6px solid #3b82f6;
       border-radius: 10px;
-      padding: 0.85rem 1.1rem;
+      padding: 0.8rem 1.05rem;
       display: flex;
       align-items: flex-start;
       gap: 0.85rem;
@@ -867,9 +1073,9 @@
       background: #3b82f6;
       color: #fff;
       font-weight: 800;
-      font-size: 1.1rem;
-      width: 2rem;
-      height: 2rem;
+      font-size: 1.05rem;
+      width: 1.95rem;
+      height: 1.95rem;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -878,14 +1084,14 @@
     }
 
     .step-text h3 {
-      margin: 0 0 0.15rem;
-      font-size: 1.15rem;
+      margin: 0 0 0.12rem;
+      font-size: 1.1rem;
       color: #fff;
     }
 
     .step-text p {
       margin: 0;
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       color: #cbd5e1;
     }
 
@@ -918,7 +1124,7 @@
       margin-bottom: 0.7rem;
     }
 
-    /* Stage 2: Checksum Reveal Grid (Fixed Position & Locked Row Heights) */
+    /* Stage 2: Checksum Reveal Grid */
     .proj-reveal-stage {
       flex: 1;
       display: flex;
@@ -929,7 +1135,7 @@
 
     .proj-grid-table {
       width: 100%;
-      max-width: 1050px;
+      max-width: 1140px;
       margin: 0 auto;
       border-collapse: collapse;
       table-layout: fixed;
@@ -939,30 +1145,39 @@
     .proj-grid-table td {
       border: 2px solid #475569;
       padding: 0;
-      height: 86px;
+      height: 88px;
       vertical-align: middle;
       text-align: center;
     }
 
     .proj-cell-inner {
-      height: 84px;
+      height: 86px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0.35rem 0.5rem;
+      padding: 0.3rem 0.45rem;
       overflow: hidden;
     }
 
+    .proj-grid-table.rows-5 td {
+      height: 76px;
+    }
+
+    .proj-grid-table.rows-5 .proj-cell-inner {
+      height: 74px;
+    }
+
     .proj-q {
-      font-size: 1.18rem;
-      line-height: 1.2;
-      color: #cbd5e1;
+      font-size: 1.1rem;
+      line-height: 1.18;
+      color: #e2e8f0;
       font-weight: 600;
+      white-space: nowrap;
     }
 
     .proj-ans-slot {
-      height: 2.15rem;
+      min-height: 2.05rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -970,10 +1185,11 @@
     }
 
     .proj-ans {
-      font-size: 1.65rem;
-      line-height: 1.1;
+      font-size: 1.42rem;
+      line-height: 1.12;
       font-weight: 800;
       color: #60a5fa;
+      white-space: nowrap;
     }
 
     .proj-q-placeholder {
@@ -999,47 +1215,51 @@
     }
 
     .proj-sum-label {
-      font-size: 0.76rem;
-      line-height: 1.2;
+      font-size: 0.72rem;
+      line-height: 1.15;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: #cbd5e1;
       display: block;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.18rem;
+      white-space: nowrap;
     }
 
     .proj-sum-slot {
-      height: 2.45rem;
+      height: 2.3rem;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .proj-sum-number {
-      font-size: 1.9rem;
+      font-size: 1.6rem;
       line-height: 1.1;
       font-weight: 900;
       color: #ffffff;
+      white-space: nowrap;
     }
 
     .proj-grand-sum .proj-sum-number {
-      font-size: 2.1rem;
+      font-size: 1.72rem;
       line-height: 1.1;
       color: #fde68a;
+      white-space: nowrap;
     }
 
     .masked-pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      height: 2rem;
+      height: 1.9rem;
       padding: 0 0.7rem;
       border-radius: 6px;
       background: rgba(255, 255, 255, 0.08);
       color: #94a3b8;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.92rem;
       line-height: 1;
+      white-space: nowrap;
     }
 
     .proj-footer-bar {
@@ -1057,7 +1277,7 @@
       display: none;
     }
 
-    /* A4 Print Styles */
+    /* A4 Print Styles (2 per A4 for Algebra; 4 or 6 per A4 for Number & Arithmetic) */
     @media print {
       @page {
         size: A4 portrait;
@@ -1085,7 +1305,6 @@
         width: 100%;
       }
 
-      /* Force crisp, clearly visible shading on paper */
       .ws-table td.sum-cell,
       .ws-table tr.sum-row td {
         background-color: #cbd5e1 !important;
@@ -1100,7 +1319,16 @@
         color: #0f172a !important;
       }
 
-      /* 4 per A4 (2 x 2) */
+      /* 2 per A4 (1 x 2 stacked full-width halves — Algebra only) */
+      .print-grid-2 {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 137mm);
+        gap: 6.5mm;
+        width: 100%;
+      }
+
+      /* 4 per A4 (2 x 2 — Number & Arithmetic) */
       .print-grid-4 {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -1109,7 +1337,7 @@
         width: 100%;
       }
 
-      /* 6 per A4 (2 x 3) */
+      /* 6 per A4 (2 x 3 — Number & Arithmetic) */
       .print-grid-6 {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -1118,17 +1346,34 @@
         width: 100%;
       }
 
+      .print-grid-2 .ws-card,
       .print-grid-4 .ws-card,
       .print-grid-6 .ws-card {
         border: 1.2pt solid #0f172a;
         border-radius: 4pt;
-        padding: 2.5mm 3.2mm;
         page-break-inside: avoid;
         break-inside: avoid;
         position: relative;
       }
 
+      .print-grid-2 .ws-card {
+        padding: 3.2mm 4mm;
+      }
+
+      .print-grid-4 .ws-card,
+      .print-grid-6 .ws-card {
+        padding: 2.5mm 3.2mm;
+      }
+
       /* Cut guides around mini worksheets */
+      .print-grid-2 .ws-card::after {
+        content: "";
+        position: absolute;
+        inset: -2.2mm;
+        border: 0.5pt dashed #94a3b8;
+        pointer-events: none;
+      }
+
       .print-grid-4 .ws-card::after,
       .print-grid-6 .ws-card::after {
         content: "";
@@ -1138,6 +1383,57 @@
         pointer-events: none;
       }
 
+      /* 2 per A4 Sizing */
+      .print-grid-2 .ws-header {
+        margin-bottom: 1.6mm;
+        padding-bottom: 1mm;
+      }
+
+      .print-grid-2 .ws-title {
+        font-size: 11pt;
+      }
+
+      .print-grid-2 .ws-nugget-banner {
+        padding: 1.2mm 2.4mm;
+        margin-bottom: 1.8mm;
+      }
+
+      .print-grid-2 .ws-nugget-img {
+        width: 8.5mm;
+        height: 8.5mm;
+      }
+
+      .print-grid-2 .ws-nugget-speech {
+        font-size: 8pt;
+      }
+
+      .print-grid-2 .ws-table td {
+        height: 22mm;
+        padding: 1.6mm 2.2mm;
+      }
+
+      .print-grid-2 .ws-table.rows-4 td {
+        height: 17.5mm;
+        padding: 1.2mm 1.8mm;
+      }
+
+      .print-grid-2 .ws-table tr.sum-row td {
+        height: 15mm;
+      }
+
+      .print-grid-2 .ws-q {
+        font-size: 10pt;
+      }
+
+      .print-grid-2 .ws-table.rows-4 .ws-q {
+        font-size: 9pt;
+      }
+
+      .print-grid-2 .sum-tag {
+        font-size: 6.5pt;
+      }
+
+      /* 4 per A4 Sizing */
       .print-grid-4 .ws-header {
         margin-bottom: 1.5mm;
         padding-bottom: 1mm;
@@ -1174,7 +1470,7 @@
         font-size: 8.8pt;
       }
 
-      /* Compact sizing for 6 per A4 */
+      /* 6 per A4 Sizing */
       .print-grid-6 .ws-header {
         margin-bottom: 1mm;
         padding-bottom: 0.8mm;
@@ -1246,11 +1542,11 @@
       }
 
       .print-single-key .ws-ans {
-        font-size: 15pt;
+        font-size: 14pt;
       }
 
       .print-single-key .sum-val {
-        font-size: 14pt;
+        font-size: 13.5pt;
       }
     }
   </style>
@@ -1260,12 +1556,12 @@
   <header class="topbar">
     <div class="brand">
       <img class="brand-nugget nugget-sync-img" alt="Nugget the hamster" />
-      <h1>Checksum Grid Studio</h1>
+      <h1>Checksum Grid Studio <span class="brand-badge" id="topbarStreamBadge">Number &amp; Arithmetic</span></h1>
     </div>
     <nav class="nav-tabs">
-      <button class="tab-btn active" data-tab="builder">1. Configure &amp; Print</button>
-      <button class="tab-btn" data-tab="key">2. Teacher Answer Key</button>
-      <button class="tab-btn projector-launch" data-tab="projector">3. Classroom Projector</button>
+      <button type="button" class="tab-btn active" data-tab="builder">1. Configure &amp; Print</button>
+      <button type="button" class="tab-btn" data-tab="key">2. Teacher Answer Key</button>
+      <button type="button" class="tab-btn projector-launch" data-tab="projector">3. Classroom Projector</button>
     </nav>
   </header>
 
@@ -1277,58 +1573,110 @@
         <div class="card">
           <h2>Worksheet Settings</h2>
 
+          <!-- Top-Level Activity Subject Switcher -->
+          <div class="stream-switcher" role="group" aria-label="Activity Subject">
+            <button type="button" class="stream-btn active" data-stream="NUM">
+              Number &amp; Arithmetic
+              <small>×, +, −, Mixed Facts</small>
+            </button>
+            <button type="button" class="stream-btn" data-stream="ALG">
+              Algebra
+              <small>Like Terms &amp; Substitution</small>
+            </button>
+          </div>
+
           <div class="form-group">
             <label class="field-label" for="wsTitleInput">Worksheet Title</label>
-            <input type="text" id="wsTitleInput" value="Times Tables Checksum" maxlength="34" />
+            <input type="text" id="wsTitleInput" value="Times Tables Checksum" maxlength="38" />
           </div>
 
+          <!-- NUMBER & ARITHMETIC CONTROLS -->
+          <div id="numControlsSection">
+            <div class="form-group">
+              <label class="field-label">Operation Type</label>
+              <div class="radio-pills two-col" id="opTypePills">
+                <button type="button" class="pill-option selected" data-op="M">Multiplication (×)</button>
+                <button type="button" class="pill-option" data-op="A">Addition (+)</button>
+                <button type="button" class="pill-option" data-op="S">Subtraction (−)</button>
+                <button type="button" class="pill-option" data-op="X">Mixed (+, −, ×)</button>
+              </div>
+            </div>
+
+            <!-- Multiplication Table Selector -->
+            <div class="form-group" id="multOptionsBox">
+              <label class="field-label">Included Times Tables</label>
+              <div class="tables-grid" id="tablesChipGrid"></div>
+              <div class="quick-links">
+                <button type="button" class="link-btn" onclick="selectTablePreset('2-12')">2–12 All</button>
+                <button type="button" class="link-btn" onclick="selectTablePreset('core')">Core (2,3,4,5,10)</button>
+                <button type="button" class="link-btn" onclick="selectTablePreset('upper')">Upper (6,7,8,9)</button>
+                <button type="button" class="link-btn" onclick="selectTablePreset('1-10')">1–10</button>
+              </div>
+            </div>
+
+            <!-- Addition / Subtraction Range Selector -->
+            <div class="form-group" id="arithOptionsBox" style="display:none;">
+              <label class="field-label" for="numberRangeSelect">Number Difficulty</label>
+              <select id="numberRangeSelect">
+                <option value="1">Level 1 — Single-digit facts (up to 10)</option>
+                <option value="2" selected>Level 2 — Facts up to 20</option>
+                <option value="3">Level 3 — Two-digit &amp; one-digit (up to 50)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- ALGEBRA CONTROLS -->
+          <div id="algControlsSection" style="display:none;">
+            <div class="form-group">
+              <label class="field-label">Algebra Activity Mode</label>
+              <div class="model-stack" id="checksumModelStack">
+                <button type="button" class="model-card selected" data-mode="SYM">
+                  <div class="model-card-top">
+                    <span>1. Collecting Like Terms</span>
+                    <span class="model-tag">Ax + B</span>
+                  </div>
+                  <div class="model-card-desc">Expand a single pair of brackets &amp; simplify, then sum like terms across rows &amp; columns.</div>
+                </button>
+                <button type="button" class="model-card" data-mode="SUB">
+                  <div class="model-card-top">
+                    <span>2. Substitution &amp; Evaluation</span>
+                    <span class="model-tag">Integer Sum</span>
+                  </div>
+                  <div class="model-card-desc">Substitute given variable values into each expression, then sum the integers for checksums.</div>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="field-label" for="subTopicSelect">Expression Type</label>
+              <select id="subTopicSelect"></select>
+            </div>
+
+            <div class="form-group">
+              <label class="field-label">Difficulty Level</label>
+              <div class="radio-pills two-col" id="difficultyPills">
+                <button type="button" class="pill-option selected" data-lvl="1">
+                  <span>Level 1 — Core</span>
+                  <small id="lvl1Hint">Positive brackets</small>
+                </button>
+                <button type="button" class="pill-option" data-lvl="2">
+                  <span>Level 2 — Extension</span>
+                  <small id="lvl2Hint">Negative brackets</small>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- DYNAMIC GRID DIMENSIONS -->
           <div class="form-group">
             <label class="field-label">Grid Dimensions</label>
-            <div class="radio-pills" id="gridSizePills">
-              <label class="pill-option" data-size="4x4"><input type="radio" name="gridSize" value="4x4">4 × 4 (16)</label>
-              <label class="pill-option" data-size="4x5"><input type="radio" name="gridSize" value="4x5">4 × 5 (20)</label>
-              <label class="pill-option selected" data-size="5x5"><input type="radio" name="gridSize" value="5x5" checked>5 × 5 (25)</label>
-            </div>
+            <div class="radio-pills" id="gridSizePills"></div>
           </div>
 
-          <div class="form-group">
-            <label class="field-label">Operation Type</label>
-            <div class="radio-pills two-col" id="opTypePills">
-              <label class="pill-option selected" data-op="M"><input type="radio" name="opType" value="M" checked>Multiplication (×)</label>
-              <label class="pill-option" data-op="A"><input type="radio" name="opType" value="A">Addition (+)</label>
-              <label class="pill-option" data-op="S"><input type="radio" name="opType" value="S">Subtraction (−)</label>
-              <label class="pill-option" data-op="X"><input type="radio" name="opType" value="X">Mixed (+, −, ×)</label>
-            </div>
-          </div>
-
-          <!-- Multiplication Table Selector -->
-          <div class="form-group" id="multOptionsBox">
-            <label class="field-label">Included Times Tables</label>
-            <div class="tables-grid" id="tablesChipGrid"></div>
-            <div class="quick-links">
-              <button type="button" class="link-btn" onclick="selectTablePreset('2-12')">2–12 All</button>
-              <button type="button" class="link-btn" onclick="selectTablePreset('core')">Core (2,3,4,5,10)</button>
-              <button type="button" class="link-btn" onclick="selectTablePreset('upper')">Upper (6,7,8,9)</button>
-              <button type="button" class="link-btn" onclick="selectTablePreset('1-10')">1–10</button>
-            </div>
-          </div>
-
-          <!-- Addition / Subtraction Range Selector -->
-          <div class="form-group" id="arithOptionsBox" style="display:none;">
-            <label class="field-label" for="numberRangeSelect">Number Difficulty</label>
-            <select id="numberRangeSelect">
-              <option value="1">Level 1 — Single-digit facts (up to 10)</option>
-              <option value="2" selected>Level 2 — Facts up to 20</option>
-              <option value="3">Level 3 — Two-digit &amp; one-digit (up to 50)</option>
-            </select>
-          </div>
-
+          <!-- DYNAMIC A4 PRINT LAYOUT (4/6 for Number & Arithmetic; 2 for Algebra) -->
           <div class="form-group">
             <label class="field-label">A4 Print Sheet Layout</label>
-            <div class="radio-pills two-col" id="perPagePills">
-              <label class="pill-option selected" data-per="4"><input type="radio" name="perPage" value="4" checked>4 per A4 (2 × 2)</label>
-              <label class="pill-option" data-per="6"><input type="radio" name="perPage" value="6">6 per A4 (2 × 3)</label>
-            </div>
+            <div class="radio-pills two-col" id="perPagePills"></div>
           </div>
 
           <div class="form-group">
@@ -1342,7 +1690,7 @@
             </label>
             <label class="checkbox-row">
               <input type="checkbox" id="showTipCheck" checked />
-              <span>Include self-check footer reminder</span>
+              <span>Include checksum self-check footer</span>
             </label>
           </div>
 
@@ -1353,7 +1701,7 @@
           </div>
 
           <div class="code-bar">
-            <input type="text" id="worksheetCodeInput" title="Worksheet ID Code" placeholder="Paste Worksheet ID..." />
+            <input type="text" id="worksheetCodeInput" title="Worksheet ID Code" placeholder="Paste any Number or Algebra ID..." />
             <button type="button" class="btn btn-outline" style="padding:0.42rem 0.7rem; font-size:0.82rem;" onclick="loadFromCodeInput('worksheetCodeInput')">Load ID</button>
           </div>
           <div class="code-status-msg" id="codeStatusBuilder"></div>
@@ -1363,20 +1711,20 @@
         <div class="card">
           <h2>
             <span>Live Worksheet Preview</span>
-            <span style="font-size:0.82rem; font-weight:600; color:var(--text-muted);" id="previewSummaryBadge">5×5 Grid • Grand Total: 0</span>
+            <span style="font-size:0.82rem; font-weight:700; color:var(--primary);" id="previewSummaryBadge">5×5 Grid • Grand Total: 0</span>
           </h2>
-          <div class="preview-split">
+          <div id="previewLayoutWrap" class="preview-split">
             <div>
               <div class="preview-label">
                 <span>Student Sheet Card</span>
-                <span>Blank for Pencil</span>
+                <span id="studentPreviewHint">Prints 4 per A4</span>
               </div>
               <div id="studentPreviewSlot"></div>
             </div>
             <div>
               <div class="preview-label">
                 <span>Teacher Key Preview</span>
-                <span>Answers + Sums</span>
+                <span>Solutions + Checksums</span>
               </div>
               <div id="keyPreviewSlot"></div>
             </div>
@@ -1394,7 +1742,7 @@
             <button type="button" class="btn btn-outline" style="padding:0.35rem 0.75rem; font-size:0.84rem;" onclick="triggerPrint('key')">🖨 Print Key</button>
           </h2>
           <div class="key-hint-bar">
-            <span>💡 Click any <strong>Row Total</strong> or <strong>Column Total</strong> on the grid to highlight and pinpoint mistakes.</span>
+            <span>💡 Click any <strong>Row Total</strong> or <strong>Column Total</strong> on the grid to highlight intersections and pinpoint mistakes.</span>
             <span id="keyActiveSelectionBadge" style="color:#0f172a;"></span>
           </div>
           <div id="fullKeySlot"></div>
@@ -1406,7 +1754,7 @@
           <div class="form-group">
             <label class="field-label" for="keyWorksheetCodeInput">Loaded Worksheet ID</label>
             <div style="display:flex; gap:0.4rem;">
-              <input type="text" id="keyWorksheetCodeInput" style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:0.85rem; font-weight:700;" placeholder="e.g. 5x5-M-ffe-2-48219" />
+              <input type="text" id="keyWorksheetCodeInput" style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:0.82rem; font-weight:700;" placeholder="e.g. 5x5-M-ffe-2-48219" />
               <button type="button" class="btn btn-primary" style="padding:0.45rem 0.75rem; font-size:0.84rem; white-space:nowrap;" onclick="loadFromCodeInput('keyWorksheetCodeInput')">Load</button>
             </div>
             <div class="code-status-msg" id="codeStatusKey"></div>
@@ -1416,13 +1764,13 @@
 
           <div class="form-group">
             <label class="field-label" for="studentGrandInput">Student's Grand Total</label>
-            <input type="number" id="studentGrandInput" placeholder="e.g. 1004" />
+            <input type="text" id="studentGrandInput" placeholder="e.g. 1004" />
           </div>
 
           <button type="button" class="btn btn-outline btn-block" onclick="clearDiagnosis()">Clear Selection &amp; Highlights</button>
 
           <div class="diag-result" id="diagOutput">
-            True Grand Total is <strong id="diagTrueGrand">0</strong>. Enter a student's Grand Total above or click any Row/Column Total on the grid.
+            True Grand Total is <strong>0</strong>. Enter a student's Grand Total above or click any Row/Column Total on the grid.
           </div>
         </div>
       </div>
@@ -1453,42 +1801,16 @@
               <p class="proj-nugget-subtext" id="projNuggetSubtext">
                 I’m Nugget! Follow my 4 steps below to complete your grid and find your secret Grand Total.
               </p>
+              <div id="projContextWrap" style="display:none;">
+                <span class="proj-context-banner" id="projContextText"></span>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- STAGE 1: INSTRUCTIONS & TIMER -->
         <div id="projWorkStage" class="proj-work-stage">
-          <ol class="instruction-list">
-            <li class="instruction-item">
-              <div class="step-num">1</div>
-              <div class="step-text">
-                <h3>Solve Every Box</h3>
-                <p>Write the answer to each question neatly inside its grid square.</p>
-              </div>
-            </li>
-            <li class="instruction-item">
-              <div class="step-num">2</div>
-              <div class="step-text">
-                <h3>Add Across Each Row</h3>
-                <p>Add the numbers in each horizontal row and write the <strong>Row Total</strong> in the shaded box on the right.</p>
-              </div>
-            </li>
-            <li class="instruction-item">
-              <div class="step-num">3</div>
-              <div class="step-text">
-                <h3>Add Down Each Column</h3>
-                <p>Add the numbers in each vertical column and write the <strong>Column Total</strong> in the shaded box at the bottom.</p>
-              </div>
-            </li>
-            <li class="instruction-item">
-              <div class="step-num">4</div>
-              <div class="step-text">
-                <h3>Verify Your Grand Total</h3>
-                <p>Add all Row Totals together, then add all Column Totals together. When both match, write your <strong>Grand Total</strong> in the corner box!</p>
-              </div>
-            </li>
-          </ol>
+          <ol class="instruction-list" id="projInstructionList"></ol>
 
           <div class="timer-box" id="timerBox">
             <div style="font-size:0.9rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#94a3b8;">Classroom Timer</div>
@@ -1518,9 +1840,9 @@
             <button type="button" class="proj-btn reveal-col" onclick="toggleRevealFlag('cols')">Toggle Column Totals</button>
             <button type="button" class="proj-btn reveal-grand" onclick="toggleRevealFlag('grand')">★ Reveal Grand Total</button>
             <button type="button" class="proj-btn" onclick="toggleRevealFlag('answers')">Toggle Individual Answers</button>
-            <button type="button" class="proj-btn" onclick="resetReveals()">Hide All</button>
+            <button type="button" class="proj-btn" onclick="resetReveals(true)">Hide All</button>
           </div>
-          <div style="font-size:0.85rem; color:#94a3b8; margin-left:auto;">
+          <div style="font-size:0.84rem; color:#94a3b8; margin-left:auto;">
             Tip: Reveal Row &amp; Column totals first so students can self-locate any errors before showing answers.
           </div>
         </div>
@@ -1532,7 +1854,7 @@
   <div id="print-sheet-area"></div>
 
   <script>
-    // --- NUGGET MASCOT IMAGE SOURCE (Loads Nugget.png if alongside HTML, with faithful SVG fallback) ---
+    // --- NUGGET MASCOT IMAGE SOURCE (Loads Nugget.png if alongside HTML, caches SVG fallback) ---
     const NUGGET_FALLBACK_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 250">
         <circle cx="64" cy="52" r="24" fill="#eab668" stroke="#1e1b18" stroke-width="5"/>
@@ -1561,36 +1883,88 @@
       </svg>
     `);
 
-    const NUGGET_IMAGE_SRC = "Nugget.png";
+    let resolvedNuggetSrc = "Nugget.png";
 
     function syncAllNuggetImages() {
       document.querySelectorAll(".nugget-sync-img").forEach(img => {
         img.onerror = function () {
-          if (this.src !== NUGGET_FALLBACK_SVG) {
-            this.src = NUGGET_FALLBACK_SVG;
-          }
+          resolvedNuggetSrc = NUGGET_FALLBACK_SVG;
+          this.onerror = null;
+          this.src = resolvedNuggetSrc;
         };
-        img.src = NUGGET_IMAGE_SRC;
+        if (img.getAttribute("src") !== resolvedNuggetSrc) {
+          img.src = resolvedNuggetSrc;
+        }
       });
     }
 
-    // --- STATE & SEEDED PRNG ---
+    // --- CURRICULUM, GRID & PRINT LAYOUT CATALOGUES ---
+    const STREAM_GRID_OPTIONS = {
+      NUM: [
+        { size: "4x4", label: "4 × 4", sub: "16 Qs" },
+        { size: "4x5", label: "4 × 5", sub: "20 Qs" },
+        { size: "5x5", label: "5 × 5", sub: "25 Qs" }
+      ],
+      ALG: [
+        { size: "3x3", label: "3 × 3", sub: "9 Qs" },
+        { size: "3x4", label: "3 × 4", sub: "12 Qs" },
+        { size: "4x4", label: "4 × 4", sub: "16 Qs" }
+      ]
+    };
+
+    const STREAM_PER_PAGE_OPTIONS = {
+      NUM: [
+        { per: 4, label: "4 per A4", sub: "2 × 2 Grid" },
+        { per: 6, label: "6 per A4", sub: "2 × 3 Mini" }
+      ],
+      ALG: [
+        { per: 2, label: "2 per A4", sub: "1 × 2 Large Working Space" }
+      ]
+    };
+
+    const NUM_DEFAULT_TITLES = {
+      M: "Times Tables Checksum",
+      A: "Addition Checksum",
+      S: "Subtraction Checksum",
+      X: "Mixed Arithmetic Checksum"
+    };
+
+    const ALG_TOPIC_CATALOG = {
+      SYM: [
+        { id: "LIN", label: "Single Variable (x) — Single Pair of Brackets", defaultTitle: "Collecting Like Terms Checksum" },
+        { id: "TWO", label: "Two Variables (x & y) — Single Pair of Brackets", defaultTitle: "Like Terms (x & y) Checksum" }
+      ],
+      SUB: [
+        { id: "LIN", label: "Linear & Multi-Variable Expressions", defaultTitle: "Algebra Substitution Checksum" },
+        { id: "POW", label: "Expressions with Powers & Brackets", defaultTitle: "Powers & Substitution Checksum" }
+      ]
+    };
+
+    // --- UNIFIED APPLICATION STATE ---
     const state = {
+      stream: "NUM",       // "NUM" (Number & Arithmetic) or "ALG" (Algebra)
       title: "Times Tables Checksum",
       rows: 5,
       cols: 5,
-      op: "M", // M, A, S, X
+      // Number & Arithmetic fields
+      op: "M",             // "M", "A", "S", "X"
       tables: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      rangeLevel: 2,
-      perPage: 4,
+      rangeLevel: 2,       // 1, 2, 3
+      // Algebra fields
+      algMode: "SYM",      // "SYM" (Collecting Like Terms) or "SUB" (Substitution)
+      subTopic: "LIN",     // "LIN", "TWO" | "LIN", "POW"
+      algLevel: 1,         // 1, 2
+      // Layout & Options
+      perPage: 4,          // 4 or 6 for NUM; locked to 2 for ALG
       showNugget: true,
       showName: true,
       showTip: true,
       seed: Math.floor(10000 + Math.random() * 89999),
+      contextBanner: "",
       grid: [],
       rowTotals: [],
       colTotals: [],
-      grandTotal: 0,
+      grandTotal: null,
       selectedRows: new Set(),
       selectedCols: new Set(),
       projectorStage: "work",
@@ -1601,6 +1975,14 @@
         answers: false
       }
     };
+
+    function isSymbolicMode() {
+      return state.stream === "ALG" && state.algMode === "SYM";
+    }
+
+    function nextSeed() {
+      state.seed = Math.floor(10000 + Math.random() * 89999);
+    }
 
     function mulberry32(seed) {
       let a = seed >>> 0;
@@ -1613,13 +1995,17 @@
       };
     }
 
+    // --- BACKWARDS-COMPATIBLE WORKSHEET ID ENCODING & DECODING ---
     function encodeWorksheetCode() {
-      let mask = 0;
-      state.tables.forEach(t => {
-        if (t >= 1 && t <= 12) mask |= (1 << (t - 1));
-      });
-      const maskHex = mask.toString(36);
-      return `${state.rows}x${state.cols}-${state.op}-${maskHex}-${state.rangeLevel}-${state.seed}`;
+      if (state.stream === "NUM") {
+        let mask = 0;
+        state.tables.forEach(t => {
+          if (t >= 1 && t <= 12) mask |= (1 << (t - 1));
+        });
+        const maskHex = mask.toString(36);
+        return `${state.rows}x${state.cols}-${state.op}-${maskHex}-${state.rangeLevel}-${state.seed}`;
+      }
+      return `${state.rows}x${state.cols}-${state.algMode}-${state.subTopic}-${state.algLevel}-${state.seed}`;
     }
 
     function decodeWorksheetCode(raw) {
@@ -1631,149 +2017,574 @@
       if (dims.length !== 2) return false;
       const r = parseInt(dims[0], 10);
       const c = parseInt(dims[1], 10);
-      const op = parts[1].toUpperCase();
-      const mask = parseInt(parts[2], 36);
+      const token = parts[1].toUpperCase();
 
-      let lvl = 2;
-      let seed = NaN;
-      if (parts.length >= 5) {
-        lvl = parseInt(parts[3], 10);
-        seed = parseInt(parts[4], 10);
-      } else {
-        seed = parseInt(parts[3], 10);
+      // Number & Arithmetic ID format: e.g. 5x5-M-ffe-2-48219
+      if (["M", "A", "S", "X"].includes(token)) {
+        if (![4, 5].includes(r) || ![4, 5].includes(c)) return false;
+        const mask = parseInt(parts[2], 36);
+        let lvl = 2;
+        let seed = NaN;
+        if (parts.length >= 5) {
+          lvl = parseInt(parts[3], 10);
+          seed = parseInt(parts[4], 10);
+        } else {
+          seed = parseInt(parts[3], 10);
+        }
+        if (isNaN(mask) || isNaN(lvl) || isNaN(seed)) return false;
+
+        const tables = [];
+        for (let i = 1; i <= 12; i++) {
+          if (mask & (1 << (i - 1))) tables.push(i);
+        }
+        if (tables.length === 0) tables.push(2, 3, 4, 5);
+
+        state.stream = "NUM";
+        state.rows = r;
+        state.cols = c;
+        state.op = token;
+        state.tables = tables;
+        state.rangeLevel = [1, 2, 3].includes(lvl) ? lvl : 2;
+        state.seed = seed;
+        if (![4, 6].includes(state.perPage)) state.perPage = 4;
+        state.title = NUM_DEFAULT_TITLES[token] || "Checksum Worksheet";
+        return true;
       }
 
-      if (![4, 5].includes(r) || ![4, 5].includes(c)) return false;
-      if (!["M", "A", "S", "X"].includes(op)) return false;
-      if (isNaN(mask) || isNaN(lvl) || isNaN(seed)) return false;
+      // Algebra ID format: e.g. 3x3-SYM-LIN-1-48219
+      if (ALG_TOPIC_CATALOG[token] && parts.length === 5) {
+        if (![3, 4].includes(r) || ![3, 4].includes(c)) return false;
+        const subTopic = parts[2].toUpperCase();
+        const lvl = parseInt(parts[3], 10);
+        const seed = parseInt(parts[4], 10);
 
-      const tables = [];
-      for (let i = 1; i <= 12; i++) {
-        if (mask & (1 << (i - 1))) tables.push(i);
+        if (!ALG_TOPIC_CATALOG[token].some(t => t.id === subTopic)) return false;
+        if (![1, 2].includes(lvl) || isNaN(seed)) return false;
+
+        state.stream = "ALG";
+        state.rows = r;
+        state.cols = c;
+        state.algMode = token;
+        state.subTopic = subTopic;
+        state.algLevel = lvl;
+        state.seed = seed;
+        state.perPage = 2;
+        const topicObj = ALG_TOPIC_CATALOG[token].find(t => t.id === subTopic);
+        state.title = topicObj ? topicObj.defaultTitle : "Algebra Checksum";
+        return true;
       }
-      if (tables.length === 0) tables.push(2, 3, 4, 5);
 
-      state.rows = r;
-      state.cols = c;
-      state.op = op;
-      state.tables = tables;
-      state.rangeLevel = [1, 2, 3].includes(lvl) ? lvl : 2;
-      state.seed = seed;
-      return true;
+      return false;
     }
 
-    // --- QUESTION GENERATION ---
+    // --- POLYNOMIAL & SYMBOLIC ALGEBRA HELPERS ---
+    function zeroPoly() {
+      return { x: 0, y: 0, c: 0 };
+    }
+
+    function addPoly(p1, p2) {
+      return {
+        x: p1.x + p2.x,
+        y: p1.y + p2.y,
+        c: p1.c + p2.c
+      };
+    }
+
+    function subPoly(p1, p2) {
+      return {
+        x: p1.x - p2.x,
+        y: p1.y - p2.y,
+        c: p1.c - p2.c
+      };
+    }
+
+    function equalPoly(p1, p2) {
+      return p1.x === p2.x && p1.y === p2.y && p1.c === p2.c;
+    }
+
+    function formatPoly(p) {
+      const terms = [
+        { coef: p.x, sym: "x" },
+        { coef: p.y, sym: "y" },
+        { coef: p.c, sym: "" }
+      ];
+
+      let out = "";
+      terms.forEach(t => {
+        if (t.coef === 0) return;
+        const absVal = Math.abs(t.coef);
+        const signStr = out === ""
+          ? (t.coef < 0 ? "−" : "")
+          : (t.coef < 0 ? " − " : " + ");
+        const numStr = (t.sym !== "" && absVal === 1) ? "" : String(absVal);
+        out += `${signStr}${numStr}${t.sym}`;
+      });
+
+      return out === "" ? "0" : out;
+    }
+
+    function parsePolyInput(raw) {
+      if (!raw) return null;
+      const normalized = raw
+        .replace(/−/g, "-")
+        .replace(/\s+/g, "")
+        .toLowerCase();
+      if (!normalized) return null;
+
+      const tokens = normalized.split(/(?=[+-])/);
+      const res = zeroPoly();
+
+      for (const tok of tokens) {
+        if (!tok) continue;
+        const m = tok.match(/^([+-]?)(\d*)(x|y)?$/);
+        if (!m) return null;
+        const sign = m[1] === "-" ? -1 : 1;
+        const digits = m[2];
+        const variable = m[3] || "";
+        if (!digits && !variable) return null;
+        const coef = digits === "" ? sign : sign * parseInt(digits, 10);
+
+        if (variable === "x") res.x += coef;
+        else if (variable === "y") res.y += coef;
+        else res.c += coef;
+      }
+      return res;
+    }
+
+    function fmtTerm(coef, variable = "") {
+      if (variable === "") return String(coef);
+      if (coef === 1) return variable;
+      if (coef === -1) return `−${variable}`;
+      return `${coef}${variable}`;
+    }
+
+    function fmtBinomial(coef1, var1, coef2, var2 = "") {
+      const first = fmtTerm(coef1, var1);
+      const abs2 = Math.abs(coef2);
+      const second = var2 === "" ? String(abs2) : (abs2 === 1 ? var2 : `${abs2}${var2}`);
+      return coef2 >= 0 ? `${first} + ${second}` : `${first} − ${second}`;
+    }
+
+    function fmtNum(n) {
+      return n < 0 ? `−${Math.abs(n)}` : `${n}`;
+    }
+
+    function formatChecksumValue(val) {
+      if (isSymbolicMode()) return formatPoly(val);
+      return fmtNum(val);
+    }
+
+    // --- UNIFIED QUESTION GENERATOR ---
     function generateGridData() {
       const rand = mulberry32(state.seed);
       const totalCells = state.rows * state.cols;
       const usedKeys = new Set();
-      const items = [];
+      let items = [];
+      state.contextBanner = "";
 
-      const activeTables = state.tables.length ? state.tables : [2, 3, 4, 5];
-
-      function makeQuestion() {
-        let op = state.op;
-        if (op === "X") {
-          const ops = ["M", "A", "S"];
-          op = ops[Math.floor(rand() * ops.length)];
+      function pickInt(min, max, excludeZero = false) {
+        let v = min + Math.floor(rand() * (max - min + 1));
+        if (excludeZero && v === 0) {
+          v = rand() > 0.5 ? 1 : -1;
         }
+        return v;
+      }
 
-        if (op === "M") {
-          const a = activeTables[Math.floor(rand() * activeTables.length)];
-          const b = 2 + Math.floor(rand() * 11); // 2..12
-          const flip = rand() > 0.5;
-          const left = flip ? a : b;
-          const right = flip ? b : a;
-          return { text: `${left} × ${right}`, answer: left * right, op: "M", a: left, b: right };
+      function seededShuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(rand() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
         }
+        return arr;
+      }
 
-        if (op === "A") {
-          if (state.rangeLevel === 1) {
-            const a = 1 + Math.floor(rand() * 9);
-            const b = 1 + Math.floor(rand() * (10 - a));
-            return { text: `${a} + ${b}`, answer: a + b, op: "A", a, b };
-          } else if (state.rangeLevel === 2) {
-            const a = 2 + Math.floor(rand() * 11);
+      if (state.stream === "NUM") {
+        // --- STREAM 1: NUMBER & ARITHMETIC ---
+        const activeTables = state.tables.length ? state.tables : [2, 3, 4, 5];
+
+        function makeNumQuestion() {
+          let op = state.op;
+          if (op === "X") {
+            const ops = ["M", "A", "S"];
+            op = ops[Math.floor(rand() * ops.length)];
+          }
+
+          if (op === "M") {
+            const a = activeTables[Math.floor(rand() * activeTables.length)];
             const b = 2 + Math.floor(rand() * 11);
-            return { text: `${a} + ${b}`, answer: a + b, op: "A", a, b };
+            const flip = rand() > 0.5;
+            const left = flip ? a : b;
+            const right = flip ? b : a;
+            const ans = left * right;
+            return {
+              key: `${left} × ${right}`,
+              promptText: `${left} × ${right}`,
+              answerDisplay: String(ans),
+              numVal: ans,
+              meta: { op: "M", a: left, b: right }
+            };
+          }
+
+          if (op === "A") {
+            let a, b;
+            if (state.rangeLevel === 1) {
+              a = 1 + Math.floor(rand() * 9);
+              b = 1 + Math.floor(rand() * (10 - a));
+            } else if (state.rangeLevel === 2) {
+              a = 2 + Math.floor(rand() * 11);
+              b = 2 + Math.floor(rand() * 11);
+            } else {
+              a = 10 + Math.floor(rand() * 35);
+              b = 2 + Math.floor(rand() * 15);
+            }
+            const ans = a + b;
+            return {
+              key: `${a} + ${b}`,
+              promptText: `${a} + ${b}`,
+              answerDisplay: String(ans),
+              numVal: ans,
+              meta: { op: "A", a, b }
+            };
+          }
+
+          // Subtraction
+          let a, b;
+          if (state.rangeLevel === 1) {
+            a = 3 + Math.floor(rand() * 8);
+            b = 1 + Math.floor(rand() * (a - 1));
+          } else if (state.rangeLevel === 2) {
+            a = 8 + Math.floor(rand() * 13);
+            b = 2 + Math.floor(rand() * (a - 2));
           } else {
-            const a = 10 + Math.floor(rand() * 35);
-            const b = 2 + Math.floor(rand() * 15);
-            return { text: `${a} + ${b}`, answer: a + b, op: "A", a, b };
+            a = 20 + Math.floor(rand() * 31);
+            b = 3 + Math.floor(rand() * 17);
+          }
+          const ans = a - b;
+          return {
+            key: `${a} − ${b}`,
+            promptText: `${a} − ${b}`,
+            answerDisplay: String(ans),
+            numVal: ans,
+            meta: { op: "S", a, b }
+          };
+        }
+
+        for (let i = 0; i < totalCells; i++) {
+          let q = makeNumQuestion();
+          let attempts = 0;
+          while (usedKeys.has(q.key) && attempts < 40) {
+            q = makeNumQuestion();
+            attempts++;
+          }
+          usedKeys.add(q.key);
+          items.push(q);
+        }
+        seededShuffle(items);
+      } else if (state.algMode === "SUB") {
+        // --- STREAM 2A: ALGEBRA SUBSTITUTION & EVALUATION ---
+        let subVars = { x: 3, y: 4, a: 2 };
+        if (state.algLevel === 1) {
+          const pool = seededShuffle([2, 3, 4, 5]);
+          subVars = { x: pool[0], y: pool[1], a: pool[2] };
+        } else {
+          const negPool = seededShuffle([-4, -3, -2]);
+          const posPool = seededShuffle([2, 3, 4]);
+          const xVal = negPool[0];
+          const yVal = posPool[0];
+          const aVal = rand() > 0.5 ? negPool[1] : posPool[1];
+          subVars = { x: xVal, y: yVal, a: aVal };
+        }
+        state.contextBanner = `Given: x = ${fmtNum(subVars.x)},  y = ${fmtNum(subVars.y)},  a = ${fmtNum(subVars.a)}`;
+
+        const { x, y, a } = subVars;
+        if (state.subTopic === "LIN") {
+          const pool = [
+            { t: "3x + 2y", v: 3 * x + 2 * y },
+            { t: "4y − x", v: 4 * y - x },
+            { t: "2x + 3a", v: 2 * x + 3 * a },
+            { t: "5a − 2y", v: 5 * a - 2 * y },
+            { t: "xy + a", v: x * y + a },
+            { t: "3(x + y)", v: 3 * (x + y) },
+            { t: "2y − 3x", v: 2 * y - 3 * x },
+            { t: "4x + y − a", v: 4 * x + y - a },
+            { t: "a(y − x)", v: a * (y - x) },
+            { t: "2x + 5y", v: 2 * x + 5 * y },
+            { t: "3a − x + y", v: 3 * a - x + y },
+            { t: "2(y − a) + x", v: 2 * (y - a) + x },
+            { t: "6x − y", v: 6 * x - y },
+            { t: "4a + 2x", v: 4 * a + 2 * x },
+            { t: "3y − 2a", v: 3 * y - 2 * a },
+            { t: "x + 4y − 2a", v: x + 4 * y - 2 * a },
+            { t: "5x + 3y", v: 5 * x + 3 * y },
+            { t: "2a(x + y)", v: 2 * a * (x + y) },
+            { t: "7a − 3x", v: 7 * a - 3 * x },
+            { t: "4(x + a) − y", v: 4 * (x + a) - y },
+            { t: "2xy − a", v: 2 * x * y - a },
+            { t: "3(2y − x)", v: 3 * (2 * y - x) },
+            { t: "5y + 2x − a", v: 5 * y + 2 * x - a },
+            { t: "8a − 2x", v: 8 * a - 2 * x }
+          ];
+          items = seededShuffle(pool).slice(0, totalCells).map(p => ({
+            key: p.t,
+            promptText: p.t,
+            answerDisplay: fmtNum(p.v),
+            numVal: p.v,
+            slips: []
+          }));
+        } else {
+          const pool = [
+            { t: "x² − 2y", v: x * x - 2 * y, slipVal: -x * x - 2 * y, slipNote: `Evaluated (${fmtNum(x)})² as −${x * x} instead of +${x * x}` },
+            { t: "2x² + a", v: 2 * x * x + a, slipVal: -2 * x * x + a, slipNote: `Evaluated 2(${fmtNum(x)})² as −${2 * x * x} instead of +${2 * x * x}` },
+            { t: "y² − 3x", v: y * y - 3 * x, slipVal: null, slipNote: "" },
+            { t: "(x + y)²", v: (x + y) * (x + y), slipVal: null, slipNote: "" },
+            { t: "x² + y²", v: x * x + y * y, slipVal: -x * x + y * y, slipNote: `Evaluated (${fmtNum(x)})² as −${x * x} instead of +${x * x}` },
+            { t: "3x² − ay", v: 3 * x * x - a * y, slipVal: -3 * x * x - a * y, slipNote: `Evaluated 3(${fmtNum(x)})² as −${3 * x * x} instead of +${3 * x * x}` },
+            { t: "(y − x)² − a", v: (y - x) * (y - x) - a, slipVal: null, slipNote: "" },
+            { t: "a² − 2x", v: a * a - 2 * x, slipVal: a < 0 ? -a * a - 2 * x : null, slipNote: a < 0 ? `Evaluated (${fmtNum(a)})² as −${a * a} instead of +${a * a}` : "" },
+            { t: "2(x² − y)", v: 2 * (x * x - y), slipVal: 2 * (-x * x - y), slipNote: `Evaluated (${fmtNum(x)})² as −${x * x} instead of +${x * x}` },
+            { t: "xy − x²", v: x * y - x * x, slipVal: x * y + x * x, slipNote: `Sign error on −x² when x = ${fmtNum(x)}` },
+            { t: "4a² − y", v: 4 * a * a - y, slipVal: a < 0 ? -4 * a * a - y : null, slipNote: a < 0 ? `Evaluated 4(${fmtNum(a)})² as −${4 * a * a} instead of +${4 * a * a}` : "" },
+            { t: "(x − a)²", v: (x - a) * (x - a), slipVal: null, slipNote: "" },
+            { t: "x² + 3xy", v: x * x + 3 * x * y, slipVal: -x * x + 3 * x * y, slipNote: `Evaluated (${fmtNum(x)})² as −${x * x} instead of +${x * x}` },
+            { t: "2y² − x²", v: 2 * y * y - x * x, slipVal: 2 * y * y + x * x, slipNote: `Sign error on −x² when x = ${fmtNum(x)}` },
+            { t: "5x − y²", v: 5 * x - y * y, slipVal: null, slipNote: "" },
+            { t: "a(x² + y)", v: a * (x * x + y), slipVal: a * (-x * x + y), slipNote: `Evaluated (${fmtNum(x)})² as −${x * x} instead of +${x * x}` },
+            { t: "(2x + y)²", v: (2 * x + y) * (2 * x + y), slipVal: null, slipNote: "" },
+            { t: "x² − a² + y", v: x * x - a * a + y, slipVal: null, slipNote: "" },
+            { t: "4x² − 3y", v: 4 * x * x - 3 * y, slipVal: -4 * x * x - 3 * y, slipNote: `Evaluated 4(${fmtNum(x)})² as −${4 * x * x} instead of +${4 * x * x}` },
+            { t: "3(x² + a) − y", v: 3 * (x * x + a) - y, slipVal: 3 * (-x * x + a) - y, slipNote: `Evaluated (${fmtNum(x)})² as −${x * x} instead of +${x * x}` }
+          ];
+          items = seededShuffle(pool).slice(0, totalCells).map(pick => {
+            const slips = (x < 0 && pick.slipVal !== null && pick.slipVal !== pick.v)
+              ? [{ wrongVal: pick.slipVal, note: pick.slipNote }]
+              : [];
+            return {
+              key: pick.t,
+              promptText: pick.t,
+              answerDisplay: fmtNum(pick.v),
+              numVal: pick.v,
+              slips
+            };
+          });
+        }
+      } else {
+        // --- STREAM 2B: ALGEBRA COLLECTING LIKE TERMS ---
+        function makeSymQuestion() {
+          if (state.subTopic === "LIN") {
+            if (state.algLevel === 1) {
+              const m = pickInt(2, 5);
+              const a = pickInt(1, 3);
+              const b = pickInt(-6, 6, true);
+              const d = pickInt(-5, 7, true);
+              const bracket = `(${fmtBinomial(a, "x", b)})`;
+              const pattern = Math.floor(rand() * 3);
+
+              if (pattern === 0) {
+                const dTerm = d > 0 ? `+ ${fmtTerm(d, "x")}` : `− ${fmtTerm(Math.abs(d), "x")}`;
+                const qText = `${m}${bracket} ${dTerm}`;
+                const poly = { x: m * a + d, y: 0, c: m * b };
+                const slips = [
+                  { wrongPoly: { x: m * a + d, y: 0, c: b }, note: `Forgot to multiply ${fmtNum(b)} by ${m} inside the bracket` }
+                ];
+                return { key: qText, promptText: qText, answerDisplay: formatPoly(poly), poly, slips };
+              } else if (pattern === 1) {
+                const lead = pickInt(2, 8);
+                const qText = `${lead}x + ${m}${bracket}`;
+                const poly = { x: lead + m * a, y: 0, c: m * b };
+                const slips = [
+                  { wrongPoly: { x: lead + m * a, y: 0, c: b }, note: `Forgot to multiply ${fmtNum(b)} by ${m} inside the bracket` }
+                ];
+                return { key: qText, promptText: qText, answerDisplay: formatPoly(poly), poly, slips };
+              } else {
+                const k = pickInt(-6, 8, true);
+                const kTerm = k > 0 ? `+ ${k}` : `− ${Math.abs(k)}`;
+                const qText = `${m}${bracket} ${kTerm}`;
+                const poly = { x: m * a, y: 0, c: m * b + k };
+                const slips = [
+                  { wrongPoly: { x: m * a, y: 0, c: b + k }, note: `Forgot to multiply ${fmtNum(b)} by ${m} inside the bracket` }
+                ];
+                return { key: qText, promptText: qText, answerDisplay: formatPoly(poly), poly, slips };
+              }
+            } else {
+              const m = pickInt(2, 5);
+              const a = pickInt(1, 3);
+              const b = pickInt(-5, -1);
+              const bracket = `(${fmtBinomial(a, "x", b)})`;
+              const pattern = Math.floor(rand() * 3);
+
+              if (pattern === 0) {
+                const lead = pickInt(3, 9);
+                const qText = `${lead}x − ${m}${bracket}`;
+                const poly = { x: lead - m * a, y: 0, c: -m * b };
+                const slips = [
+                  {
+                    wrongPoly: { x: lead - m * a, y: 0, c: m * b },
+                    note: `Sign slip: −${m}(${fmtNum(b)}) written as −${m * Math.abs(b)} instead of +${m * Math.abs(b)}`
+                  }
+                ];
+                return { key: qText, promptText: qText, answerDisplay: formatPoly(poly), poly, slips };
+              } else if (pattern === 1) {
+                const tail = pickInt(4, 9);
+                const qText = `−${m}${bracket} + ${tail}x`;
+                const poly = { x: -m * a + tail, y: 0, c: -m * b };
+                const slips = [
+                  {
+                    wrongPoly: { x: -m * a + tail, y: 0, c: m * b },
+                    note: `Sign slip: −${m}(${fmtNum(b)}) written as −${m * Math.abs(b)} instead of +${m * Math.abs(b)}`
+                  }
+                ];
+                return { key: qText, promptText: qText, answerDisplay: formatPoly(poly), poly, slips };
+              } else {
+                const lead = pickInt(2, 10);
+                const qText = `${lead} − ${m}${bracket}`;
+                const poly = { x: -m * a, y: 0, c: lead - m * b };
+                const slips = [
+                  {
+                    wrongPoly: { x: -m * a, y: 0, c: lead + m * b },
+                    note: `Sign slip: −${m}(${fmtNum(b)}) written as −${m * Math.abs(b)} instead of +${m * Math.abs(b)}`
+                  }
+                ];
+                return { key: qText, promptText: qText, answerDisplay: formatPoly(poly), poly, slips };
+              }
+            }
+          } else {
+            if (state.algLevel === 1) {
+              const m = pickInt(2, 4);
+              const xCoef = pickInt(1, 3);
+              const yCoef = pickInt(-4, 5, true);
+              const bracket = `(${fmtBinomial(xCoef, "x", yCoef, "y")})`;
+
+              if (rand() > 0.5) {
+                const extraX = pickInt(1, 6);
+                const qText = `${m}${bracket} + ${fmtTerm(extraX, "x")}`;
+                const poly = { x: m * xCoef + extraX, y: m * yCoef, c: 0 };
+                return { key: qText, promptText: qText, answerDisplay: formatPoly(poly), poly, slips: [] };
+              } else {
+                const extraY = pickInt(1, 6);
+                const qText = `${fmtTerm(extraY, "y")} + ${m}${bracket}`;
+                const poly = { x: m * xCoef, y: extraY + m * yCoef, c: 0 };
+                return { key: qText, promptText: qText, answerDisplay: formatPoly(poly), poly, slips: [] };
+              }
+            } else {
+              const m = pickInt(2, 4);
+              const xCoef = pickInt(1, 3);
+              const yCoef = pickInt(-4, -1);
+              const bracket = `(${fmtBinomial(xCoef, "x", yCoef, "y")})`;
+
+              if (rand() > 0.5) {
+                const leadX = pickInt(4, 9);
+                const qText = `${leadX}x − ${m}${bracket}`;
+                const poly = { x: leadX - m * xCoef, y: -m * yCoef, c: 0 };
+                const slips = [
+                  {
+                    wrongPoly: { x: leadX - m * xCoef, y: m * yCoef, c: 0 },
+                    note: `Sign slip: −${m}(${fmtNum(yCoef)}y) written as −${m * Math.abs(yCoef)}y instead of +${m * Math.abs(yCoef)}y`
+                  }
+                ];
+                return { key: qText, promptText: qText, answerDisplay: formatPoly(poly), poly, slips };
+              } else {
+                const leadY = pickInt(2, 7);
+                const qText = `${leadY}y − ${m}${bracket}`;
+                const poly = { x: -m * xCoef, y: leadY - m * yCoef, c: 0 };
+                const slips = [
+                  {
+                    wrongPoly: { x: -m * xCoef, y: leadY + m * yCoef, c: 0 },
+                    note: `Sign slip: −${m}(${fmtNum(yCoef)}y) written as −${m * Math.abs(yCoef)}y instead of +${m * Math.abs(yCoef)}y`
+                  }
+                ];
+                return { key: qText, promptText: qText, answerDisplay: formatPoly(poly), poly, slips };
+              }
+            }
           }
         }
 
-        // Subtraction
-        if (state.rangeLevel === 1) {
-          const a = 3 + Math.floor(rand() * 8);
-          const b = 1 + Math.floor(rand() * (a - 1));
-          return { text: `${a} − ${b}`, answer: a - b, op: "S", a, b };
-        } else if (state.rangeLevel === 2) {
-          const a = 8 + Math.floor(rand() * 13);
-          const b = 2 + Math.floor(rand() * (a - 2));
-          return { text: `${a} − ${b}`, answer: a - b, op: "S", a, b };
-        } else {
-          const a = 20 + Math.floor(rand() * 31);
-          const b = 3 + Math.floor(rand() * 17);
-          return { text: `${a} − ${b}`, answer: a - b, op: "S", a, b };
+        for (let i = 0; i < totalCells; i++) {
+          let q = makeSymQuestion();
+          let attempts = 0;
+          while (usedKeys.has(q.key) && attempts < 50) {
+            q = makeSymQuestion();
+            attempts++;
+          }
+          usedKeys.add(q.key);
+          items.push(q);
         }
+        seededShuffle(items);
       }
 
-      for (let i = 0; i < totalCells; i++) {
-        let q = makeQuestion();
-        let attempts = 0;
-        while (usedKeys.has(q.text) && attempts < 40) {
-          q = makeQuestion();
-          attempts++;
-        }
-        usedKeys.add(q.text);
-        items.push(q);
-      }
-
-      // Shuffle items using Fisher-Yates
-      for (let i = items.length - 1; i > 0; i--) {
-        const j = Math.floor(rand() * (i + 1));
-        [items[i], items[j]] = [items[j], items[i]];
-      }
-
+      // Compute Row, Column, and Grand Totals
       state.grid = [];
-      state.rowTotals = new Array(state.rows).fill(0);
-      state.colTotals = new Array(state.cols).fill(0);
-      state.grandTotal = 0;
+      if (isSymbolicMode()) {
+        state.rowTotals = Array.from({ length: state.rows }, () => zeroPoly());
+        state.colTotals = Array.from({ length: state.cols }, () => zeroPoly());
+        state.grandTotal = zeroPoly();
 
-      let idx = 0;
-      for (let r = 0; r < state.rows; r++) {
-        const rowArr = [];
-        for (let c = 0; c < state.cols; c++) {
-          const cell = items[idx++];
-          rowArr.push(cell);
-          state.rowTotals[r] += cell.answer;
-          state.colTotals[c] += cell.answer;
-          state.grandTotal += cell.answer;
+        let idx = 0;
+        for (let r = 0; r < state.rows; r++) {
+          const rowArr = [];
+          for (let c = 0; c < state.cols; c++) {
+            const cell = items[idx++];
+            rowArr.push(cell);
+            state.rowTotals[r] = addPoly(state.rowTotals[r], cell.poly);
+            state.colTotals[c] = addPoly(state.colTotals[c], cell.poly);
+            state.grandTotal = addPoly(state.grandTotal, cell.poly);
+          }
+          state.grid.push(rowArr);
         }
-        state.grid.push(rowArr);
+      } else {
+        state.rowTotals = new Array(state.rows).fill(0);
+        state.colTotals = new Array(state.cols).fill(0);
+        state.grandTotal = 0;
+
+        let idx = 0;
+        for (let r = 0; r < state.rows; r++) {
+          const rowArr = [];
+          for (let c = 0; c < state.cols; c++) {
+            const cell = items[idx++];
+            rowArr.push(cell);
+            state.rowTotals[r] += cell.numVal;
+            state.colTotals[c] += cell.numVal;
+            state.grandTotal += cell.numVal;
+          }
+          state.grid.push(rowArr);
+        }
       }
 
       state.selectedRows.forEach(r => { if (r >= state.rows) state.selectedRows.delete(r); });
       state.selectedCols.forEach(c => { if (c >= state.cols) state.selectedCols.delete(c); });
     }
 
-    // --- HTML CARD BUILDER ---
+    function escapeHTML(str) {
+      return String(str).replace(/[&<>"']/g, m => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[m]));
+    }
+
+    // --- HTML WORKSHEET CARD BUILDER ---
     function buildWorksheetCardHTML(showAnswers, extraTableClass = "", interactiveKey = false) {
       const code = encodeWorksheetCode();
+      const streamClass = state.stream === "ALG" ? "alg-table" : "num-table";
+      const dimClass = `rows-${state.rows} cols-${state.cols}`;
       let rowsHTML = "";
 
       for (let r = 0; r < state.rows; r++) {
+        if (!state.grid[r]) continue;
         let cellsHTML = "";
         for (let c = 0; c < state.cols; c++) {
           const item = state.grid[r][c];
+          if (!item) continue;
           cellsHTML += `
             <td data-r="${r}" data-c="${c}">
-              <span class="ws-q">${item.text}</span>
-              ${showAnswers ? `<span class="ws-ans">${item.answer}</span>` : ""}
+              <span class="ws-q">${escapeHTML(item.promptText)}</span>
+              ${showAnswers ? `<span class="ws-ans">${escapeHTML(item.answerDisplay)}</span>` : ""}
             </td>
           `;
         }
+
+        const rowSumStr = formatChecksumValue(state.rowTotals[r]);
         const rowSelectedClass = (interactiveKey && state.selectedRows.has(r)) ? " sum-selected" : "";
         const rowClickableClass = interactiveKey ? " clickable-sum" : "";
         const rowAttr = interactiveKey ? ` data-sum-row="${r}" title="Click to highlight Row ${r + 1}"` : "";
@@ -1781,7 +2592,7 @@
         cellsHTML += `
           <td class="sum-cell${rowClickableClass}${rowSelectedClass}"${rowAttr}>
             <span class="sum-tag">Row ${r + 1}</span>
-            ${showAnswers ? `<span class="sum-val">${state.rowTotals[r]}</span>` : ""}
+            ${showAnswers ? `<span class="sum-val">${escapeHTML(rowSumStr)}</span>` : ""}
           </td>
         `;
         rowsHTML += `<tr>${cellsHTML}</tr>`;
@@ -1790,6 +2601,7 @@
       // Bottom Column Totals + Grand Total Row
       let bottomCells = "";
       for (let c = 0; c < state.cols; c++) {
+        const colSumStr = formatChecksumValue(state.colTotals[c]);
         const colSelectedClass = (interactiveKey && state.selectedCols.has(c)) ? " sum-selected" : "";
         const colClickableClass = interactiveKey ? " clickable-sum" : "";
         const colAttr = interactiveKey ? ` data-sum-col="${c}" title="Click to highlight Column ${c + 1}"` : "";
@@ -1797,14 +2609,16 @@
         bottomCells += `
           <td class="${colClickableClass}${colSelectedClass}"${colAttr}>
             <span class="sum-tag">Col ${c + 1}</span>
-            ${showAnswers ? `<span class="sum-val">${state.colTotals[c]}</span>` : ""}
+            ${showAnswers ? `<span class="sum-val">${escapeHTML(colSumStr)}</span>` : ""}
           </td>
         `;
       }
+
+      const grandStr = formatChecksumValue(state.grandTotal);
       bottomCells += `
         <td class="grand-cell">
           <span class="sum-tag">Grand Total</span>
-          ${showAnswers ? `<span class="sum-val">${state.grandTotal}</span>` : ""}
+          ${showAnswers ? `<span class="sum-val">${escapeHTML(grandStr)}</span>` : ""}
         </td>
       `;
       rowsHTML += `<tr class="sum-row">${bottomCells}</tr>`;
@@ -1813,16 +2627,42 @@
         ? `<span class="ws-name">${showAnswers ? "ANSWER KEY" : "Name: ______________"}</span>`
         : (showAnswers ? `<span class="ws-name">ANSWER KEY</span>` : "");
 
-      const nuggetBannerHTML = (!showAnswers && state.showNugget)
-        ? `
-          <div class="ws-nugget-banner">
-            <img class="ws-nugget-img nugget-sync-img" alt="Nugget" />
+      let instructionPhrase = "Solve each box, add across rows and down columns, then check your Grand Total!";
+      if (state.stream === "ALG") {
+        instructionPhrase = state.algMode === "SYM"
+          ? `Expand &amp; simplify each box, collect like terms across rows &amp; columns, and match your algebraic <strong>Grand Total</strong>!`
+          : `<span class="ws-context-pill">${escapeHTML(state.contextBanner)}</span> — Substitute &amp; evaluate each box, then sum rows &amp; columns!`;
+      }
+
+      let topBannerHTML = "";
+      if (!showAnswers) {
+        if (state.showNugget) {
+          topBannerHTML = `
+            <div class="ws-nugget-banner">
+              <img class="ws-nugget-img nugget-sync-img" alt="Nugget" />
+              <div class="ws-nugget-speech">
+                <strong>Kia ora! Ko Nugget tōku ingoa.</strong> ${instructionPhrase}
+              </div>
+            </div>
+          `;
+        } else if (state.contextBanner) {
+          topBannerHTML = `
+            <div class="ws-nugget-banner senior-banner">
+              <div class="ws-nugget-speech">
+                <strong>Instructions:</strong> ${instructionPhrase}
+              </div>
+            </div>
+          `;
+        }
+      } else if (state.contextBanner) {
+        topBannerHTML = `
+          <div class="ws-nugget-banner senior-banner">
             <div class="ws-nugget-speech">
-              <strong>Kia ora! Ko Nugget tōku ingoa.</strong> Solve each box, add across rows and down columns, then check your Grand Total!
+              <strong>Key Values:</strong> <span class="ws-context-pill">${escapeHTML(state.contextBanner)}</span>
             </div>
           </div>
-        `
-        : "";
+        `;
+      }
 
       const footerTip = state.showTip
         ? `<span>Check: Sum of Rows = Sum of Columns = Grand Total</span>`
@@ -1835,8 +2675,8 @@
               <span class="ws-title">${escapeHTML(state.title)}</span>
               ${nameHTML}
             </div>
-            ${nuggetBannerHTML}
-            <table class="ws-table ${extraTableClass}">
+            ${topBannerHTML}
+            <table class="ws-table ${streamClass} ${dimClass} ${extraTableClass}">
               <tbody>${rowsHTML}</tbody>
             </table>
           </div>
@@ -1848,24 +2688,157 @@
       `;
     }
 
-    function escapeHTML(str) {
-      return str.replace(/[&<>"']/g, m => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-      }[m]));
+    // --- SYNCHRONIZE SIDEBAR UI CONTROLS WITH STATE ---
+    function renderGridDimensionPills() {
+      const container = document.getElementById("gridSizePills");
+      const options = STREAM_GRID_OPTIONS[state.stream];
+      const currentSize = `${state.rows}x${state.cols}`;
+
+      container.innerHTML = options.map(opt => `
+        <button type="button" class="pill-option${opt.size === currentSize ? " selected" : ""}" data-size="${opt.size}">
+          <span>${opt.label}</span>
+          <small>${opt.sub}</small>
+        </button>
+      `).join("");
+
+      container.querySelectorAll(".pill-option").forEach(pill => {
+        pill.addEventListener("click", () => {
+          const [r, c] = pill.dataset.size.split("x").map(Number);
+          state.rows = r;
+          state.cols = c;
+          state.selectedRows.clear();
+          state.selectedCols.clear();
+          resetReveals(false);
+          generateGridData();
+          syncAllControlsUI();
+          renderAll();
+        });
+      });
+    }
+
+    function renderPerPagePills() {
+      const container = document.getElementById("perPagePills");
+      const options = STREAM_PER_PAGE_OPTIONS[state.stream];
+
+      // Enforce valid perPage for the active stream
+      if (!options.some(o => o.per === state.perPage)) {
+        state.perPage = options[0].per;
+      }
+
+      container.className = options.length === 1 ? "radio-pills one-col" : "radio-pills two-col";
+      container.innerHTML = options.map(opt => `
+        <button type="button" class="pill-option${opt.per === state.perPage ? " selected" : ""}" data-per="${opt.per}">
+          <span>${opt.label}</span>
+          <small>${opt.sub}</small>
+        </button>
+      `).join("");
+
+      container.querySelectorAll(".pill-option").forEach(pill => {
+        pill.addEventListener("click", () => {
+          state.perPage = parseInt(pill.dataset.per, 10);
+          syncAllControlsUI();
+          renderAll();
+        });
+      });
+    }
+
+    function populateAlgSubTopics(updateTitle = false) {
+      const select = document.getElementById("subTopicSelect");
+      const list = ALG_TOPIC_CATALOG[state.algMode];
+      select.innerHTML = list.map(t => `<option value="${t.id}">${t.label}</option>`).join("");
+      if (!list.some(t => t.id === state.subTopic)) {
+        state.subTopic = list[0].id;
+      }
+      select.value = state.subTopic;
+
+      if (updateTitle) {
+        const currentTopic = list.find(t => t.id === state.subTopic);
+        if (currentTopic) {
+          state.title = currentTopic.defaultTitle;
+        }
+      }
+    }
+
+    function syncAllControlsUI() {
+      // Stream buttons & topbar badge
+      document.querySelectorAll(".stream-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.stream === state.stream);
+      });
+      const topBadge = document.getElementById("topbarStreamBadge");
+      if (state.stream === "NUM") {
+        topBadge.textContent = "Number & Arithmetic";
+        topBadge.classList.remove("alg-mode");
+      } else {
+        topBadge.textContent = "Algebra • Senior";
+        topBadge.classList.add("alg-mode");
+      }
+
+      // Show/Hide stream-specific sections
+      document.getElementById("numControlsSection").style.display = state.stream === "NUM" ? "block" : "none";
+      document.getElementById("algControlsSection").style.display = state.stream === "ALG" ? "block" : "none";
+
+      // Title input
+      document.getElementById("wsTitleInput").value = state.title;
+
+      // Number controls
+      document.querySelectorAll("#opTypePills .pill-option").forEach(p => {
+        p.classList.toggle("selected", p.dataset.op === state.op);
+      });
+      document.getElementById("multOptionsBox").style.display = state.op === "M" ? "block" : "none";
+      document.getElementById("arithOptionsBox").style.display = state.op !== "M" ? "block" : "none";
+      document.getElementById("numberRangeSelect").value = String(state.rangeLevel);
+      syncTableChipsUI();
+
+      // Algebra controls
+      document.querySelectorAll("#checksumModelStack .model-card").forEach(c => {
+        c.classList.toggle("selected", c.dataset.mode === state.algMode);
+      });
+      populateAlgSubTopics(false);
+      document.querySelectorAll("#difficultyPills .pill-option").forEach(p => {
+        p.classList.toggle("selected", parseInt(p.dataset.lvl, 10) === state.algLevel);
+      });
+
+      // Grid dimensions & Stream-specific A4 print layout pills
+      renderGridDimensionPills();
+      renderPerPagePills();
     }
 
     // --- RENDER ALL VIEWS ---
     function renderAll() {
       const code = encodeWorksheetCode();
+      const grandStr = formatChecksumValue(state.grandTotal);
       document.getElementById("worksheetCodeInput").value = code;
       document.getElementById("keyWorksheetCodeInput").value = code;
       document.getElementById("previewSummaryBadge").textContent =
-        `${state.rows}×${state.cols} Grid • Grand Total: ${state.grandTotal}`;
+        `${state.rows}×${state.cols} Grid • Grand Total: ${grandStr}`;
       document.getElementById("printCountLabel").textContent = state.perPage;
+
+      // Adapt preview pane layout (wide stacked cards for Algebra 2-per-A4, side-by-side for Number 4/6-per-A4)
+      const previewWrap = document.getElementById("previewLayoutWrap");
+      const studentHint = document.getElementById("studentPreviewHint");
+      if (state.stream === "ALG") {
+        previewWrap.className = "preview-stack";
+        studentHint.textContent = "Prints 2 per A4 (Large Working Space)";
+      } else {
+        previewWrap.className = "preview-split";
+        studentHint.textContent = `Prints ${state.perPage} per A4`;
+      }
+
+      // Update difficulty hints & diagnostics placeholder
+      const diagInput = document.getElementById("studentGrandInput");
+      if (state.stream === "ALG") {
+        if (state.algMode === "SYM") {
+          document.getElementById("lvl1Hint").textContent = "Positive brackets";
+          document.getElementById("lvl2Hint").textContent = "Negative brackets";
+          diagInput.placeholder = "e.g. 14x - 6 or 8x + 5y";
+        } else {
+          document.getElementById("lvl1Hint").textContent = "Positive values";
+          document.getElementById("lvl2Hint").textContent = "Includes negatives";
+          diagInput.placeholder = "e.g. 42 or -15";
+        }
+      } else {
+        diagInput.placeholder = "e.g. 1004";
+      }
 
       // Live Previews
       document.getElementById("studentPreviewSlot").innerHTML = buildWorksheetCardHTML(false);
@@ -1874,35 +2847,40 @@
       // Full Interactive Teacher Answer Key
       renderInteractiveAnswerKey();
 
-      // Projector Header & Grid
+      // Projector Header, Context & Grid
       document.getElementById("projHeaderTitle").textContent = state.title;
       document.getElementById("projHeaderMeta").textContent =
         `${state.rows} × ${state.cols} Grid • Worksheet ID: ${code}`;
+
+      const ctxWrap = document.getElementById("projContextWrap");
+      const ctxText = document.getElementById("projContextText");
+      if (state.contextBanner) {
+        ctxWrap.style.display = "block";
+        ctxText.textContent = state.contextBanner;
+      } else {
+        ctxWrap.style.display = "none";
+      }
+
+      renderProjectorInstructions();
       renderProjectorGrid();
       syncAllNuggetImages();
     }
 
-    // --- INTERACTIVE ANSWER KEY & SMART ERROR DIAGNOSIS ---
+    // --- INTERACTIVE ANSWER KEY & SMART ERROR DIAGNOSTICS ---
     function renderInteractiveAnswerKey() {
       document.getElementById("fullKeySlot").innerHTML = buildWorksheetCardHTML(true, "key-table-large", true);
       runDiagnosis();
     }
 
     function toggleRowSelection(r) {
-      if (state.selectedRows.has(r)) {
-        state.selectedRows.delete(r);
-      } else {
-        state.selectedRows.add(r);
-      }
+      if (state.selectedRows.has(r)) state.selectedRows.delete(r);
+      else state.selectedRows.add(r);
       renderInteractiveAnswerKey();
     }
 
     function toggleColSelection(c) {
-      if (state.selectedCols.has(c)) {
-        state.selectedCols.delete(c);
-      } else {
-        state.selectedCols.add(c);
-      }
+      if (state.selectedCols.has(c)) state.selectedCols.delete(c);
+      else state.selectedCols.add(c);
       renderInteractiveAnswerKey();
     }
 
@@ -1914,7 +2892,7 @@
       renderInteractiveAnswerKey();
     }
 
-    function analyzeSingleCellSuspects(diff) {
+    function analyzeArithmeticSuspects(diff) {
       const hasRowFilter = state.selectedRows.size > 0;
       const hasColFilter = state.selectedCols.size > 0;
       const suspects = [];
@@ -1925,15 +2903,15 @@
           if (hasColFilter && !state.selectedCols.has(c)) continue;
 
           const cell = state.grid[r][c];
-          const ans = cell.answer;
+          const ans = cell.numVal;
           const studentWrote = ans + diff;
           if (studentWrote < 0) continue;
 
           let priority = 1;
           let reason = `If student wrote <strong>${studentWrote}</strong> instead of <strong>${ans}</strong>`;
 
-          if (cell.op === "M") {
-            const { a, b } = cell;
+          if (cell.meta && cell.meta.op === "M") {
+            const { a, b } = cell.meta;
             if (diff % a === 0 && Math.abs(diff / a) <= 3) {
               const otherFactor = b + diff / a;
               if (otherFactor >= 0) {
@@ -1978,6 +2956,7 @@
       const rawGrand = document.getElementById("studentGrandInput").value.trim();
       const out = document.getElementById("diagOutput");
       const badge = document.getElementById("keyActiveSelectionBadge");
+      const trueGrandStr = formatChecksumValue(state.grandTotal);
 
       document.querySelectorAll("#fullKeySlot td[data-r]").forEach(td => {
         td.classList.remove("highlight-suspect", "highlight-band");
@@ -1993,11 +2972,8 @@
         const inCol = state.selectedCols.has(c);
 
         if (hasRows && hasCols) {
-          if (inRow && inCol) {
-            td.classList.add("highlight-suspect");
-          } else if (inRow || inCol) {
-            td.classList.add("highlight-band");
-          }
+          if (inRow && inCol) td.classList.add("highlight-suspect");
+          else if (inRow || inCol) td.classList.add("highlight-band");
         } else if (hasRows && inRow) {
           td.classList.add("highlight-suspect");
         } else if (hasCols && inCol) {
@@ -2011,18 +2987,35 @@
       badge.textContent = selParts.length ? `Selected: ${selParts.join(", ")}` : "";
 
       let htmlParts = [];
+      let symDiff = null;
+      let numDiff = null;
 
-      let diff = null;
       if (rawGrand !== "") {
-        const sGrand = parseInt(rawGrand, 10);
-        if (!isNaN(sGrand)) {
-          diff = sGrand - state.grandTotal;
-          if (diff === 0) {
-            htmlParts.push(`<div><strong>Exact match!</strong> Grand Total (${sGrand}) matches the key (${state.grandTotal}).</div>`);
+        if (isSymbolicMode()) {
+          const parsedStudent = parsePolyInput(rawGrand);
+          if (!parsedStudent) {
+            htmlParts.push(`<div style="color:var(--danger);">Could not parse expression. Try format like <strong>14x - 6</strong> or <strong>8x + 5y</strong>.</div>`);
+          } else if (equalPoly(parsedStudent, state.grandTotal)) {
+            htmlParts.push(`<div><strong>Exact algebraic match!</strong> Student's Grand Total (<strong>${formatPoly(parsedStudent)}</strong>) matches the key.</div>`);
           } else {
-            const absDiff = Math.abs(diff);
-            const direction = diff > 0 ? `${absDiff} too big (+${absDiff})` : `${absDiff} too small (−${absDiff})`;
-            htmlParts.push(`<div>Student's Grand Total (${sGrand}) is <strong>${direction}</strong> vs true total <strong>${state.grandTotal}</strong>.</div>`);
+            symDiff = subPoly(parsedStudent, state.grandTotal);
+            const termNotes = [];
+            if (symDiff.x !== 0) termNotes.push(`<strong>x-term</strong> is off by <strong>${fmtNum(symDiff.x)}x</strong>`);
+            if (symDiff.y !== 0) termNotes.push(`<strong>y-term</strong> is off by <strong>${fmtNum(symDiff.y)}y</strong>`);
+            if (symDiff.c !== 0) termNotes.push(`<strong>constant</strong> is off by <strong>${fmtNum(symDiff.c)}</strong>`);
+            htmlParts.push(`<div>Student wrote <strong>${formatPoly(parsedStudent)}</strong> vs true <strong>${trueGrandStr}</strong>:<br>• ${termNotes.join("<br>• ")}</div>`);
+          }
+        } else {
+          const sGrand = parseInt(rawGrand.replace(/−/g, "-"), 10);
+          if (!isNaN(sGrand)) {
+            numDiff = sGrand - state.grandTotal;
+            if (numDiff === 0) {
+              htmlParts.push(`<div><strong>Exact match!</strong> Grand Total (${fmtNum(sGrand)}) matches the key (${trueGrandStr}).</div>`);
+            } else {
+              const absDiff = Math.abs(numDiff);
+              const direction = numDiff > 0 ? `+${absDiff} too big` : `−${absDiff} too small`;
+              htmlParts.push(`<div>Student's Grand Total (${fmtNum(sGrand)}) is <strong>${direction}</strong> vs true total <strong>${trueGrandStr}</strong>.</div>`);
+            }
           }
         }
       }
@@ -2031,33 +3024,102 @@
         const targets = [];
         state.selectedRows.forEach(r => {
           state.selectedCols.forEach(c => {
+            if (!state.grid[r] || !state.grid[r][c]) return;
             const cell = state.grid[r][c];
             let extra = "";
-            if (diff !== null && diff !== 0 && cell.answer + diff >= 0) {
-              extra = ` → check if student wrote <strong>${cell.answer + diff}</strong>`;
+            if (isSymbolicMode() && symDiff) {
+              const implied = formatPoly(addPoly(cell.poly, symDiff));
+              extra = ` → check if student wrote <strong>${implied}</strong>`;
+            } else if (!isSymbolicMode() && numDiff !== null && numDiff !== 0) {
+              if (state.stream === "ALG" || cell.numVal + numDiff >= 0) {
+                extra = ` → check if student wrote <strong>${fmtNum(cell.numVal + numDiff)}</strong>`;
+              }
             }
-            targets.push(`<strong>Row ${r + 1}, Col ${c + 1}</strong> (${cell.text} = <strong>${cell.answer}</strong>${extra})`);
+            targets.push(`<strong>Row ${r + 1}, Col ${c + 1}</strong> (${escapeHTML(cell.promptText)} = <strong>${escapeHTML(cell.answerDisplay)}</strong>${extra})`);
           });
         });
         htmlParts.push(`<div style="margin-top:0.4rem;">Intersection highlighted:<br>• ${targets.join("<br>• ")}</div>`);
       } else if (hasRows) {
-        htmlParts.push(`<div style="margin-top:0.4rem;">Highlighted <strong>${rowLabels.join(", ")}</strong>. Now click a mismatched <strong>Column Total</strong> to pinpoint the exact box.</div>`);
+        htmlParts.push(`<div style="margin-top:0.4rem;">Highlighted <strong>${rowLabels.join(", ")}</strong>. Click a mismatched <strong>Column Total</strong> to pinpoint the exact box.</div>`);
       } else if (hasCols) {
-        htmlParts.push(`<div style="margin-top:0.4rem;">Highlighted <strong>${colLabels.join(", ")}</strong>. Now click a mismatched <strong>Row Total</strong> to pinpoint the exact box.</div>`);
+        htmlParts.push(`<div style="margin-top:0.4rem;">Highlighted <strong>${colLabels.join(", ")}</strong>. Click a mismatched <strong>Row Total</strong> to pinpoint the exact box.</div>`);
       }
 
-      if (diff !== null && diff !== 0) {
-        if ([1, 2, 10, 20, 100].includes(Math.abs(diff))) {
-          htmlParts.push(`<div class="diag-tip-note"><strong>Adding Tip:</strong> An offset of ${diff > 0 ? "+" : "−"}${Math.abs(diff)} is also very common from a carrying/adding slip when summing the Row or Column totals.</div>`);
+      // Single-box slip diagnostics
+      if (isSymbolicMode() && symDiff && !equalPoly(symDiff, zeroPoly())) {
+        const matches = [];
+        for (let r = 0; r < state.rows; r++) {
+          if (hasRows && !state.selectedRows.has(r)) continue;
+          for (let c = 0; c < state.cols; c++) {
+            if (hasCols && !state.selectedCols.has(c)) continue;
+            const cell = state.grid[r][c];
+            (cell.slips || []).forEach(slip => {
+              if (equalPoly(subPoly(slip.wrongPoly, cell.poly), symDiff)) {
+                matches.push({ r, c, cell, wrongStr: formatPoly(slip.wrongPoly), note: slip.note });
+              }
+            });
+          }
+        }
+        if (matches.length > 0) {
+          const listHTML = matches.slice(0, 5).map(m => `
+            <li class="suspect-item" onclick="focusSuspectCell(${m.r}, ${m.c})">
+              <div class="suspect-item-header">
+                <span>Row ${m.r + 1}, Col ${m.c + 1}: ${escapeHTML(m.cell.promptText)}</span>
+                <span style="color:#b91c1c;">→ ${escapeHTML(m.wrongStr)}?</span>
+              </div>
+              <div class="suspect-item-reason">${m.note}</div>
+            </li>
+          `).join("");
+          htmlParts.push(`
+            <div style="margin-top:0.55rem;">
+              <strong>Likely single-box algebra slip:</strong>
+              <ul class="suspect-list">${listHTML}</ul>
+            </div>
+          `);
+        }
+      } else if (state.stream === "ALG" && !isSymbolicMode() && numDiff !== null && numDiff !== 0) {
+        const matches = [];
+        for (let r = 0; r < state.rows; r++) {
+          if (hasRows && !state.selectedRows.has(r)) continue;
+          for (let c = 0; c < state.cols; c++) {
+            if (hasCols && !state.selectedCols.has(c)) continue;
+            const cell = state.grid[r][c];
+            (cell.slips || []).forEach(slip => {
+              if (slip.wrongVal - cell.numVal === numDiff) {
+                matches.push({ r, c, cell, wrongStr: fmtNum(slip.wrongVal), note: slip.note });
+              }
+            });
+          }
+        }
+        if (matches.length > 0) {
+          const listHTML = matches.slice(0, 5).map(m => `
+            <li class="suspect-item" onclick="focusSuspectCell(${m.r}, ${m.c})">
+              <div class="suspect-item-header">
+                <span>Row ${m.r + 1}, Col ${m.c + 1}: ${escapeHTML(m.cell.promptText)}</span>
+                <span style="color:#b91c1c;">→ ${escapeHTML(m.wrongStr)}?</span>
+              </div>
+              <div class="suspect-item-reason">${m.note}</div>
+            </li>
+          `).join("");
+          htmlParts.push(`
+            <div style="margin-top:0.55rem;">
+              <strong>Likely single-box substitution slip:</strong>
+              <ul class="suspect-list">${listHTML}</ul>
+            </div>
+          `);
+        }
+      } else if (state.stream === "NUM" && numDiff !== null && numDiff !== 0) {
+        if ([1, 2, 10, 20, 100].includes(Math.abs(numDiff))) {
+          htmlParts.push(`<div class="diag-tip-note"><strong>Adding Tip:</strong> An offset of ${numDiff > 0 ? "+" : "−"}${Math.abs(numDiff)} is also very common from a carrying/adding slip when summing Row or Column totals.</div>`);
         }
 
-        const suspects = analyzeSingleCellSuspects(diff);
+        const suspects = analyzeArithmeticSuspects(numDiff);
         if (suspects.length > 0) {
           const topList = suspects.slice(0, 6);
           const listHTML = topList.map(s => `
             <li class="suspect-item" onclick="focusSuspectCell(${s.r}, ${s.c})" title="Click to highlight Row ${s.r + 1}, Col ${s.c + 1}">
               <div class="suspect-item-header">
-                <span>Row ${s.r + 1}, Col ${s.c + 1}: ${s.cell.text} = ${s.cell.answer}</span>
+                <span>Row ${s.r + 1}, Col ${s.c + 1}: ${escapeHTML(s.cell.promptText)} = ${s.cell.numVal}</span>
                 <span style="color:#b91c1c;">→ ${s.studentWrote}?</span>
               </div>
               <div class="suspect-item-reason">${s.reason}</div>
@@ -2071,13 +3133,11 @@
               <ul class="suspect-list">${listHTML}</ul>
             </div>
           `);
-        } else if (hasRows || hasCols) {
-          htmlParts.push(`<div style="margin-top:0.45rem; color:#475569;">No single cell in the selected row/column produces an offset of ${diff > 0 ? "+" + diff : diff} without going negative — likely 2+ mistakes or an addition slip.</div>`);
         }
       }
 
       if (htmlParts.length === 0) {
-        out.innerHTML = `True Grand Total for this <strong>${state.rows}×${state.cols}</strong> grid is <strong>${state.grandTotal}</strong>. Enter a student's Grand Total above or click any Row/Column Total on the grid.`;
+        out.innerHTML = `True Grand Total for this <strong>${state.rows}×${state.cols}</strong> grid is <strong>${escapeHTML(trueGrandStr)}</strong>. Enter a student's Grand Total above or click any Row/Column Total on the grid.`;
       } else {
         out.innerHTML = htmlParts.join("");
       }
@@ -2091,6 +3151,44 @@
     }
 
     // --- PROJECTOR LOGIC ---
+    function renderProjectorInstructions() {
+      const list = document.getElementById("projInstructionList");
+      let steps = [];
+
+      if (state.stream === "ALG" && state.algMode === "SYM") {
+        steps = [
+          { title: "Expand & Simplify Every Box", desc: "Expand the bracket and collect like terms inside each grid square." },
+          { title: "Add Like Terms Across Each Row", desc: "Combine the expressions in each horizontal row to find the <strong>Row Total</strong> (e.g. 11x − 4)." },
+          { title: "Add Like Terms Down Each Column", desc: "Combine the expressions in each vertical column to find the <strong>Column Total</strong>." },
+          { title: "Verify Your Algebraic Grand Total", desc: "Combine all Row Totals and all Column Totals. When both expressions match, write your <strong>Grand Total</strong>!" }
+        ];
+      } else if (state.stream === "ALG" && state.algMode === "SUB") {
+        steps = [
+          { title: "Substitute & Evaluate Every Box", desc: `Use the values shown above (<strong>${escapeHTML(state.contextBanner)}</strong>) to evaluate each expression.` },
+          { title: "Add Across Each Row", desc: "Sum the integers in each horizontal row and write the <strong>Row Total</strong> in the shaded box on the right." },
+          { title: "Add Down Each Column", desc: "Sum the integers in each vertical column and write the <strong>Column Total</strong> in the shaded box at the bottom." },
+          { title: "Verify Your Grand Total", desc: "Add all Row Totals together, then all Column Totals together. When both match, write your <strong>Grand Total</strong>!" }
+        ];
+      } else {
+        steps = [
+          { title: "Solve Every Box", desc: "Write the answer to each question neatly inside its grid square." },
+          { title: "Add Across Each Row", desc: "Add the numbers in each horizontal row and write the <strong>Row Total</strong> in the shaded box on the right." },
+          { title: "Add Down Each Column", desc: "Add the numbers in each vertical column and write the <strong>Column Total</strong> in the shaded box at the bottom." },
+          { title: "Verify Your Grand Total", desc: "Add all Row Totals together, then add all Column Totals together. When both match, write your <strong>Grand Total</strong> in the corner box!" }
+        ];
+      }
+
+      list.innerHTML = steps.map((st, i) => `
+        <li class="instruction-item">
+          <div class="step-num">${i + 1}</div>
+          <div class="step-text">
+            <h3>${st.title}</h3>
+            <p>${st.desc}</p>
+          </div>
+        </li>
+      `).join("");
+    }
+
     function setProjectorStage(stage) {
       state.projectorStage = stage;
       const workStage = document.getElementById("projWorkStage");
@@ -2126,9 +3224,9 @@
       renderProjectorGrid();
     }
 
-    function resetReveals() {
+    function resetReveals(shouldRender = false) {
       state.reveals = { rows: false, cols: false, grand: false, answers: false };
-      renderProjectorGrid();
+      if (shouldRender) renderProjectorGrid();
     }
 
     function renderProjectorGrid() {
@@ -2136,29 +3234,33 @@
       let rowsHTML = "";
 
       for (let r = 0; r < state.rows; r++) {
+        if (!state.grid[r]) continue;
         let cells = "";
         for (let c = 0; c < state.cols; c++) {
           const item = state.grid[r][c];
+          if (!item) continue;
           cells += `
             <td>
               <div class="proj-cell-inner">
-                <div class="proj-q">${item.text}</div>
+                <div class="proj-q">${escapeHTML(item.promptText)}</div>
                 <div class="proj-ans-slot">
                   ${state.reveals.answers
-                    ? `<span class="proj-ans">${item.answer}</span>`
+                    ? `<span class="proj-ans">${escapeHTML(item.answerDisplay)}</span>`
                     : `<span class="proj-q-placeholder">?</span>`}
                 </div>
               </div>
             </td>
           `;
         }
+
+        const rowStr = formatChecksumValue(state.rowTotals[r]);
         cells += `
           <td class="proj-row-sum">
             <div class="proj-cell-inner">
               <span class="proj-sum-label">Row ${r + 1}</span>
               <div class="proj-sum-slot">
                 ${state.reveals.rows
-                  ? `<span class="proj-sum-number">${state.rowTotals[r]}</span>`
+                  ? `<span class="proj-sum-number">${escapeHTML(rowStr)}</span>`
                   : `<span class="masked-pill">Hidden</span>`}
               </div>
             </div>
@@ -2169,26 +3271,29 @@
 
       let bottomRow = "";
       for (let c = 0; c < state.cols; c++) {
+        const colStr = formatChecksumValue(state.colTotals[c]);
         bottomRow += `
           <td>
             <div class="proj-cell-inner">
               <span class="proj-sum-label">Col ${c + 1}</span>
               <div class="proj-sum-slot">
                 ${state.reveals.cols
-                  ? `<span class="proj-sum-number">${state.colTotals[c]}</span>`
+                  ? `<span class="proj-sum-number">${escapeHTML(colStr)}</span>`
                   : `<span class="masked-pill">Hidden</span>`}
               </div>
             </div>
           </td>
         `;
       }
+
+      const grandStr = formatChecksumValue(state.grandTotal);
       bottomRow += `
         <td class="proj-grand-sum">
           <div class="proj-cell-inner">
             <span class="proj-sum-label">Grand Total</span>
             <div class="proj-sum-slot">
               ${state.reveals.grand
-                ? `<span class="proj-sum-number">${state.grandTotal}</span>`
+                ? `<span class="proj-sum-number">${escapeHTML(grandStr)}</span>`
                 : `<span class="masked-pill">Hidden</span>`}
             </div>
           </div>
@@ -2196,7 +3301,7 @@
       `;
       rowsHTML += `<tr class="proj-col-sum-row">${bottomRow}</tr>`;
 
-      container.innerHTML = `<table class="proj-grid-table"><tbody>${rowsHTML}</tbody></table>`;
+      container.innerHTML = `<table class="proj-grid-table rows-${state.rows}"><tbody>${rowsHTML}</tbody></table>`;
     }
 
     function toggleFullscreen() {
@@ -2278,19 +3383,16 @@
       } catch (e) {}
     }
 
-    // --- A4 PRINTING ---
+    // --- A4 PRINTING (2 per A4 for Algebra; 4 or 6 per A4 for Number & Arithmetic) ---
     function triggerPrint(mode) {
       const area = document.getElementById("print-sheet-area");
       if (mode === "key") {
         area.innerHTML = `<div class="print-single-key">${buildWorksheetCardHTML(true)}</div>`;
       } else {
-        const count = state.perPage;
-        const gridClass = count === 6 ? "print-grid-6" : "print-grid-4";
-        let cards = "";
-        for (let i = 0; i < count; i++) {
-          cards += buildWorksheetCardHTML(false);
-        }
-        area.innerHTML = `<div class="${gridClass}">${cards}</div>`;
+        const count = state.stream === "ALG" ? 2 : ([4, 6].includes(state.perPage) ? state.perPage : 4);
+        const gridClass = `print-grid-${count}`;
+        const cardHTML = buildWorksheetCardHTML(false);
+        area.innerHTML = `<div class="${gridClass}">${cardHTML.repeat(count)}</div>`;
       }
       syncAllNuggetImages();
       setTimeout(() => window.print(), 60);
@@ -2305,6 +3407,37 @@
           document.querySelectorAll(".view-panel").forEach(p => p.classList.remove("active"));
           btn.classList.add("active");
           document.getElementById(`tab-${btn.dataset.tab}`).classList.add("active");
+        });
+      });
+
+      // Top-Level Subject Stream Switcher
+      document.querySelectorAll(".stream-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const nextStream = btn.dataset.stream;
+          if (state.stream === nextStream) return;
+
+          state.stream = nextStream;
+          state.selectedRows.clear();
+          state.selectedCols.clear();
+          document.getElementById("studentGrandInput").value = "";
+
+          if (state.stream === "NUM") {
+            state.rows = 5;
+            state.cols = 5;
+            state.perPage = 4;
+            state.title = NUM_DEFAULT_TITLES[state.op] || "Times Tables Checksum";
+          } else {
+            state.rows = 3;
+            state.cols = 3;
+            state.perPage = 2;
+            populateAlgSubTopics(true);
+          }
+
+          nextSeed();
+          generateGridData();
+          resetReveals(false);
+          syncAllControlsUI();
+          renderAll();
         });
       });
 
@@ -2355,53 +3488,75 @@
         chipGrid.appendChild(chip);
       }
 
-      // Grid size pills
-      document.querySelectorAll("#gridSizePills .pill-option").forEach(pill => {
-        pill.addEventListener("click", () => {
-          document.querySelectorAll("#gridSizePills .pill-option").forEach(p => p.classList.remove("selected"));
-          pill.classList.add("selected");
-          const [r, c] = pill.dataset.size.split("x").map(Number);
-          state.rows = r;
-          state.cols = c;
-          resetReveals();
-          generateGridData();
-          renderAll();
-        });
-      });
-
-      // Operation pills
+      // Arithmetic Operation pills
       document.querySelectorAll("#opTypePills .pill-option").forEach(pill => {
         pill.addEventListener("click", () => {
-          document.querySelectorAll("#opTypePills .pill-option").forEach(p => p.classList.remove("selected"));
-          pill.classList.add("selected");
           state.op = pill.dataset.op;
-          document.getElementById("multOptionsBox").style.display = state.op === "M" ? "block" : "none";
-          document.getElementById("arithOptionsBox").style.display = state.op !== "M" ? "block" : "none";
-          resetReveals();
+          state.title = NUM_DEFAULT_TITLES[state.op] || "Checksum Worksheet";
+          resetReveals(false);
           generateGridData();
+          syncAllControlsUI();
           renderAll();
         });
       });
 
-      // Per-page pills
-      document.querySelectorAll("#perPagePills .pill-option").forEach(pill => {
-        pill.addEventListener("click", () => {
-          document.querySelectorAll("#perPagePills .pill-option").forEach(p => p.classList.remove("selected"));
-          pill.classList.add("selected");
-          state.perPage = parseInt(pill.dataset.per, 10);
-          renderAll();
-        });
-      });
-
-      // Inputs & Checkboxes
-      document.getElementById("wsTitleInput").addEventListener("input", e => {
-        state.title = e.target.value || "Checksum Worksheet";
-        renderAll();
-      });
-
+      // Arithmetic Number Difficulty dropdown
       document.getElementById("numberRangeSelect").addEventListener("change", e => {
         state.rangeLevel = parseInt(e.target.value, 10);
         generateGridData();
+        renderAll();
+      });
+
+      // Algebra Activity Mode Cards
+      document.querySelectorAll("#checksumModelStack .model-card").forEach(card => {
+        card.addEventListener("click", () => {
+          state.algMode = card.dataset.mode;
+          populateAlgSubTopics(true);
+          state.selectedRows.clear();
+          state.selectedCols.clear();
+          document.getElementById("studentGrandInput").value = "";
+          nextSeed();
+          generateGridData();
+          resetReveals(false);
+          syncAllControlsUI();
+          renderAll();
+        });
+      });
+
+      // Algebra Sub-topic dropdown
+      document.getElementById("subTopicSelect").addEventListener("change", e => {
+        state.subTopic = e.target.value;
+        const topicObj = ALG_TOPIC_CATALOG[state.algMode].find(t => t.id === state.subTopic);
+        if (topicObj) {
+          state.title = topicObj.defaultTitle;
+        }
+        state.selectedRows.clear();
+        state.selectedCols.clear();
+        document.getElementById("studentGrandInput").value = "";
+        nextSeed();
+        generateGridData();
+        resetReveals(false);
+        syncAllControlsUI();
+        renderAll();
+      });
+
+      // Algebra Difficulty pills
+      document.querySelectorAll("#difficultyPills .pill-option").forEach(pill => {
+        pill.addEventListener("click", () => {
+          state.algLevel = parseInt(pill.dataset.lvl, 10);
+          state.selectedRows.clear();
+          state.selectedCols.clear();
+          nextSeed();
+          generateGridData();
+          resetReveals(false);
+          syncAllControlsUI();
+          renderAll();
+        });
+      });
+
+      // Shared Title & Checkboxes
+      document.getElementById("wsTitleInput").addEventListener("input", e => {
+        state.title = e.target.value || "Checksum Worksheet";
         renderAll();
       });
 
@@ -2421,10 +3576,10 @@
       });
 
       document.getElementById("regenerateBtn").addEventListener("click", () => {
-        state.seed = Math.floor(10000 + Math.random() * 89999);
+        nextSeed();
         state.selectedRows.clear();
         state.selectedCols.clear();
-        resetReveals();
+        resetReveals(false);
         generateGridData();
         renderAll();
       });
@@ -2461,31 +3616,33 @@
     function loadFromCodeInput(sourceInputId = "worksheetCodeInput") {
       const code = document.getElementById(sourceInputId).value;
       if (!decodeWorksheetCode(code)) {
-        setCodeStatus("Invalid ID format. Example: 5x5-M-ffe-2-48219", true);
+        setCodeStatus("Invalid ID. Examples: 5x5-M-ffe-2-48219 or 3x3-SYM-LIN-1-48219", true);
         return;
       }
-      document.querySelectorAll("#gridSizePills .pill-option").forEach(p => {
-        p.classList.toggle("selected", p.dataset.size === `${state.rows}x${state.cols}`);
-      });
-      document.querySelectorAll("#opTypePills .pill-option").forEach(p => {
-        p.classList.toggle("selected", p.dataset.op === state.op);
-      });
-      document.getElementById("multOptionsBox").style.display = state.op === "M" ? "block" : "none";
-      document.getElementById("arithOptionsBox").style.display = state.op !== "M" ? "block" : "none";
-      document.getElementById("numberRangeSelect").value = String(state.rangeLevel);
-      syncTableChipsUI();
+
       state.selectedRows.clear();
       state.selectedCols.clear();
-      resetReveals();
+      document.getElementById("studentGrandInput").value = "";
+      resetReveals(false);
       generateGridData();
+      syncAllControlsUI();
       renderAll();
-      setCodeStatus(`Loaded ${state.rows}×${state.cols} grid (Grand Total: ${state.grandTotal})`, false);
+      setCodeStatus(`Loaded ${state.rows}×${state.cols} grid (Grand Total: ${formatChecksumValue(state.grandTotal)})`, false);
     }
 
-    // Initialize App
-    initControls();
-    generateGridData();
-    renderAll();
+    function bootApp() {
+      initControls();
+      generateGridData();
+      syncAllControlsUI();
+      renderAll();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", bootApp);
+    } else {
+      bootApp();
+    }
   </script>
+<script src="https://nugget-maths.co.nz/notice.js" defer></script>
 </body>
 </html>
